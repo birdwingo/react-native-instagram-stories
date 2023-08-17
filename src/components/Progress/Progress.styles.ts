@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { PROGRESS_COLOR } from '~/core/constants';
+import { PROGRESS_COLOR } from '../../core/constants';
 
 export default StyleSheet.create( {
   container: {
