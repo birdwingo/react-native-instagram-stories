@@ -62,12 +62,13 @@ export default YourComponent;
 
  Name                    | Type                                         | Default value                              | Description       
 -------------------------|----------------------------------------------|--------------------------------------------|---------------------
- `stories`               | [InstagramStoryProps](#instagramstoryprops)[]| **required**                               | An array of stories
- `saveProgress`          | boolean                                      | false                                      | A boolean indicating whether to save and track the progress of seen stories
+ `stories`               | [InstagramStoryProps](#instagramstoryprops)[]| **required**                               | An array of stories.
+ `saveProgress`          | boolean                                      | false                                      | A boolean indicating whether to save and track the progress of seen stories.
+ `preloadImages`         | boolean                                      | false                                      | A boolean indicating whether to preload images.
  `avatarBorderColors`    | string[]                                     | [DEFAULT_COLORS](#default-gradient-colors) | An array of string colors representing the border colors of story avatars.
  `avatarSeenBorderColors`| string[]                                     | [ '#2A2A2C' ]                              | An array of string colors representing the border colors of seen story avatars.
  `avatarSize`            | number                                       | 60                                         | The size of the story avatars.
- `storyAvatarSize`       | number                                       | 25                                         | The size of the avatars shown in the header of each story
+ `storyAvatarSize`       | number                                       | 25                                         | The size of the avatars shown in the header of each story.
  `listContainerStyle`    | ScrollViewProps['contentContainerStyle']     |                                            | Additional styles for the list container.
  `listContainerProps`    | ScrollViewProps                              |                                            | Props to be passed to the underlying ScrollView component.
  `containerStyle`        | ViewStyle                                    |                                            | Additional styles for the story container.
