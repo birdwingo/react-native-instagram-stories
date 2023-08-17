@@ -158,6 +158,13 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
 
   };
 
+  const show = ( id: string ) => {
+
+    setVisible( true );
+    scrollTo( id, false );
+
+  };
+
   const onGestureEvent = useAnimatedGestureHandler( {
     onStart: ( e, ctx: GestureContext ) => {
 
@@ -227,7 +234,7 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
     },
   } );
 
-  useImperativeHandle( ref, () => ( { show: ( id ) => scrollTo( id, false ) } ) );
+  useImperativeHandle( ref, () => ( { show } ) );
 
   useEffect( () => {
 
