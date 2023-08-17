@@ -1,10 +1,10 @@
 import { ReactNode } from 'react';
-import { ScrollViewProps } from 'react-native';
+import { ScrollViewProps, ViewStyle } from 'react-native';
 
 export interface StoryItemProps {
   id: string;
   imgUrl: string;
-  content: ReactNode;
+  content?: ReactNode;
 }
 
 export interface InstagramStoryProps {
@@ -23,6 +23,7 @@ export interface InstagramStoriesProps {
   storyAvatarSize?: number;
   listContainerStyle?: ScrollViewProps['contentContainerStyle'];
   listContainerProps?: ScrollViewProps;
+  containerStyle?: ViewStyle;
   animationDuration?: number;
   onShow?: ( id: string ) => void;
   onHide?: ( id: string ) => void;

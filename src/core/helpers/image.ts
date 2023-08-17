@@ -3,20 +3,19 @@ import { STORAGE_KEY } from '../constants';
 import { InstagramStoryProps } from '../dto/instagramStoriesDTO';
 import { ProgressStorageProps } from '../dto/helpersDTO';
 
-const getDownloadConfig = ( url: string, name: string ) => ( {
-  path: `${RNFetchBlob.fs.dirs.DocumentDir}/${STORAGE_KEY}/${name}${url}`,
+const convertPath = ( path: string ) => `file://${path}`;
+
+const getDownloadConfig = ( url: string ) => ( {
+  path: `${RNFetchBlob.fs.dirs.DocumentDir}/${STORAGE_KEY}/${url}`,
 } );
 
-const downloadFile = async (
-  url: string,
-  name: string,
-): Promise<string> => new Promise( ( resolve ) => {
+const downloadFile = async ( url: string ): Promise<string> => new Promise( ( resolve ) => {
 
   const fetchData = async () => {
 
-    RNFetchBlob.config( getDownloadConfig( url, name ) ).fetch( 'GET', url ).then( ( res ) => {
+    RNFetchBlob.config( getDownloadConfig( url ) ).fetch( 'GET', url ).then( ( res ) => {
 
-      resolve( res.path() );
+      resolve( convertPath( res.path() ) );
 
     } ).catch( () => {
 
@@ -30,15 +29,15 @@ const downloadFile = async (
 
 } );
 
-export const loadImage = async ( url: string, name: string ) => {
+export const loadImage = async ( url: string ) => {
 
-  if ( await RNFetchBlob.fs.exists( getDownloadConfig( url, name ).path ) ) {
+  if ( await RNFetchBlob.fs.exists( getDownloadConfig( url ).path ) ) {
 
-    return getDownloadConfig( url, name ).path;
+    return convertPath( getDownloadConfig( url ).path );
 
   }
 
-  return downloadFile( url, name );
+  return downloadFile( url );
 
 };
 
@@ -52,7 +51,7 @@ export const preloadStories = async (
     const seenStoryIndex = story.stories.findIndex( ( item ) => item.id === seen[story.id] );
     const seenStory = story.stories[seenStoryIndex + 1] || story.stories[0];
 
-    return loadImage( seenStory.imgUrl, seenStory.id );
+    return loadImage( seenStory.imgUrl );
 
   } );
 

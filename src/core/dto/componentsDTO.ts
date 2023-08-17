@@ -1,5 +1,5 @@
 import { SharedValue } from 'react-native-reanimated';
-import { TextStyle } from 'react-native';
+import { TextStyle, ViewStyle } from 'react-native';
 import { InstagramStoryProps } from './instagramStoriesDTO';
 import { ProgressStorageProps } from './helpersDTO';
 
@@ -24,6 +24,7 @@ export interface StoryModalProps {
   duration: number;
   storyAvatarSize: number;
   textStyle?: TextStyle;
+  containerStyle?: ViewStyle;
   onLoad: () => void;
   onShow?: ( id: string ) => void;
   onHide?: ( id: string ) => void;

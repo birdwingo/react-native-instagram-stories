@@ -1,9 +1,9 @@
-import React, { FC } from 'react';
+import React, { FC, memo } from 'react';
 import { View } from 'react-native';
 import ProgressItem from './item';
-import { WIDTH } from '~/core/constants';
+import { WIDTH } from '../../core/constants';
 import ProgressStyles from './Progress.styles';
-import { StoryProgressProps } from '~/core/dto/componentsDTO';
+import { StoryProgressProps } from '../../core/dto/componentsDTO';
 
 const Progress: FC<StoryProgressProps> = ( {
   progress, active, activeStory, length,
@@ -30,4 +30,4 @@ const Progress: FC<StoryProgressProps> = ( {
 
 };
 
-export default Progress;
+export default memo( Progress );

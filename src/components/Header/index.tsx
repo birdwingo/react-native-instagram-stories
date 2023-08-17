@@ -16,7 +16,9 @@ const StoryHeader: FC<StoryHeaderProps> = ( {
   return (
     <View style={[ HeaderStyles.container, { width } ]}>
       <View style={HeaderStyles.left}>
-        <View style={HeaderStyles.avatar}><Image source={{ uri: imgUrl }} style={styles} /></View>
+        <View style={[ HeaderStyles.avatar, styles ]}>
+          <Image source={{ uri: imgUrl }} style={styles} />
+        </View>
         <Text style={textStyle}>{name}</Text>
       </View>
       <TouchableOpacity onPress={onClose} hitSlop={16}><Close color="white" /></TouchableOpacity>
