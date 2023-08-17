@@ -4,7 +4,7 @@ import React, {
 import { useSharedValue } from 'react-native-reanimated';
 import { ScrollView } from 'react-native-gesture-handler';
 import StoryAvatar from '../Avatar';
-import { clearProgressStorage, getProgressStorage } from '../../core/helpers/storage';
+import { clearProgressStorage, getProgressStorage, setProgressStorage } from '../../core/helpers/storage';
 import { InstagramStoriesProps, InstagramStoriesPublicMethods } from '../../core/dto/instagramStoriesDTO';
 import { ProgressStorageProps } from '../../core/dto/helpersDTO';
 import { preloadStories } from '../../core/helpers/image';
@@ -73,6 +73,12 @@ const InstagramStories = forwardRef<InstagramStoriesPublicMethods, InstagramStor
 
   };
 
+  const onSeenStoriesChange = async ( user: string, value: string ) => {
+
+    seenStories.value = await setProgressStorage( user, value );
+
+  };
+
   useImperativeHandle(
     ref,
     () => ( {
@@ -132,11 +138,13 @@ const InstagramStories = forwardRef<InstagramStoriesPublicMethods, InstagramStor
         ) )}
       </ScrollView>
       <StoryModal
+        ref={modalRef}
         stories={data}
         seenStories={seenStories}
         duration={animationDuration}
         storyAvatarSize={storyAvatarSize}
         onLoad={onLoad}
+        onSeenStoriesChange={onSeenStoriesChange}
         {...props}
       />
     </>

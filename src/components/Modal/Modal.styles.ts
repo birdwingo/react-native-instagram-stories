@@ -4,7 +4,11 @@ export default StyleSheet.create( {
   container: {
     flex: 1,
   },
-  absolute: StyleSheet.absoluteFillObject,
+  absolute: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+  },
   bgAnimation: {
     ...StyleSheet.absoluteFillObject,
     backgroundColor: 'black',
