@@ -4,7 +4,7 @@ import { ProgressStorageProps } from '../dto/helpersDTO';
 export const clearProgressStorage = () => {
 
   // eslint-disable-next-line global-require
-  const AsyncStorage = require( '@react-native-async-storage/async-storage' );
+  const AsyncStorage = require( '@react-native-async-storage/async-storage' ).default;
 
   AsyncStorage.removeItem( STORAGE_KEY );
 
@@ -13,7 +13,7 @@ export const clearProgressStorage = () => {
 export const getProgressStorage = async (): Promise<ProgressStorageProps> => {
 
   // eslint-disable-next-line global-require
-  const AsyncStorage = require( '@react-native-async-storage/async-storage' );
+  const AsyncStorage = require( '@react-native-async-storage/async-storage' ).default;
 
   const progress = await AsyncStorage.getItem( STORAGE_KEY );
 
@@ -27,7 +27,7 @@ export const setProgressStorage = async ( user: string, lastSeen: string ) => {
   progress[user] = lastSeen;
 
   // eslint-disable-next-line global-require
-  const AsyncStorage = require( '@react-native-async-storage/async-storage' );
+  const AsyncStorage = require( '@react-native-async-storage/async-storage' ).default;
 
   await AsyncStorage.setItem( STORAGE_KEY, JSON.stringify( progress ) );
 
