@@ -17,7 +17,7 @@ import ModalStyles from './Modal.styles';
 
 const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
   stories, seenStories, duration, storyAvatarSize, textStyle, containerStyle, backgroundColor,
-  onLoad, onShow, onHide, onSeenStoriesChange,
+  preloadImages, onLoad, onShow, onHide, onSeenStoriesChange,
 }, ref ) => {
 
   const [ visible, setVisible ] = useState( false );
@@ -315,6 +315,7 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
                 avatarSize={storyAvatarSize}
                 textStyle={textStyle}
                 buttonHandled={buttonHandled}
+                preloadImages={preloadImages}
                 key={story.id}
               />
             ) )}

@@ -10,7 +10,8 @@ import { HEIGHT } from '../../core/constants';
 import StoryContent from '../Content';
 
 const StoryList: FC<StoryListProps> = ( {
-  id, stories, index, x, activeUser, activeStory, progress, seenStories, onLoad, ...props
+  id, stories, index, x, activeUser, activeStory, progress, seenStories, preloadImages,
+  onLoad, ...props
 } ) => {
 
   const imageHeight = useSharedValue( HEIGHT );
@@ -50,6 +51,7 @@ const StoryList: FC<StoryListProps> = ( {
           )?.imgUrl ?? stories[0].imgUrl}
           onImageLayout={onImageLayout}
           onLoad={onImageLoad}
+          preloadImages={preloadImages}
         />
         <Progress
           active={isActive}
