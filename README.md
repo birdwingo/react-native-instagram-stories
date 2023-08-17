@@ -21,6 +21,7 @@ npm install @birdwingo/react-native-instagram-stories
 ## Integration with Storage and Preloading
 
 The component offers an option to save and track the progress of seen stories using `saveProgress`. If you use `saveProgress` please make sure you have `@react-native-async-storage/async-storage` installed.
+
 Additionally, the component preloads images to improve performance when navigating between stories using `preloadImages`. If you use `preloadImages` please make sure you have `react-native-blob-util` installed.
 
 ## Usage
@@ -78,13 +79,13 @@ export default YourComponent;
 
 ## Public Methods
 
- Name                  | Type                                                                                            | Description
----------------------- |-------------------------------------------------------------------------------------------------|---------------------------
- `spliceStories`       | ( stories: [InstagramStoryProps](#instagramstoryprops)[], index: number ) => void               | Insert new stories at a specific index.
- `spliceUserStories`   | ( stories: [InstagramStoryProps](#instagramstoryprops)[], user: string, index: number ) => void | Insert new stories for a specific user at a specific index.
- `setStories`          | ( stories: [InstagramStoryProps](#instagramstoryprops)[] ) => void                              | Replace the current stories with a new set of stories.
- `clearProgressStorage`| () => void                                                                                      | Clear the progress storage for seen stories.
- `hide`                | () => void                                                                                      | Hide stories if currently visible
+ Name                  | Type                                                                                             | Description
+---------------------- |--------------------------------------------------------------------------------------------------|---------------------------
+ `spliceStories`       | ( stories: [InstagramStoryProps](#instagramstoryprops)[], index?: number ) => void               | Insert new stories at a specific index. If you don't provide `index` property, stories will be pushed to the end of array.
+ `spliceUserStories`   | ( stories: [InstagramStoryProps](#instagramstoryprops)[], user: string, index?: number ) => void | Insert new stories for a specific user at a specific index. If you don't provide `index` property, stories will be pushed to the end of array
+ `setStories`          | ( stories: [InstagramStoryProps](#instagramstoryprops)[] ) => void                               | Replace the current stories with a new set of stories.
+ `clearProgressStorage`| () => void                                                                                       | Clear the progress storage for seen stories.
+ `hide`                | () => void                                                                                       | Hide stories if currently visible
 
 ## Types
 

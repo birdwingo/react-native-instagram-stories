@@ -116,7 +116,15 @@ const InstagramStories = forwardRef<InstagramStoriesPublicMethods, InstagramStor
     () => ( {
       spliceStories: ( newStories, index ) => {
 
-        setData( data.splice( index, 0, ...newStories ) );
+        if ( index === undefined ) {
+
+          setData( [ ...data, ...newStories ] );
+
+        } else {
+
+          setData( data.splice( index, 0, ...newStories ) );
+
+        }
 
       },
       spliceUserStories: ( newStories, user, index ) => {
@@ -131,7 +139,9 @@ const InstagramStories = forwardRef<InstagramStoriesPublicMethods, InstagramStor
 
         const newData = {
           ...data[userIndex],
-          stories: data[userIndex].stories.splice( index, 0, ...newStories ),
+          stories: index === undefined
+            ? [ ...data[userIndex].stories, ...newStories ]
+            : data[userIndex].stories.splice( index, 0, ...newStories ),
         };
 
         setData( data.map( ( value, i ) => ( i === userIndex ? newData : value ) ) );
