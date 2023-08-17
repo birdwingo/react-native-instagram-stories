@@ -9,7 +9,8 @@ import { InstagramStoriesProps, InstagramStoriesPublicMethods } from '../../core
 import { ProgressStorageProps } from '../../core/dto/helpersDTO';
 import { preloadStories } from '../../core/helpers/image';
 import {
-  ANIMATION_DURATION, DEFAULT_COLORS, SEEN_LOADER_COLORS, STORY_AVATAR_SIZE, AVATAR_SIZE,
+  ANIMATION_DURATION, DEFAULT_COLORS, SEEN_LOADER_COLORS,
+  STORY_AVATAR_SIZE, AVATAR_SIZE, BACKGROUND_COLOR,
 } from '../../core/constants';
 import StoryModal from '../Modal';
 import { StoryModalPublicMethods } from '../../core/dto/componentsDTO';
@@ -24,6 +25,7 @@ const InstagramStories = forwardRef<InstagramStoriesPublicMethods, InstagramStor
   listContainerStyle,
   listContainerProps,
   animationDuration = ANIMATION_DURATION,
+  backgroundColor = BACKGROUND_COLOR,
   ...props
 }, ref ) => {
 
@@ -169,6 +171,7 @@ const InstagramStories = forwardRef<InstagramStoriesPublicMethods, InstagramStor
         storyAvatarSize={storyAvatarSize}
         onLoad={onLoad}
         onSeenStoriesChange={onSeenStoriesChange}
+        backgroundColor={backgroundColor}
         {...props}
       />
     </>

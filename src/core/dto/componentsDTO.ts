@@ -25,6 +25,7 @@ export interface StoryModalProps {
   storyAvatarSize: number;
   textStyle?: TextStyle;
   containerStyle?: ViewStyle;
+  backgroundColor?: string;
   onLoad: () => void;
   onShow?: ( id: string ) => void;
   onHide?: ( id: string ) => void;
@@ -75,6 +76,7 @@ export interface StoryHeaderProps {
   name: string;
   avatarSize: number;
   textStyle?: TextStyle;
+  buttonHandled: SharedValue<boolean>;
   onClose: () => void;
 }
 

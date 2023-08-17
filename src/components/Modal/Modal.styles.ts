@@ -9,8 +9,5 @@ export default StyleSheet.create( {
     top: 0,
     left: 0,
   },
-  bgAnimation: {
-    ...StyleSheet.absoluteFillObject,
-    backgroundColor: 'black',
-  },
+  bgAnimation: StyleSheet.absoluteFillObject,
 } );

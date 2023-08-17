@@ -7,7 +7,7 @@ import { StoryHeaderProps } from '../../core/dto/componentsDTO';
 import Close from '../Icon/close';
 
 const StoryHeader: FC<StoryHeaderProps> = ( {
-  imgUrl, name, onClose, avatarSize, textStyle,
+  imgUrl, name, onClose, avatarSize, textStyle, buttonHandled,
 } ) => {
 
   const styles = { width: avatarSize, height: avatarSize, borderRadius: avatarSize };
@@ -21,7 +21,15 @@ const StoryHeader: FC<StoryHeaderProps> = ( {
         </View>
         <Text style={textStyle}>{name}</Text>
       </View>
-      <TouchableOpacity onPress={onClose} hitSlop={16}>
+      <TouchableOpacity
+        onPress={onClose}
+        hitSlop={16}
+        onPressIn={() => {
+
+          buttonHandled.value = true;
+
+        }}
+      >
         <Close color={PROGRESS_COLOR} />
       </TouchableOpacity>
     </View>
