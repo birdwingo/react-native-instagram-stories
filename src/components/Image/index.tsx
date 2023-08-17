@@ -1,5 +1,7 @@
 import { Image, View } from 'react-native';
-import React, { FC, memo, useState } from 'react';
+import React, {
+  FC, memo, useState, useEffect,
+} from 'react';
 import { runOnJS, useAnimatedReaction, useSharedValue } from 'react-native-reanimated';
 import { StoryImageProps } from '../../core/dto/componentsDTO';
 import { loadImage } from '../../core/helpers/image';
@@ -22,7 +24,7 @@ const StoryImage: FC<StoryImageProps> = ( {
 
       if ( !uri ) {
 
-        const image = await loadImage( stories[0].imgUrl, stories[0].id );
+        const image = await loadImage( stories[0].imgUrl );
         setUri( image );
 
         return;
@@ -37,7 +39,7 @@ const StoryImage: FC<StoryImageProps> = ( {
 
     if ( story ) {
 
-      const image = await loadImage( story.imgUrl, story.id );
+      const image = await loadImage( story.imgUrl );
       setUri( image );
       loading.value = false;
 
@@ -45,7 +47,7 @@ const StoryImage: FC<StoryImageProps> = ( {
 
       if ( nextStory ) {
 
-        loadImage( nextStory.imgUrl, nextStory.id );
+        loadImage( nextStory.imgUrl );
 
       }
 
@@ -55,9 +57,15 @@ const StoryImage: FC<StoryImageProps> = ( {
 
   useAnimatedReaction(
     () => activeStory.value,
-    ( res, prev ) => res !== prev && runOnJS( onImageChange ),
+    ( res, prev ) => res !== prev && runOnJS( onImageChange )(),
     [ activeStory.value ],
   );
+
+  useEffect( () => {
+
+    onImageChange();
+
+  }, [] );
 
   return (
     <>

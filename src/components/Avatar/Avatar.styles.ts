@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { AVATAR_OFFSET } from '~/core/constants';
+import { AVATAR_OFFSET } from '../../core/constants';
 
 export default StyleSheet.create( {
   container: {

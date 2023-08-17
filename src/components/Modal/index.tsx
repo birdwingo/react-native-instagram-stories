@@ -1,5 +1,5 @@
 import React, {
-  forwardRef, useEffect, useImperativeHandle, useState,
+  forwardRef, memo, useEffect, useImperativeHandle, useState,
 } from 'react';
 import { Modal } from 'react-native';
 import Animated, {
@@ -16,7 +16,8 @@ import StoryList from '../List';
 import ModalStyles from './Modal.styles';
 
 const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
-  stories, seenStories, duration, storyAvatarSize, textStyle, onLoad, onShow, onHide,
+  stories, seenStories, duration, storyAvatarSize, textStyle, containerStyle,
+  onLoad, onShow, onHide,
 }, ref ) => {
 
   const [ visible, setVisible ] = useState( false );
@@ -27,11 +28,18 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
   const currentStory = useSharedValue( stories[0].id );
 
   const userIndex = useDerivedValue( () => Math.round( x.value / WIDTH ) );
+  const storyIndex = useDerivedValue( () => stories[userIndex.value].stories.findIndex(
+    ( story ) => story.id === currentStory.value,
+  ) );
   const userId = useDerivedValue( () => stories[userIndex.value]?.id );
-  const nextUserId = useDerivedValue( () => stories[userIndex.value + 1]?.id );
   const previousUserId = useDerivedValue( () => stories[userIndex.value - 1]?.id );
-  const previousStory = useDerivedValue( () => stories[userIndex.value - 1]?.id );
-  const nextStory = useDerivedValue( () => stories[userIndex.value + 1]?.id );
+  const nextUserId = useDerivedValue( () => stories[userIndex.value + 1]?.id );
+  const previousStory = useDerivedValue(
+    () => stories[userIndex.value]?.stories[storyIndex.value - 1]?.id,
+  );
+  const nextStory = useDerivedValue(
+    () => stories[userIndex.value]?.stories[storyIndex.value + 1]?.id,
+  );
 
   const animatedStyles = useAnimatedStyle( () => ( { top: y.value } ) );
   const backgroundAnimatedStyles = useAnimatedStyle( () => ( {
@@ -99,7 +107,7 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
     }
 
     x.value = animated ? withTiming( newX, ANIMATION_CONFIG ) : newX;
-    currentStory.value = seenStories.value[id] ?? stories[0].id;
+    currentStory.value = seenStories.value[id] ?? stories[newUserIndex].stories[0].id;
 
     stopAnimation();
     startAnimation();
@@ -256,11 +264,8 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
     <Modal visible={visible} transparent animationType="none">
       <GestureHandler onGestureEvent={onGestureEvent}>
         <Animated.View style={ModalStyles.container}>
-          <Animated.View style={[ ModalStyles.absolute, backgroundAnimatedStyles ]} />
-          <Animated.View style={[
-            ModalStyles.absoluteContainer, { width: WIDTH, height: HEIGHT }, animatedStyles,
-          ]}
-          >
+          <Animated.View style={[ ModalStyles.bgAnimation, backgroundAnimatedStyles ]} />
+          <Animated.View style={[ ModalStyles.absolute, animatedStyles, containerStyle ]}>
             {stories?.map( ( story, index ) => (
               <StoryList
                 {...story}
@@ -284,4 +289,4 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
 
 } );
 
-export default StoryModal;
+export default memo( StoryModal );

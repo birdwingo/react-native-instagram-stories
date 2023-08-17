@@ -1,7 +1,7 @@
-import React, { FC } from 'react';
+import React, { FC, memo } from 'react';
 import { View } from 'react-native';
 import Animated, { useAnimatedStyle } from 'react-native-reanimated';
-import { StoryProgressItemProps } from '~/core/dto/componentsDTO';
+import { StoryProgressItemProps } from '../../core/dto/componentsDTO';
 import ProgressStyles from './Progress.styles';
 
 const AnimatedView = Animated.createAnimatedComponent( View );
@@ -36,4 +36,4 @@ const ProgressItem: FC<StoryProgressItemProps> = ( {
 
 };
 
-export default ProgressItem;
+export default memo( ProgressItem );

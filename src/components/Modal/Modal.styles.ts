@@ -5,9 +5,8 @@ export default StyleSheet.create( {
     flex: 1,
   },
   absolute: StyleSheet.absoluteFillObject,
-  absoluteContainer: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
+  bgAnimation: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'black',
   },
 } );
