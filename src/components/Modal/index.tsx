@@ -16,7 +16,7 @@ import StoryList from '../List';
 import ModalStyles from './Modal.styles';
 
 const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
-  stories, seenStories, duration, storyAvatarSize, textStyle, containerStyle,
+  stories, seenStories, duration, storyAvatarSize, textStyle, containerStyle, backgroundColor,
   onLoad, onShow, onHide, onSeenStoriesChange,
 }, ref ) => {
 
@@ -26,6 +26,7 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
   const y = useSharedValue( HEIGHT );
   const animation = useSharedValue( 0 );
   const currentStory = useSharedValue( stories[0].stories[0].id );
+  const buttonHandled = useSharedValue( false );
 
   const userIndex = useDerivedValue( () => Math.round( x.value / WIDTH ) );
   const storyIndex = useDerivedValue( () => stories[userIndex.value].stories.findIndex(
@@ -44,6 +45,7 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
   const animatedStyles = useAnimatedStyle( () => ( { top: y.value } ) );
   const backgroundAnimatedStyles = useAnimatedStyle( () => ( {
     opacity: interpolate( y.value, [ 0, HEIGHT ], [ 1, 0 ] ),
+    backgroundColor,
   } ) );
 
   const onClose = () => {
@@ -237,7 +239,7 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
 
         toPreviousStory();
 
-      } else {
+      } else if ( !buttonHandled.value ) {
 
         toNextStory();
 
@@ -245,6 +247,7 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
 
       ctx.moving = false;
       ctx.vertical = false;
+      buttonHandled.value = false;
 
     },
   } );
@@ -307,6 +310,7 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
                 onLoad={startAnimation}
                 avatarSize={storyAvatarSize}
                 textStyle={textStyle}
+                buttonHandled={buttonHandled}
                 key={story.id}
               />
             ) )}

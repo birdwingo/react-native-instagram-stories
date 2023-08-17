@@ -26,6 +26,7 @@ export interface InstagramStoriesProps {
   containerStyle?: ViewStyle;
   textStyle?: TextStyle;
   animationDuration?: number;
+  backgroundColor?: string;
   onShow?: ( id: string ) => void;
   onHide?: ( id: string ) => void;
 }

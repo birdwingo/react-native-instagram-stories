@@ -8,6 +8,7 @@ export const DEFAULT_COLORS = [ '#F7B801', '#F18701', '#F35B04', '#F5301E', '#C8
 export const LOADER_COLORS = [ '#FFF' ];
 export const SEEN_LOADER_COLORS = [ '#2A2A2C' ];
 export const PROGRESS_COLOR = '#00000099';
+export const BACKGROUND_COLOR = '#000000';
 
 export const LOADER_ID = 'gradient';
 export const LOADER_URL = `url(#${LOADER_ID})`;
