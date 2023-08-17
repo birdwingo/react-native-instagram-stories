@@ -302,6 +302,7 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
                 activeUser={userId}
                 activeStory={currentStory}
                 progress={animation}
+                seenStories={seenStories}
                 onClose={onClose}
                 onLoad={startAnimation}
                 avatarSize={storyAvatarSize}

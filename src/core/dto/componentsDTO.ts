@@ -53,6 +53,7 @@ export interface StoryImageProps {
   stories: InstagramStoryProps['stories'];
   active: SharedValue<boolean>;
   activeStory: SharedValue<string>;
+  defaultImage: string;
   onImageLayout: ( height: number ) => void;
   onLoad: () => void;
 }
@@ -93,5 +94,6 @@ export interface StoryListProps extends InstagramStoryProps, StoryHeaderProps {
   activeUser: SharedValue<string>;
   activeStory: SharedValue<string>;
   progress: SharedValue<number>;
+  seenStories: SharedValue<ProgressStorageProps>;
   onLoad: () => void;
 }

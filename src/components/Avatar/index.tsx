@@ -8,7 +8,7 @@ import { StoryAvatarProps } from '../../core/dto/componentsDTO';
 import AvatarStyles from './Avatar.styles';
 import Loader from '../Loader';
 import {
-  AVATAR_OFFSET, AVATAR_SIZE, DEFAULT_COLORS, LOADER_COLORS,
+  AVATAR_OFFSET, AVATAR_SIZE, DEFAULT_COLORS, SEEN_LOADER_COLORS,
 } from '../../core/constants';
 
 const AnimatedImage = Animated.createAnimatedComponent( Image );
@@ -22,7 +22,7 @@ const StoryAvatar: FC<StoryAvatarProps> = ( {
   seenStories,
   onPress,
   colors = DEFAULT_COLORS,
-  seenColors = LOADER_COLORS,
+  seenColors = SEEN_LOADER_COLORS,
   size = AVATAR_SIZE,
 } ) => {
 

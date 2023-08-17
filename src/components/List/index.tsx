@@ -6,11 +6,11 @@ import StoryImage from '../Image';
 import Progress from '../Progress';
 import StoryHeader from '../Header';
 import { StoryListProps } from '../../core/dto/componentsDTO';
-import { HEIGHT, WIDTH } from '../../core/constants';
+import { HEIGHT } from '../../core/constants';
 import StoryContent from '../Content';
 
 const StoryList: FC<StoryListProps> = ( {
-  id, stories, index, x, activeUser, activeStory, progress, onLoad, ...props
+  id, stories, index, x, activeUser, activeStory, progress, seenStories, onLoad, ...props
 } ) => {
 
   const imageHeight = useSharedValue( HEIGHT );
@@ -20,9 +20,7 @@ const StoryList: FC<StoryListProps> = ( {
     () => stories.findIndex( ( item ) => item.id === activeStory.value ),
   );
 
-  const animatedStyles = useAnimatedStyle( () => (
-    { width: WIDTH, maxHeight: imageHeight.value }
-  ) );
+  const animatedStyles = useAnimatedStyle( () => ( { height: imageHeight.value } ) );
 
   const onImageLayout = ( height: number ) => {
 
@@ -47,6 +45,9 @@ const StoryList: FC<StoryListProps> = ( {
           stories={stories}
           active={isActive}
           activeStory={activeStory}
+          defaultImage={stories.find(
+            ( item ) => item.id === seenStories.value[id],
+          )?.imgUrl ?? stories[0].imgUrl}
           onImageLayout={onImageLayout}
           onLoad={onImageLoad}
         />
