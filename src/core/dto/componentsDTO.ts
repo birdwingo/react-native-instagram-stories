@@ -28,6 +28,7 @@ export interface StoryModalProps {
   onLoad: () => void;
   onShow?: ( id: string ) => void;
   onHide?: ( id: string ) => void;
+  onSeenStoriesChange?: ( user: string, value: string ) => void;
 }
 
 export type StoryModalPublicMethods = {

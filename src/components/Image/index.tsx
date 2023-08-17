@@ -72,13 +72,15 @@ const StoryImage: FC<StoryImageProps> = ( {
       <View style={ImageStyles.container}>
         <Loader loading={loading} color={color} size={50} />
       </View>
-      <Image
-        source={{ uri }}
-        style={{ width: WIDTH, aspectRatio: 0.5626 }}
-        resizeMode="contain"
-        onLayout={( e ) => onImageLayout( Math.min( HEIGHT, e.nativeEvent.layout.height ) )}
-        onLoad={onLoad}
-      />
+      {uri && (
+        <Image
+          source={{ uri }}
+          style={{ width: WIDTH, aspectRatio: 0.5626 }}
+          resizeMode="contain"
+          onLayout={( e ) => onImageLayout( Math.min( HEIGHT, e.nativeEvent.layout.height ) )}
+          onLoad={onLoad}
+        />
+      )}
     </>
   );
 

@@ -17,7 +17,7 @@ import ModalStyles from './Modal.styles';
 
 const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
   stories, seenStories, duration, storyAvatarSize, textStyle, containerStyle,
-  onLoad, onShow, onHide,
+  onLoad, onShow, onHide, onSeenStoriesChange,
 }, ref ) => {
 
   const [ visible, setVisible ] = useState( false );
@@ -25,7 +25,7 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
   const x = useSharedValue( 0 );
   const y = useSharedValue( HEIGHT );
   const animation = useSharedValue( 0 );
-  const currentStory = useSharedValue( stories[0].id );
+  const currentStory = useSharedValue( stories[0].stories[0].id );
 
   const userIndex = useDerivedValue( () => Math.round( x.value / WIDTH ) );
   const storyIndex = useDerivedValue( () => stories[userIndex.value].stories.findIndex(
@@ -85,7 +85,7 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
     } else {
 
       animation.value = 0;
-      seenStories.value[userId.value] = currentStory.value;
+      onSeenStoriesChange?.( userId.value, currentStory.value );
 
     }
 
@@ -100,7 +100,7 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
     const newUserIndex = stories.findIndex( ( story ) => story.id === id );
     const newX = newUserIndex * WIDTH;
 
-    if ( !newUserIndex || !stories[newUserIndex] || newX === x.value ) {
+    if ( !stories[newUserIndex] || newX === x.value ) {
 
       return;
 
@@ -109,7 +109,6 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
     x.value = animated ? withTiming( newX, ANIMATION_CONFIG ) : newX;
     currentStory.value = seenStories.value[id] ?? stories[newUserIndex].stories[0].id;
 
-    stopAnimation();
     startAnimation();
 
   };
@@ -132,6 +131,7 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
 
     } else {
 
+      animation.value = 0;
       currentStory.value = nextStory.value;
 
     }
@@ -152,6 +152,7 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
 
     } else {
 
+      animation.value = 0;
       currentStory.value = previousStory.value;
 
     }
@@ -211,8 +212,22 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
       } else if ( ctx.moving ) {
 
         const diff = x.value - ctx.x;
+        let newX;
 
-        scrollTo( diff < 0 ? nextUserId.value : previousUserId.value );
+        if ( Math.abs( diff ) < WIDTH / 4 ) {
+
+          newX = ctx.x;
+
+        } else {
+
+          newX = diff > 0
+            ? Math.ceil( x.value / WIDTH ) * WIDTH
+            : Math.floor( x.value / WIDTH ) * WIDTH;
+
+        }
+
+        const newUserId = stories[Math.round( newX / WIDTH )]?.id;
+        scrollTo( newUserId );
 
       } else if ( ctx.pressedAt + LONG_PRESS_DURATION < Date.now() ) {
 
@@ -272,7 +287,13 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
       <GestureHandler onGestureEvent={onGestureEvent}>
         <Animated.View style={ModalStyles.container}>
           <Animated.View style={[ ModalStyles.bgAnimation, backgroundAnimatedStyles ]} />
-          <Animated.View style={[ ModalStyles.absolute, animatedStyles, containerStyle ]}>
+          <Animated.View style={[
+            ModalStyles.absolute,
+            { width: WIDTH, height: HEIGHT },
+            animatedStyles,
+            containerStyle,
+          ]}
+          >
             {stories?.map( ( story, index ) => (
               <StoryList
                 {...story}
