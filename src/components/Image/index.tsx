@@ -10,7 +10,7 @@ import { HEIGHT, LOADER_COLORS, WIDTH } from '../../core/constants';
 import ImageStyles from './Image.styles';
 
 const StoryImage: FC<StoryImageProps> = ( {
-  stories, active, activeStory, onImageLayout, onLoad,
+  stories, active, activeStory, defaultImage, onImageLayout, onLoad,
 } ) => {
 
   const [ uri, setUri ] = useState<string>();
@@ -22,14 +22,7 @@ const StoryImage: FC<StoryImageProps> = ( {
 
     if ( !active.value ) {
 
-      if ( !uri ) {
-
-        const image = await loadImage( stories[0].imgUrl );
-        setUri( image );
-
-        return;
-
-      }
+      return;
 
     }
 
@@ -39,6 +32,7 @@ const StoryImage: FC<StoryImageProps> = ( {
 
     if ( story ) {
 
+      setUri( undefined );
       const image = await loadImage( story.imgUrl );
       setUri( image );
       loading.value = false;
@@ -55,15 +49,32 @@ const StoryImage: FC<StoryImageProps> = ( {
 
   };
 
+  const setDefaultImage = async () => {
+
+    if ( !active.value ) {
+
+      const image = await loadImage( defaultImage );
+      setUri( image );
+
+    }
+
+  };
+
   useAnimatedReaction(
     () => activeStory.value,
     ( res, prev ) => res !== prev && runOnJS( onImageChange )(),
     [ activeStory.value ],
   );
 
+  useAnimatedReaction(
+    () => active.value,
+    ( res, prev ) => res !== prev && runOnJS( onImageChange )(),
+    [ active.value ],
+  );
+
   useEffect( () => {
 
-    onImageChange();
+    setDefaultImage();
 
   }, [] );
 

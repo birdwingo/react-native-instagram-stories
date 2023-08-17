@@ -8,16 +8,18 @@ import { clearProgressStorage, getProgressStorage, setProgressStorage } from '..
 import { InstagramStoriesProps, InstagramStoriesPublicMethods } from '../../core/dto/instagramStoriesDTO';
 import { ProgressStorageProps } from '../../core/dto/helpersDTO';
 import { preloadStories } from '../../core/helpers/image';
-import { ANIMATION_DURATION, STORY_AVATAR_SIZE } from '../../core/constants';
+import {
+  ANIMATION_DURATION, DEFAULT_COLORS, SEEN_LOADER_COLORS, STORY_AVATAR_SIZE, AVATAR_SIZE,
+} from '../../core/constants';
 import StoryModal from '../Modal';
 import { StoryModalPublicMethods } from '../../core/dto/componentsDTO';
 
 const InstagramStories = forwardRef<InstagramStoriesPublicMethods, InstagramStoriesProps>( ( {
   stories,
   saveProgress = false,
-  avatarBorderColors,
-  avatarSeenBorderColor,
-  avatarSize,
+  avatarBorderColors = DEFAULT_COLORS,
+  avatarSeenBorderColor = SEEN_LOADER_COLORS,
+  avatarSize = AVATAR_SIZE,
   storyAvatarSize = STORY_AVATAR_SIZE,
   listContainerStyle,
   listContainerProps,
@@ -74,6 +76,28 @@ const InstagramStories = forwardRef<InstagramStoriesPublicMethods, InstagramStor
   };
 
   const onSeenStoriesChange = async ( user: string, value: string ) => {
+
+    if ( !saveProgress ) {
+
+      return;
+
+    }
+
+    if ( seenStories.value[user] ) {
+
+      const userData = data.find( ( story ) => story.id === user );
+      const oldIndex = userData?.stories.findIndex(
+        ( story ) => story.id === seenStories.value[user],
+      ) ?? 0;
+      const newIndex = userData?.stories.findIndex( ( story ) => story.id === value ) ?? 0;
+
+      if ( oldIndex > newIndex ) {
+
+        return;
+
+      }
+
+    }
 
     seenStories.value = await setProgressStorage( user, value );
 
