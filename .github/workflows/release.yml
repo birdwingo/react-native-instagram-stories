@@ -1,0 +1,42 @@
+name: Github Release
+on:
+  pull_request:
+    types: [closed]
+    branch: main
+jobs:
+  release:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.AUTH_TOKEN }}
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '16.x'
+          registry-url: 'https://registry.npmjs.org'
+      - run: npm ci
+      - name: Set up git user for release
+        run: |
+          git config --global user.email "actions@github.com"
+          git config --global user.name "GitHub Actions"
+      - run: npm run release
+      - name: Push changes
+        run: git push --follow-tags origin main
+      - run: npm run build
+      - run: npm run test
+      - name: Get version from package-lock.json
+        id: get_version
+        run: echo "::set-output name=version::$(node -p "require('./package-lock.json').version")"
+      - name: Get changelog
+        id: get_changelog
+        run: |
+          CHANGELOG=$(awk '/^### \[[0-9]+\.[0-9]+\.[0-9]+\]/{if (version!="") {exit}; version=$2} version!="" {print}' CHANGELOG.md)
+          echo "::set-output name=changelog::${CHANGELOG}"
+      - name: Create Release
+        uses: actions/create-release@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.AUTH_TOKEN }}
+        with:
+          tag_name: "v${{ steps.get_version.outputs.version }}"
+          release_name: "v${{ steps.get_version.outputs.version }}"

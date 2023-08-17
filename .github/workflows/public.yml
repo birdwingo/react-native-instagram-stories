@@ -1,0 +1,36 @@
+name: NPM Package Publish
+on:
+  release:
+    types: [created]
+ 
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '16.x'
+          registry-url: 'https://registry.npmjs.org'
+      - run: npm ci
+      - run: npm run build
+      - run: |
+          npm version ${{ github.event.release.tag_name }} --no-git-tag-version --allow-same-version && \
+          npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+  slackNotification:
+    name: Slack Notification
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Slack Notification
+      uses: rtCamp/action-slack-notify@v2
+      env:
+        SLACK_CHANNEL: frontend
+        SLACK_COLOR: ${{ job.status }}
+        SLACK_ICON: https://raw.githubusercontent.com/birdwingo/react-native-instagram-stories/main/src/assets/images/logo.png
+        SLACK_MESSAGE: Publish Release ${{ github.event.release.tag_name }} ${{ job.status == 'success' && 'has been successful' || 'has been failed' }}
+        SLACK_TITLE: 'Instagram stories publish release :rocket:'
+        SLACK_USERNAME: NPM
+        SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
