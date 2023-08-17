@@ -252,7 +252,7 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
     },
   } );
 
-  useImperativeHandle( ref, () => ( { show } ) );
+  useImperativeHandle( ref, () => ( { show, hide: onClose } ) );
 
   useEffect( () => {
 

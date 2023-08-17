@@ -137,6 +137,7 @@ const InstagramStories = forwardRef<InstagramStoriesPublicMethods, InstagramStor
 
       },
       clearProgressStorage,
+      hide: () => modalRef.current?.hide(),
     } ),
     [],
   );
