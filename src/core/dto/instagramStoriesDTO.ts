@@ -33,8 +33,8 @@ export interface InstagramStoriesProps {
 }
 
 export type InstagramStoriesPublicMethods = {
-  spliceStories: ( stories: InstagramStoryProps[], index: number ) => void;
-  spliceUserStories: ( stories: StoryItemProps[], user: string, index: number ) => void;
+  spliceStories: ( stories: InstagramStoryProps[], index?: number ) => void;
+  spliceUserStories: ( stories: StoryItemProps[], user: string, index?: number ) => void;
   setStories: ( stories: InstagramStoryProps[] ) => void;
   clearProgressStorage: () => void;
   hide: () => void;
