@@ -85,7 +85,7 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
     } else {
 
       animation.value = 0;
-      onSeenStoriesChange?.( userId.value, currentStory.value );
+      runOnJS( onSeenStoriesChange )( userId.value, currentStory.value );
 
     }
 
