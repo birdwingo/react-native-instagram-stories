@@ -4,13 +4,12 @@ import React, {
 } from 'react';
 import { runOnJS, useAnimatedReaction, useSharedValue } from 'react-native-reanimated';
 import { StoryImageProps } from '../../core/dto/componentsDTO';
-import { loadImage } from '../../core/helpers/image';
 import Loader from '../Loader';
 import { HEIGHT, LOADER_COLORS, WIDTH } from '../../core/constants';
 import ImageStyles from './Image.styles';
 
 const StoryImage: FC<StoryImageProps> = ( {
-  stories, active, activeStory, defaultImage, onImageLayout, onLoad,
+  stories, active, activeStory, defaultImage, preloadImages, onImageLayout, onLoad,
 } ) => {
 
   const [ uri, setUri ] = useState<string>();
@@ -33,15 +32,27 @@ const StoryImage: FC<StoryImageProps> = ( {
     if ( story ) {
 
       setUri( undefined );
-      const image = await loadImage( story.imgUrl );
-      setUri( image );
-      loading.value = false;
 
-      const nextStory = stories[stories.indexOf( story ) ?? 0 + 1];
+      if ( preloadImages ) {
 
-      if ( nextStory ) {
+        const { loadImage } = await import( '../../core/helpers/image' );
 
-        loadImage( nextStory.imgUrl );
+        const image = await loadImage( story.imgUrl );
+        setUri( image );
+        loading.value = false;
+
+        const nextStory = stories[stories.indexOf( story ) ?? 0 + 1];
+
+        if ( nextStory ) {
+
+          loadImage( nextStory.imgUrl );
+
+        }
+
+      } else {
+
+        setUri( story.imgUrl );
+        loading.value = false;
 
       }
 
@@ -53,8 +64,18 @@ const StoryImage: FC<StoryImageProps> = ( {
 
     if ( !active.value ) {
 
-      const image = await loadImage( defaultImage );
-      setUri( image );
+      if ( preloadImages ) {
+
+        const { loadImage } = await import( '../../core/helpers/image' );
+
+        const image = await loadImage( defaultImage );
+        setUri( image );
+
+      } else {
+
+        setUri( defaultImage );
+
+      }
 
     }
 

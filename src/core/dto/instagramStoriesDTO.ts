@@ -17,8 +17,9 @@ export interface InstagramStoryProps {
 export interface InstagramStoriesProps {
   stories: InstagramStoryProps[];
   saveProgress?: boolean;
+  preloadImages?: boolean;
   avatarBorderColors?: string[];
-  avatarSeenBorderColor?: string[];
+  avatarSeenBorderColors?: string[];
   avatarSize?: number;
   storyAvatarSize?: number;
   listContainerStyle?: ScrollViewProps['contentContainerStyle'];

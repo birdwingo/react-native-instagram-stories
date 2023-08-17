@@ -7,7 +7,6 @@ import StoryAvatar from '../Avatar';
 import { clearProgressStorage, getProgressStorage, setProgressStorage } from '../../core/helpers/storage';
 import { InstagramStoriesProps, InstagramStoriesPublicMethods } from '../../core/dto/instagramStoriesDTO';
 import { ProgressStorageProps } from '../../core/dto/helpersDTO';
-import { preloadStories } from '../../core/helpers/image';
 import {
   ANIMATION_DURATION, DEFAULT_COLORS, SEEN_LOADER_COLORS,
   STORY_AVATAR_SIZE, AVATAR_SIZE, BACKGROUND_COLOR,
@@ -18,8 +17,9 @@ import { StoryModalPublicMethods } from '../../core/dto/componentsDTO';
 const InstagramStories = forwardRef<InstagramStoriesPublicMethods, InstagramStoriesProps>( ( {
   stories,
   saveProgress = false,
+  preloadImages = false,
   avatarBorderColors = DEFAULT_COLORS,
-  avatarSeenBorderColor = SEEN_LOADER_COLORS,
+  avatarSeenBorderColors = SEEN_LOADER_COLORS,
   avatarSize = AVATAR_SIZE,
   storyAvatarSize = STORY_AVATAR_SIZE,
   listContainerStyle,
@@ -65,7 +65,13 @@ const InstagramStories = forwardRef<InstagramStoriesPublicMethods, InstagramStor
 
     seenStories.value = await ( saveProgress ? getProgressStorage() : {} );
 
-    await preloadStories( data, seenStories.value );
+    if ( preloadImages ) {
+
+      const { preloadStories } = await import( '../../core/helpers/image' );
+
+      await preloadStories( data, seenStories.value );
+
+    }
 
     loadedStories.value = true;
 
@@ -158,7 +164,7 @@ const InstagramStories = forwardRef<InstagramStoriesPublicMethods, InstagramStor
             seenStories={seenStories}
             onPress={() => onPress( story.id )}
             colors={avatarBorderColors}
-            seenColors={avatarSeenBorderColor}
+            seenColors={avatarSeenBorderColors}
             size={avatarSize}
             key={`avatar${story.id}`}
           />
@@ -173,6 +179,7 @@ const InstagramStories = forwardRef<InstagramStoriesPublicMethods, InstagramStor
         onLoad={onLoad}
         onSeenStoriesChange={onSeenStoriesChange}
         backgroundColor={backgroundColor}
+        preloadImages={preloadImages}
         {...props}
       />
     </>
