@@ -9,6 +9,8 @@
 
 `react-native-instagram-stories` component is a versatile React Native component designed to display a horizontal scrollable list of user stories, similar to the stories feature found in the Instagram app. It provides a visually appealing way to showcase stories with various customizable options. It is used in the [Birdwingo mobile app](https://www.birdwingo.com) for **Birdwingo Academy** which allows users to learn the basics of investing in stocks and ETFs.
 
+<img src="./src/assets/images/demo.gif" width="300">
+
 ## Installation
 
 ```bash
