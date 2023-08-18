@@ -1,3 +1,4 @@
+
 import { createRef } from 'react';
 import { render, fireEvent, act } from '@testing-library/react-native';
 import * as Reanimated from 'react-native-reanimated';
@@ -20,7 +21,7 @@ const stories = [ {
   imgUrl: 'https://picsum.photos/200/300',
   stories: [ {
     id: '1',
-    imgUrl: 'https://picsum.photos/200/300',
+    sourceUrl: 'https://picsum.photos/200/300',
     renderContent: () => <View />,
   } ],
 } ];
@@ -31,7 +32,7 @@ const stories2 = [ {
   imgUrl: 'https://picsum.photos/200/300',
   stories: [ {
     id: '1',
-    imgUrl: 'https://picsum.photos/200/300',
+    sourceUrl: 'https://picsum.photos/200/300',
   } ],
 }, {
   id: '2',
@@ -39,7 +40,7 @@ const stories2 = [ {
   imgUrl: 'https://picsum.photos/200/300',
   stories: [ {
     id: '1',
-    imgUrl: 'https://picsum.photos/200/300',
+    sourceUrl: 'https://picsum.photos/200/300',
   } ],
 } ];
 
@@ -49,10 +50,10 @@ const stories3 = [ {
   imgUrl: 'https://picsum.photos/200/300',
   stories: [ {
     id: '1',
-    imgUrl: 'https://picsum.photos/200/300',
+    sourceUrl: 'https://picsum.photos/200/300',
   }, {
     id: '2',
-    imgUrl: 'https://picsum.photos/200/300',
+    sourceUrl: 'https://picsum.photos/200/300',
   } ],
 } ];
 
@@ -62,7 +63,7 @@ const stories4 = [ {
   imgUrl: 'https://picsum.photos/200/300',
   stories: [ {
     id: '1',
-    imgUrl: 'https://picsum.photos/200/300',
+    sourceUrl: 'https://picsum.photos/200/300',
     mediaType: 'video',
   } ],
 }, {
@@ -71,7 +72,7 @@ const stories4 = [ {
   imgUrl: 'https://picsum.photos/200/300',
   stories: [ {
     id: '1',
-    imgUrl: 'https://picsum.photos/200/300',
+    sourceUrl: 'https://picsum.photos/200/300',
     mediaType: 'video',
   } ],
 } ];
@@ -199,7 +200,7 @@ describe( 'Instagram Stories test', () => {
         imgUrl: 'https://picsum.photos/200/300',
         stories: [ {
           id: '1',
-          imgUrl: 'https://picsum.photos/200/300',
+          sourceUrl: 'https://picsum.photos/200/300',
         } ],
       } ] );
 
@@ -211,7 +212,7 @@ describe( 'Instagram Stories test', () => {
         imgUrl: 'https://picsum.photos/200/300',
         stories: [ {
           id: '1',
-          imgUrl: 'https://picsum.photos/200/300',
+          sourceUrl: 'https://picsum.photos/200/300',
         } ],
       } ], -1 );
 
@@ -219,19 +220,19 @@ describe( 'Instagram Stories test', () => {
 
       ref.current.spliceUserStories( [ {
         id: '2',
-        imgUrl: 'https://picsum.photos/200/300',
+        sourceUrl: 'https://picsum.photos/200/300',
       } ], '1' );
 
       await sleep();
 
       ref.current.spliceUserStories( [ {
         id: '2',
-        imgUrl: 'https://picsum.photos/200/300',
+        sourceUrl: 'https://picsum.photos/200/300',
       } ], '2', 2 );
 
       ref.current.spliceUserStories( [ {
         id: '2',
-        imgUrl: 'https://picsum.photos/200/300',
+        sourceUrl: 'https://picsum.photos/200/300',
       } ], '20', 2 );
 
       await sleep();

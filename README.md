@@ -113,7 +113,7 @@ export default YourComponent;
  Parameter             | Type
 -----------------------|---------------------
  `id`                  | string
- `imgUrl`              | string
+ `sourceUrl`           | string
  `mediaType`           | 'video' \| 'image' (default: `'image'`)
  `renderContent`       | () => ReactNode
 
