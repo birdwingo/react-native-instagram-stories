@@ -36,28 +36,28 @@ const StoryImage: FC<StoryImageProps> = ( {
 
     if ( preloadImages ) {
 
-      if ( storyImgUrl.current === story?.imgUrl ) {
+      if ( storyImgUrl.current === story?.sourceUrl ) {
 
         return;
 
       }
 
-      const uri = await loadImage( story?.imgUrl );
+      const uri = await loadImage( story?.sourceUrl );
 
       setData( { uri, isVideo: story?.mediaType === 'video' } );
 
-      storyImgUrl.current = story?.imgUrl!;
+      storyImgUrl.current = story?.sourceUrl!;
       const nextStory = stories[stories.indexOf( story! ) + 1];
 
       if ( nextStory ) {
 
-        loadImage( nextStory.imgUrl );
+        loadImage( nextStory.sourceUrl );
 
       }
 
-    } else if ( story?.imgUrl !== data.uri ) {
+    } else if ( story?.sourceUrl !== data.uri ) {
 
-      setData( { uri: story?.imgUrl, isVideo: story?.mediaType === 'video' } );
+      setData( { uri: story?.sourceUrl, isVideo: story?.mediaType === 'video' } );
 
     }
 

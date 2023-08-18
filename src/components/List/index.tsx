@@ -50,7 +50,7 @@ const StoryList: FC<StoryListProps> = ( {
           stories={stories}
           active={isActive}
           activeStory={activeStory}
-          defaultImage={stories[lastSeenIndex + 1]?.imgUrl ?? stories[0].imgUrl}
+          defaultImage={stories[lastSeenIndex + 1]?.sourceUrl ?? stories[0].sourceUrl}
           isDefaultVideo={( stories[lastSeenIndex + 1]?.mediaType ?? stories[0].mediaType ) === 'video'}
           onImageLayout={onImageLayout}
           onLoad={onImageLoad}
