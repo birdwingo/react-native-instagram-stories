@@ -9,6 +9,7 @@ const StoryVideo: FC<StoryVideoProps> = ( {
 
   try {
 
+    // eslint-disable-next-line global-require
     const Video = require( 'react-native-video' ).default;
 
     const [ pausedValue, setPausedValue ] = useState( !paused.value );
