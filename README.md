@@ -75,6 +75,8 @@ export default YourComponent;
  `textStyle`             | TextStyle                                    |                                            | Additional styles for text elements.
  `animationDuration`     | number                                       | 10000                                      | The duration of the story animations in ms.
  `backgroundColor`       | string                                       | '#000000'                                  | The background color of story container.
+ `showName`              | boolean                                      | false                                      | Whether you want to show user name under avatar in avatar list.
+ `nameTextStyle`         | TextStyle                                    |                                            | Additional styles for name text elements.
  `onShow`                | ( id: string ) => void                       |                                            | Callback when a story is shown.
  `onHide`                | ( id: string ) => void                       |                                            | Callback when a story is hidden.
 

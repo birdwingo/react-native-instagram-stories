@@ -1,5 +1,5 @@
 import React, { FC, memo } from 'react';
-import { View, Image } from 'react-native';
+import { View, Image, Text } from 'react-native';
 import Animated, {
   useSharedValue, useAnimatedStyle, useDerivedValue, withTiming,
 } from 'react-native-reanimated';
@@ -24,6 +24,8 @@ const StoryAvatar: FC<StoryAvatarProps> = ( {
   colors = DEFAULT_COLORS,
   seenColors = SEEN_LOADER_COLORS,
   size = AVATAR_SIZE,
+  showName = false,
+  nameTextStyle,
 } ) => {
 
   const loaded = useSharedValue( false );
@@ -45,19 +47,22 @@ const StoryAvatar: FC<StoryAvatarProps> = ( {
   ) );
 
   return (
-    <View style={AvatarStyles.container}>
-      <TouchableOpacity activeOpacity={0.6} onPress={onPress}>
-        <Loader loading={isLoading} color={loaderColor} size={size + AVATAR_OFFSET * 2} />
-        <AnimatedImage
-          source={{ uri: imgUrl }}
-          style={[
-            AvatarStyles.avatar,
-            imageAnimatedStyles,
-            { width: AVATAR_SIZE, height: AVATAR_SIZE, borderRadius: AVATAR_SIZE / 2 },
-          ]}
-          onLoad={onLoad}
-        />
-      </TouchableOpacity>
+    <View style={AvatarStyles.name}>
+      <View style={AvatarStyles.container}>
+        <TouchableOpacity activeOpacity={0.6} onPress={onPress}>
+          <Loader loading={isLoading} color={loaderColor} size={size + AVATAR_OFFSET * 2} />
+          <AnimatedImage
+            source={{ uri: imgUrl }}
+            style={[
+              AvatarStyles.avatar,
+              imageAnimatedStyles,
+              { width: AVATAR_SIZE, height: AVATAR_SIZE, borderRadius: AVATAR_SIZE / 2 },
+            ]}
+            onLoad={onLoad}
+          />
+        </TouchableOpacity>
+      </View>
+      {showName && <Text style={nameTextStyle}>{name}</Text>}
     </View>
   );
 

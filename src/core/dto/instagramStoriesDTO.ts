@@ -28,6 +28,8 @@ export interface InstagramStoriesProps {
   textStyle?: TextStyle;
   animationDuration?: number;
   backgroundColor?: string;
+  showName?: boolean;
+  nameTextStyle?: TextStyle;
   onShow?: ( id: string ) => void;
   onHide?: ( id: string ) => void;
 }

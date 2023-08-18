@@ -27,6 +27,8 @@ const InstagramStories = forwardRef<InstagramStoriesPublicMethods, InstagramStor
   listContainerProps,
   animationDuration = ANIMATION_DURATION,
   backgroundColor = BACKGROUND_COLOR,
+  showName = false,
+  nameTextStyle,
   ...props
 }, ref ) => {
 
@@ -177,6 +179,8 @@ const InstagramStories = forwardRef<InstagramStoriesPublicMethods, InstagramStor
             colors={avatarBorderColors}
             seenColors={avatarSeenBorderColors}
             size={avatarSize}
+            showName={showName}
+            nameTextStyle={nameTextStyle}
             key={`avatar${story.id}`}
           />
         ) )}

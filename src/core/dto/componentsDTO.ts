@@ -10,6 +10,8 @@ export interface StoryAvatarProps extends InstagramStoryProps {
   colors?: string[];
   seenColors?: string[];
   size?: number;
+  showName?: boolean;
+  nameTextStyle?: TextStyle;
 }
 
 export interface StoryLoaderProps {
