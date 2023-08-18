@@ -10,7 +10,7 @@ import { HEIGHT } from '../../core/constants';
 import StoryContent from '../Content';
 
 const StoryList: FC<StoryListProps> = ( {
-  id, stories, index, x, activeUser, activeStory, progress, seenStories, preloadImages,
+  id, stories, index, x, activeUser, activeStory, progress, seenStories, preloadImages, paused,
   onLoad, ...props
 } ) => {
 
@@ -29,11 +29,11 @@ const StoryList: FC<StoryListProps> = ( {
 
   };
 
-  const onImageLoad = () => {
+  const onImageLoad = ( duration?: number ) => {
 
     if ( isActive.value ) {
 
-      onLoad();
+      onLoad( duration );
 
     }
 
@@ -51,9 +51,11 @@ const StoryList: FC<StoryListProps> = ( {
           active={isActive}
           activeStory={activeStory}
           defaultImage={stories[lastSeenIndex + 1]?.imgUrl ?? stories[0].imgUrl}
+          isDefaultVideo={( stories[lastSeenIndex + 1]?.mediaType ?? stories[0].mediaType ) === 'video'}
           onImageLayout={onImageLayout}
           onLoad={onImageLoad}
           preloadImages={preloadImages}
+          paused={paused}
         />
         <Progress
           active={isActive}

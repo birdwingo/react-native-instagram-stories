@@ -4,6 +4,7 @@ import { ScrollViewProps, TextStyle, ViewStyle } from 'react-native';
 export interface StoryItemProps {
   id: string;
   imgUrl: string;
+  mediaType?: 'image' | 'video';
   renderContent?: () => ReactNode;
 }
 
@@ -27,6 +28,7 @@ export interface InstagramStoriesProps {
   containerStyle?: ViewStyle;
   textStyle?: TextStyle;
   animationDuration?: number;
+  videoAnimationMaxDuration?: number;
   backgroundColor?: string;
   showName?: boolean;
   nameTextStyle?: TextStyle;
