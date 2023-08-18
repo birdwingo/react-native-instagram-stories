@@ -70,13 +70,17 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
 
   };
 
-  const startAnimation = ( resume = false, newDuration = durationValue.value ) => {
+  const startAnimation = ( resume = false, newDuration?: number ) => {
 
     'worklet';
 
-    if ( newDuration !== durationValue.value ) {
+    if ( newDuration ) {
 
       durationValue.value = newDuration;
+
+    } else {
+
+      newDuration = durationValue.value;
 
     }
 
