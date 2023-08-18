@@ -20,11 +20,13 @@ npm install react-native-gesture-handler
 npm install @birdwingo/react-native-instagram-stories
 ```
 
-## Integration with Storage and Preloading
+## Integration with Storage, Preloading and Video
 
-The component offers an option to save and track the progress of seen stories using `saveProgress`. If you use `saveProgress` please make sure you have `@react-native-async-storage/async-storage` installed.
+The component offers an option to save and track the progress of seen stories using `saveProgress`. If you use `saveProgress`, please make sure you have `@react-native-async-storage/async-storage` installed.
 
-Additionally, the component preloads images to improve performance when navigating between stories using `preloadImages`. If you use `preloadImages` please make sure you have `react-native-blob-util` installed.
+Additionally, the component preloads images to improve performance when navigating between stories using `preloadImages`. If you use `preloadImages`, please make sure you have `react-native-blob-util` installed.
+
+If you use video in your stories, please make sure you have `react-native-video` installed.
 
 ## Usage
 
@@ -62,25 +64,26 @@ export default YourComponent;
 
 ## Props
 
- Name                    | Type                                         | Default value                              | Description       
--------------------------|----------------------------------------------|--------------------------------------------|---------------------
- `stories`               | [InstagramStoryProps](#instagramstoryprops)[]| **required**                               | An array of stories.
- `saveProgress`          | boolean                                      | false                                      | A boolean indicating whether to save and track the progress of seen stories.
- `preloadImages`         | boolean                                      | false                                      | A boolean indicating whether to preload images.
- `avatarBorderColors`    | string[]                                     | [DEFAULT_COLORS](#default-gradient-colors) | An array of string colors representing the border colors of story avatars.
- `avatarSeenBorderColors`| string[]                                     | [ '#2A2A2C' ]                              | An array of string colors representing the border colors of seen story avatars.
- `avatarSize`            | number                                       | 60                                         | The size of the story avatars.
- `storyAvatarSize`       | number                                       | 25                                         | The size of the avatars shown in the header of each story.
- `listContainerStyle`    | ScrollViewProps['contentContainerStyle']     |                                            | Additional styles for the list container.
- `listContainerProps`    | ScrollViewProps                              |                                            | Props to be passed to the underlying ScrollView component.
- `containerStyle`        | ViewStyle                                    |                                            | Additional styles for the story container.
- `textStyle`             | TextStyle                                    |                                            | Additional styles for text elements.
- `animationDuration`     | number                                       | 10000                                      | The duration of the story animations in ms.
- `backgroundColor`       | string                                       | '#000000'                                  | The background color of story container.
- `showName`              | boolean                                      | false                                      | Whether you want to show user name under avatar in avatar list.
- `nameTextStyle`         | TextStyle                                    |                                            | Additional styles for name text elements.
- `onShow`                | ( id: string ) => void                       |                                            | Callback when a story is shown.
- `onHide`                | ( id: string ) => void                       |                                            | Callback when a story is hidden.
+ Name                       | Type                                         | Default value                              | Description       
+----------------------------|----------------------------------------------|--------------------------------------------|---------------------
+ `stories`                  | [InstagramStoryProps](#instagramstoryprops)[]| **required**                               | An array of stories.
+ `saveProgress`             | boolean                                      | false                                      | A boolean indicating whether to save and track the progress of seen stories.
+ `preloadImages`            | boolean                                      | false                                      | A boolean indicating whether to preload images.
+ `avatarBorderColors`       | string[]                                     | [DEFAULT_COLORS](#default-gradient-colors) | An array of string colors representing the border colors of story avatars.
+ `avatarSeenBorderColors`   | string[]                                     | [ '#2A2A2C' ]                              | An array of string colors representing the border colors of seen story avatars.
+ `avatarSize`               | number                                       | 60                                         | The size of the story avatars.
+ `storyAvatarSize`          | number                                       | 25                                         | The size of the avatars shown in the header of each story.
+ `listContainerStyle`       | ScrollViewProps['contentContainerStyle']     |                                            | Additional styles for the list container.
+ `listContainerProps`       | ScrollViewProps                              |                                            | Props to be passed to the underlying ScrollView component.
+ `containerStyle`           | ViewStyle                                    |                                            | Additional styles for the story container.
+ `textStyle`                | TextStyle                                    |                                            | Additional styles for text elements.
+ `animationDuration`        | number                                       | 10000                                      | The duration of the story animations in ms.
+ `videoAnimationMaxDuration`| number                                       |                                            | The max duration of the video story animations in ms. If is this property not provided, the whole video will be played.
+ `backgroundColor`          | string                                       | '#000000'                                  | The background color of story container.
+ `showName`                 | boolean                                      | false                                      | Whether you want to show user name under avatar in avatar list.
+ `nameTextStyle`            | TextStyle                                    |                                            | Additional styles for name text elements.
+ `onShow`                   | ( id: string ) => void                       |                                            | Callback when a story is shown.
+ `onHide`                   | ( id: string ) => void                       |                                            | Callback when a story is hidden.
 
 ## Public Methods
 
@@ -111,6 +114,7 @@ export default YourComponent;
 -----------------------|---------------------
  `id`                  | string
  `imgUrl`              | string
+ `mediaType`           | 'video' \| 'image' (default: `'image'`)
  `renderContent`       | () => ReactNode
 
 **Please note that id parameter must be unique for every story**
