@@ -39,7 +39,6 @@ const StoryImage: FC<StoryImageProps> = ( {
 
         const image = await loadImage( story.imgUrl );
         setUri( image );
-        loading.value = false;
 
         const nextStory = stories[stories.indexOf( story ) ?? 0 + 1];
 
@@ -52,7 +51,6 @@ const StoryImage: FC<StoryImageProps> = ( {
       } else {
 
         setUri( story.imgUrl );
-        loading.value = false;
 
       }
 
@@ -110,7 +108,12 @@ const StoryImage: FC<StoryImageProps> = ( {
           style={{ width: WIDTH, aspectRatio: 0.5626 }}
           resizeMode="contain"
           onLayout={( e ) => onImageLayout( Math.min( HEIGHT, e.nativeEvent.layout.height ) )}
-          onLoad={onLoad}
+          onLoad={() => {
+
+            loading.value = false;
+            onLoad();
+
+          }}
         />
       )}
     </>
