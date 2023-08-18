@@ -121,7 +121,9 @@ const InstagramStories = forwardRef<InstagramStoriesPublicMethods, InstagramStor
 
         } else {
 
-          setData( data.splice( index, 0, ...newStories ) );
+          const newData = [ ...data ];
+          newData.splice( index, 0, ...newStories );
+          setData( newData );
 
         }
 
@@ -154,7 +156,7 @@ const InstagramStories = forwardRef<InstagramStoriesPublicMethods, InstagramStor
       clearProgressStorage,
       hide: () => modalRef.current?.hide(),
     } ),
-    [],
+    [ data ],
   );
 
   useEffect( () => {
@@ -166,7 +168,7 @@ const InstagramStories = forwardRef<InstagramStoriesPublicMethods, InstagramStor
   return (
     <>
       <ScrollView horizontal {...listContainerProps} contentContainerStyle={listContainerStyle}>
-        {stories.map( ( story ) => (
+        {data.map( ( story ) => (
           <StoryAvatar
             {...story}
             loadingStory={loadingStory}
