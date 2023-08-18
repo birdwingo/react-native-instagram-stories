@@ -1,6 +1,4 @@
 
-import { BackHandler, Dimensions } from 'react-native';
-
 jest.mock('react-native-reanimated', () => {
 
   const View = require('react-native').View;
@@ -24,10 +22,10 @@ jest.mock('react-native-reanimated', () => {
     useSharedValue: jest.fn(),
     useDerivedValue: (a) => ({ value: a() }),
     useAnimatedScrollHandler: () => () => {},
-    useAnimatedGestureHandler: () => () => {},
+    useAnimatedGestureHandler: ({onStart, onActive, onFinish}) => ({onStart, onActive, onFinish}),
     useAnimatedStyle: (cb) => cb(),
     useAnimatedRef: () => ({ current: null }),
-    useAnimatedReaction: (value, cb) => cb(value(), ''),
+    useAnimatedReaction: jest.fn(),
     useAnimatedProps: (cb) => cb(),
     withTiming: (toValue, _, cb) => {
       cb && cb(true);
@@ -48,7 +46,7 @@ jest.mock('react-native-reanimated', () => {
       return 0;
     },
     withRepeat: (animation, _, __, cb) => {
-      cb();
+      cb?.();
       return animation;
     },
     cancelAnimation: () => {},
@@ -92,20 +90,30 @@ jest.mock('react-native-reanimated', () => {
 jest.mock('react-native-gesture-handler', () => {
 
   const View = require('react-native').View;
-  const ScrollView = require('react-native').ScrollView;
 
   return {
-    GestureDetector: ({gesture, children}) => (
+    PanGestureHandler: ({onGestureEvent, children}) => (
       <View
-        onResponderStart={gesture.onStart} 
-        onResponderEnd={gesture.onEnd} 
-        onResponderMove={gesture.onUpdate}
+        onResponderStart={onGestureEvent.onStart} 
+        onResponderEnd={onGestureEvent.onFinish} 
+        onResponderMove={onGestureEvent.onActive}
         testID="gestureContainer"
       >
         {children}
       </View>
     ),
-    ScrollView
+    gestureHandlerRootHOC: (Component) => Component,
   };
 
 });
+
+jest.mock('./src/core/helpers/image', () => ({
+  loadImage: (url) => url,
+  preloadStories: () => [],
+}));
+
+jest.mock('./src/core/helpers/storage', () => ({
+  clearProgressStorage: () => {},
+  getProgressStorage: jest.fn(),
+  setProgressStorage: jest.fn(),
+}));

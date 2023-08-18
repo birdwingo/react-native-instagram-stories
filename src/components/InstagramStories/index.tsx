@@ -2,7 +2,7 @@ import React, {
   forwardRef, useImperativeHandle, useState, useEffect, useRef, memo,
 } from 'react';
 import { useSharedValue } from 'react-native-reanimated';
-import { ScrollView } from 'react-native-gesture-handler';
+import { ScrollView } from 'react-native';
 import StoryAvatar from '../Avatar';
 import { clearProgressStorage, getProgressStorage, setProgressStorage } from '../../core/helpers/storage';
 import { InstagramStoriesProps, InstagramStoriesPublicMethods } from '../../core/dto/instagramStoriesDTO';
@@ -97,10 +97,10 @@ const InstagramStories = forwardRef<InstagramStoriesPublicMethods, InstagramStor
       const userData = data.find( ( story ) => story.id === user );
       const oldIndex = userData?.stories.findIndex(
         ( story ) => story.id === seenStories.value[user],
-      ) ?? 0;
-      const newIndex = userData?.stories.findIndex( ( story ) => story.id === value ) ?? 0;
+      );
+      const newIndex = userData?.stories.findIndex( ( story ) => story.id === value );
 
-      if ( oldIndex > newIndex ) {
+      if ( oldIndex! > newIndex! ) {
 
         return;
 
@@ -132,22 +132,28 @@ const InstagramStories = forwardRef<InstagramStoriesPublicMethods, InstagramStor
       },
       spliceUserStories: ( newStories, user, index ) => {
 
-        const userIndex = data.findIndex( ( story ) => story.id === user );
+        const userData = data.find( ( story ) => story.id === user );
 
-        if ( !userIndex || !data[userIndex] ) {
+        if ( !userData ) {
 
           return;
 
         }
 
-        const newData = {
-          ...data[userIndex],
-          stories: index === undefined
-            ? [ ...data[userIndex].stories, ...newStories ]
-            : data[userIndex].stories.splice( index, 0, ...newStories ),
-        };
+        const newData = index === undefined
+          ? [ ...userData.stories, ...newStories ]
+          : [ ...userData.stories ];
 
-        setData( data.map( ( value, i ) => ( i === userIndex ? newData : value ) ) );
+        if ( index !== undefined ) {
+
+          newData.splice( index, 0, ...newStories );
+
+        }
+
+        setData( data.map( ( value ) => ( value.id === user ? {
+          ...value,
+          stories: newData,
+        } : value ) ) );
 
       },
       setStories: ( newStories ) => {
@@ -167,9 +173,15 @@ const InstagramStories = forwardRef<InstagramStoriesPublicMethods, InstagramStor
 
   }, [ data ] );
 
+  useEffect( () => {
+
+    setData( stories );
+
+  }, [ stories ] );
+
   return (
     <>
-      <ScrollView horizontal {...listContainerProps} contentContainerStyle={listContainerStyle}>
+      <ScrollView horizontal {...listContainerProps} contentContainerStyle={listContainerStyle} testID="storiesList">
         {data.map( ( story ) => (
           <StoryAvatar
             {...story}

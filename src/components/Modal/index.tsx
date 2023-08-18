@@ -25,11 +25,11 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
   const x = useSharedValue( 0 );
   const y = useSharedValue( HEIGHT );
   const animation = useSharedValue( 0 );
-  const currentStory = useSharedValue( stories[0].stories[0]?.id );
+  const currentStory = useSharedValue( stories[0]?.stories[0]?.id );
   const buttonHandled = useSharedValue( false );
 
   const userIndex = useDerivedValue( () => Math.round( x.value / WIDTH ) );
-  const storyIndex = useDerivedValue( () => stories[userIndex.value].stories.findIndex(
+  const storyIndex = useDerivedValue( () => stories[userIndex.value]?.stories.findIndex(
     ( story ) => story.id === currentStory.value,
   ) );
   const userId = useDerivedValue( () => stories[userIndex.value]?.id );
@@ -60,17 +60,11 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
 
   };
 
-  const stopAnimation = ( pause = false ) => {
+  const stopAnimation = () => {
 
     'worklet';
 
     cancelAnimation( animation );
-
-    if ( !pause ) {
-
-      animation.value = 0;
-
-    }
 
   };
 
@@ -102,26 +96,26 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
     const newUserIndex = stories.findIndex( ( story ) => story.id === id );
     const newX = newUserIndex * WIDTH;
 
-    if ( !stories[newUserIndex] || newX === x.value ) {
-
-      return;
-
-    }
-
     x.value = animated ? withTiming( newX, ANIMATION_CONFIG ) : newX;
-    const newStoryIndex = stories[newUserIndex].stories.findIndex(
+    const newStoryIndex = stories[newUserIndex]?.stories.findIndex(
       ( story ) => story.id === seenStories.value[id],
     );
-    const userStories = stories[newUserIndex].stories;
+    const userStories = stories[newUserIndex]?.stories;
     currentStory.value = userStories[newStoryIndex + 1]?.id ?? userStories[0]?.id;
 
     startAnimation();
 
   };
 
-  const toNextStory = () => {
+  const toNextStory = ( value = true ) => {
 
     'worklet';
+
+    if ( !value ) {
+
+      return;
+
+    }
 
     if ( !nextStory.value ) {
 
@@ -178,7 +172,7 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
       ctx.x = x.value;
       ctx.pressedX = e.x;
       ctx.pressedAt = Date.now();
-      stopAnimation( true );
+      stopAnimation();
 
     },
     onActive: ( e, ctx ) => {
@@ -277,22 +271,14 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
 
   useAnimatedReaction(
     () => animation.value,
-    ( res, prev ) => {
-
-      if ( res !== prev && res === 1 ) {
-
-        toNextStory();
-
-      }
-
-    },
+    ( res, prev ) => res !== prev && toNextStory( res === 1 ),
     [ animation.value ],
   );
 
   return (
-    <Modal visible={visible} transparent animationType="none">
+    <Modal visible={visible} transparent animationType="none" testID="storyRNModal">
       <GestureHandler onGestureEvent={onGestureEvent}>
-        <Animated.View style={ModalStyles.container}>
+        <Animated.View style={ModalStyles.container} testID="storyModal">
           <Animated.View style={[ ModalStyles.bgAnimation, backgroundAnimatedStyles ]} />
           <Animated.View style={[
             ModalStyles.absolute,

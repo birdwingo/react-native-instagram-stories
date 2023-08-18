@@ -1,6 +1,7 @@
 import React, { FC, memo } from 'react';
-import { View, Text, Image } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import {
+  View, Text, Image, TouchableOpacity,
+} from 'react-native';
 import { PROGRESS_COLOR, WIDTH } from '../../core/constants';
 import HeaderStyles from './Header.styles';
 import { StoryHeaderProps } from '../../core/dto/componentsDTO';
@@ -24,6 +25,7 @@ const StoryHeader: FC<StoryHeaderProps> = ( {
       <TouchableOpacity
         onPress={onClose}
         hitSlop={16}
+        testID="storyCloseButton"
         onPressIn={() => {
 
           buttonHandled.value = true;
