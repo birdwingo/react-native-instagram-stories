@@ -1,27 +1,48 @@
-import RNFetchBlob from 'react-native-blob-util';
+/* eslint-disable global-require */
 import { STORAGE_KEY } from '../constants';
 import { InstagramStoryProps } from '../dto/instagramStoriesDTO';
 import { ProgressStorageProps } from '../dto/helpersDTO';
 
 const convertPath = ( path: string ) => `file://${path}`;
 
-const getDownloadConfig = ( url: string ) => ( {
-  path: `${RNFetchBlob.fs.dirs.DocumentDir}/${STORAGE_KEY}/${url}`,
-} );
+const getDownloadConfig = ( url: string ) => {
+
+  try {
+
+    const RNFetchBlob = require( 'react-native-fetch-blob' ).default;
+
+    return { path: `${RNFetchBlob.fs.dirs.DocumentDir}/${STORAGE_KEY}/${url}` };
+
+  } catch ( error ) {
+
+    return { path: url };
+
+  }
+
+};
 
 const downloadFile = async ( url: string ): Promise<string> => new Promise( ( resolve ) => {
 
   const fetchData = async () => {
 
-    RNFetchBlob.config( getDownloadConfig( url ) ).fetch( 'GET', url ).then( ( res ) => {
+    try {
 
-      resolve( convertPath( res.path() ) );
+      const RNFetchBlob = require( 'react-native-fetch-blob' ).default;
+      RNFetchBlob.config( getDownloadConfig( url ) ).fetch( 'GET', url ).then( ( res: any ) => {
 
-    } ).catch( () => {
+        resolve( convertPath( res.path() ) );
 
-      setTimeout( fetchData, 1000 );
+      } ).catch( () => {
 
-    } );
+        setTimeout( fetchData, 1000 );
+
+      } );
+
+    } catch ( error ) {
+
+      resolve( url );
+
+    }
 
   };
 
@@ -31,13 +52,22 @@ const downloadFile = async ( url: string ): Promise<string> => new Promise( ( re
 
 export const loadImage = async ( url: string ) => {
 
-  if ( await RNFetchBlob.fs.exists( getDownloadConfig( url ).path ) ) {
+  try {
 
-    return convertPath( getDownloadConfig( url ).path );
+    const RNFetchBlob = require( 'react-native-fetch-blob' ).default;
+    if ( await RNFetchBlob.fs.exists( getDownloadConfig( url ).path ) ) {
+
+      return convertPath( getDownloadConfig( url ).path );
+
+    }
+
+    return await downloadFile( url );
+
+  } catch ( error ) {
+
+    return url;
 
   }
-
-  return downloadFile( url );
 
 };
 
