@@ -25,7 +25,7 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
   const x = useSharedValue( 0 );
   const y = useSharedValue( HEIGHT );
   const animation = useSharedValue( 0 );
-  const currentStory = useSharedValue( stories[0].stories[0].id );
+  const currentStory = useSharedValue( stories[0].stories[0]?.id );
   const buttonHandled = useSharedValue( false );
 
   const userIndex = useDerivedValue( () => Math.round( x.value / WIDTH ) );
@@ -113,7 +113,7 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
       ( story ) => story.id === seenStories.value[id],
     );
     const userStories = stories[newUserIndex].stories;
-    currentStory.value = userStories[newStoryIndex + 1].id ?? userStories[0].id;
+    currentStory.value = userStories[newStoryIndex + 1]?.id ?? userStories[0]?.id;
 
     startAnimation();
 
