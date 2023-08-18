@@ -7,6 +7,7 @@ import { StoryImageProps } from '../../core/dto/componentsDTO';
 import Loader from '../Loader';
 import { HEIGHT, LOADER_COLORS, WIDTH } from '../../core/constants';
 import ImageStyles from './Image.styles';
+import { loadImage } from '../../core/helpers/image';
 
 const StoryImage: FC<StoryImageProps> = ( {
   stories, active, activeStory, defaultImage, preloadImages, onImageLayout, onLoad,
@@ -35,8 +36,6 @@ const StoryImage: FC<StoryImageProps> = ( {
 
       if ( preloadImages ) {
 
-        const { loadImage } = await import( '../../core/helpers/image' );
-
         const image = await loadImage( story.imgUrl );
         setUri( image );
 
@@ -63,8 +62,6 @@ const StoryImage: FC<StoryImageProps> = ( {
     if ( !active.value ) {
 
       if ( preloadImages ) {
-
-        const { loadImage } = await import( '../../core/helpers/image' );
 
         const image = await loadImage( defaultImage );
         setUri( image );

@@ -13,6 +13,7 @@ import {
 } from '../../core/constants';
 import StoryModal from '../Modal';
 import { StoryModalPublicMethods } from '../../core/dto/componentsDTO';
+import { preloadStories } from '../../core/helpers/image';
 
 const InstagramStories = forwardRef<InstagramStoriesPublicMethods, InstagramStoriesProps>( ( {
   stories,
@@ -66,8 +67,6 @@ const InstagramStories = forwardRef<InstagramStoriesPublicMethods, InstagramStor
     seenStories.value = await ( saveProgress ? getProgressStorage() : {} );
 
     if ( preloadImages ) {
-
-      const { preloadStories } = await import( '../../core/helpers/image' );
 
       await preloadStories( data, seenStories.value );
 
