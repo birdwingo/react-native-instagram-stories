@@ -8,12 +8,14 @@ import Loader from '../Loader';
 import { HEIGHT, LOADER_COLORS, WIDTH } from '../../core/constants';
 import ImageStyles from './Image.styles';
 import { loadImage } from '../../core/helpers/image';
+import StoryVideo from './video';
 
 const StoryImage: FC<StoryImageProps> = ( {
-  stories, active, activeStory, defaultImage, preloadImages, onImageLayout, onLoad,
+  stories, active, activeStory, defaultImage, isDefaultVideo, preloadImages, paused,
+  onImageLayout, onLoad,
 } ) => {
 
-  const [ uri, setUri ] = useState<string>();
+  const [ data, setData ] = useState<{ uri: string, isVideo?: boolean }>( { uri: '' } );
 
   const loading = useSharedValue( true );
   const color = useSharedValue( LOADER_COLORS );
@@ -34,9 +36,15 @@ const StoryImage: FC<StoryImageProps> = ( {
 
     if ( preloadImages ) {
 
-      const image = await loadImage( story?.imgUrl );
+      if ( storyImgUrl.current === story?.imgUrl ) {
 
-      setUri( image );
+        return;
+
+      }
+
+      const uri = await loadImage( story?.imgUrl );
+
+      setData( { uri, isVideo: story?.mediaType === 'video' } );
 
       storyImgUrl.current = story?.imgUrl!;
       const nextStory = stories[stories.indexOf( story! ) + 1];
@@ -47,9 +55,9 @@ const StoryImage: FC<StoryImageProps> = ( {
 
       }
 
-    } else if ( story?.imgUrl !== uri ) {
+    } else if ( story?.imgUrl !== data.uri ) {
 
-      setUri( story?.imgUrl );
+      setData( { uri: story?.imgUrl, isVideo: story?.mediaType === 'video' } );
 
     }
 
@@ -59,13 +67,13 @@ const StoryImage: FC<StoryImageProps> = ( {
 
     if ( preloadImages ) {
 
-      const image = await loadImage( defaultImage );
-      setUri( image );
+      const uri = await loadImage( defaultImage );
+      setData( { uri, isVideo: isDefaultVideo } );
       storyImgUrl.current = defaultImage;
 
     } else {
 
-      setUri( defaultImage );
+      setData( { uri: defaultImage, isVideo: isDefaultVideo } );
 
     }
 
@@ -83,6 +91,13 @@ const StoryImage: FC<StoryImageProps> = ( {
     [ active.value ],
   );
 
+  const onContentLoad = ( duration?: number ) => {
+
+    loading.value = false;
+    onLoad( duration );
+
+  };
+
   useEffect( () => {
 
     setDefaultImage();
@@ -94,20 +109,24 @@ const StoryImage: FC<StoryImageProps> = ( {
       <View style={ImageStyles.container}>
         <Loader loading={loading} color={color} size={50} />
       </View>
-      {uri && (
-        <Image
-          source={{ uri }}
-          style={{ width: WIDTH, aspectRatio: 0.5626 }}
-          resizeMode="contain"
-          testID="storyImageComponent"
-          onLayout={( e ) => onImageLayout( Math.min( HEIGHT, e.nativeEvent.layout.height ) )}
-          onLoad={() => {
-
-            loading.value = false;
-            onLoad();
-
-          }}
-        />
+      {data.uri && (
+        data.isVideo ? (
+          <StoryVideo
+            onLoad={onContentLoad}
+            onLayout={onImageLayout}
+            uri={data.uri}
+            paused={paused}
+          />
+        ) : (
+          <Image
+            source={{ uri: data.uri }}
+            style={{ width: WIDTH, aspectRatio: 0.5626 }}
+            resizeMode="contain"
+            testID="storyImageComponent"
+            onLayout={( e ) => onImageLayout( Math.min( HEIGHT, e.nativeEvent.layout.height ) )}
+            onLoad={() => onContentLoad()}
+          />
+        )
       )}
     </>
   );

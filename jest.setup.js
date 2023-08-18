@@ -117,3 +117,19 @@ jest.mock('./src/core/helpers/storage', () => ({
   getProgressStorage: jest.fn(),
   setProgressStorage: jest.fn(),
 }));
+
+jest.mock('./src/components/Image/video', () => {
+
+  const React = require('react');
+  const { View } = require('react-native');
+
+  return ( props ) => {
+  
+    const { onLoad, onLayout } = props;
+
+    onLoad?.(10000);
+    onLayout?.({ nativeEvent: { layout: { width: 100, height: 100 } } });
+
+    return <View testID="storyVideo" />;
+  };
+});

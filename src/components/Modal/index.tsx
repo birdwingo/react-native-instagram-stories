@@ -16,8 +16,8 @@ import StoryList from '../List';
 import ModalStyles from './Modal.styles';
 
 const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
-  stories, seenStories, duration, storyAvatarSize, textStyle, containerStyle, backgroundColor,
-  preloadImages, onLoad, onShow, onHide, onSeenStoriesChange,
+  stories, seenStories, duration, videoDuration, storyAvatarSize, textStyle, containerStyle,
+  backgroundColor, preloadImages, onLoad, onShow, onHide, onSeenStoriesChange,
 }, ref ) => {
 
   const [ visible, setVisible ] = useState( false );
@@ -27,6 +27,8 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
   const animation = useSharedValue( 0 );
   const currentStory = useSharedValue( stories[0]?.stories[0]?.id );
   const buttonHandled = useSharedValue( false );
+  const paused = useSharedValue( false );
+  const durationValue = useSharedValue( duration );
 
   const userIndex = useDerivedValue( () => Math.round( x.value / WIDTH ) );
   const storyIndex = useDerivedValue( () => stories[userIndex.value]?.stories.findIndex(
@@ -68,15 +70,19 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
 
   };
 
-  const startAnimation = ( resume = false ) => {
+  const startAnimation = ( resume = false, newDuration = durationValue.value ) => {
 
     'worklet';
 
-    let newDuration = duration;
+    if ( newDuration !== durationValue.value ) {
+
+      durationValue.value = newDuration;
+
+    }
 
     if ( resume ) {
 
-      newDuration -= animation.value * duration;
+      newDuration -= animation.value * newDuration;
 
     } else {
 
@@ -173,6 +179,7 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
       ctx.pressedX = e.x;
       ctx.pressedAt = Date.now();
       stopAnimation();
+      paused.value = true;
 
     },
     onActive: ( e, ctx ) => {
@@ -246,6 +253,7 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
       ctx.moving = false;
       ctx.vertical = false;
       buttonHandled.value = false;
+      paused.value = false;
 
     },
   } );
@@ -297,11 +305,15 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
                 progress={animation}
                 seenStories={seenStories}
                 onClose={onClose}
-                onLoad={startAnimation}
+                onLoad={( value ) => startAnimation(
+                  undefined,
+                  value !== undefined ? ( videoDuration ?? value ) : duration,
+                )}
                 avatarSize={storyAvatarSize}
                 textStyle={textStyle}
                 buttonHandled={buttonHandled}
                 preloadImages={preloadImages}
+                paused={paused}
                 key={story.id}
               />
             ) )}

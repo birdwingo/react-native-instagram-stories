@@ -56,6 +56,26 @@ const stories3 = [ {
   } ],
 } ];
 
+const stories4 = [ {
+  id: '1',
+  name: 'John Doe',
+  imgUrl: 'https://picsum.photos/200/300',
+  stories: [ {
+    id: '1',
+    imgUrl: 'https://picsum.photos/200/300',
+    mediaType: 'video',
+  } ],
+}, {
+  id: '2',
+  name: 'John Doe 2',
+  imgUrl: 'https://picsum.photos/200/300',
+  stories: [ {
+    id: '1',
+    imgUrl: 'https://picsum.photos/200/300',
+    mediaType: 'video',
+  } ],
+} ];
+
 describe( 'Instagram Stories test', () => {
 
   it( 'Should render the stories list', () => {
@@ -379,6 +399,32 @@ describe( 'Instagram Stories test', () => {
       await sleep();
 
       fireEvent( getByTestId( 'gestureContainer' ), 'responderEnd', {}, { pressedX: 0, pressedAt: Date.now() } );
+      await sleep();
+
+    } );
+
+  } );
+  
+  it( 'Should work with video', async () => {
+
+    const { getByTestId } = render( <InstagramStories stories={stories4} /> );
+
+    await act( async () => {
+
+      fireEvent( getByTestId( '2StoryAvatar1Story' ), 'click' );
+      await sleep();
+
+    } );
+
+  } );
+  
+  it( 'Should work with video & default duration', async () => {
+
+    const { getByTestId } = render( <InstagramStories stories={stories4} videoAnimationMaxDuration={1000} /> );
+
+    await act( async () => {
+
+      fireEvent( getByTestId( '2StoryAvatar1Story' ), 'click' );
       await sleep();
 
     } );
