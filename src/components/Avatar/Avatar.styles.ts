@@ -11,4 +11,7 @@ export default StyleSheet.create( {
     top: AVATAR_OFFSET,
     position: 'absolute',
   },
+  name: {
+    alignItems: 'center',
+  },
 } );
