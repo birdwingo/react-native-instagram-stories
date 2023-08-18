@@ -1,15 +1,14 @@
 import React, { FC, memo } from 'react';
-import { View, Image, Text } from 'react-native';
+import {
+  View, Image, Text, TouchableOpacity,
+} from 'react-native';
 import Animated, {
   useSharedValue, useAnimatedStyle, useDerivedValue, withTiming,
 } from 'react-native-reanimated';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 import { StoryAvatarProps } from '../../core/dto/componentsDTO';
 import AvatarStyles from './Avatar.styles';
 import Loader from '../Loader';
-import {
-  AVATAR_OFFSET, AVATAR_SIZE, DEFAULT_COLORS, SEEN_LOADER_COLORS,
-} from '../../core/constants';
+import { AVATAR_OFFSET, AVATAR_SIZE } from '../../core/constants';
 
 const AnimatedImage = Animated.createAnimatedComponent( Image );
 
@@ -21,15 +20,15 @@ const StoryAvatar: FC<StoryAvatarProps> = ( {
   loadingStory,
   seenStories,
   onPress,
-  colors = DEFAULT_COLORS,
-  seenColors = SEEN_LOADER_COLORS,
-  size = AVATAR_SIZE,
-  showName = false,
+  colors,
+  seenColors,
+  size,
+  showName,
   nameTextStyle,
 } ) => {
 
   const loaded = useSharedValue( false );
-  const isLoading = useDerivedValue( () => loadingStory.value === name || !loaded.value );
+  const isLoading = useDerivedValue( () => loadingStory.value === id || !loaded.value );
   const loaderColor = useDerivedValue( () => (
     seenStories.value[id] === stories[stories.length - 1]?.id
       ? seenColors
@@ -49,7 +48,7 @@ const StoryAvatar: FC<StoryAvatarProps> = ( {
   return (
     <View style={AvatarStyles.name}>
       <View style={AvatarStyles.container}>
-        <TouchableOpacity activeOpacity={0.6} onPress={onPress}>
+        <TouchableOpacity activeOpacity={0.6} onPress={onPress} testID={`${id}StoryAvatar${stories.length}Story`}>
           <Loader loading={isLoading} color={loaderColor} size={size + AVATAR_OFFSET * 2} />
           <AnimatedImage
             source={{ uri: imgUrl }}
@@ -58,11 +57,12 @@ const StoryAvatar: FC<StoryAvatarProps> = ( {
               imageAnimatedStyles,
               { width: AVATAR_SIZE, height: AVATAR_SIZE, borderRadius: AVATAR_SIZE / 2 },
             ]}
+            testID="storyAvatarImage"
             onLoad={onLoad}
           />
         </TouchableOpacity>
       </View>
-      {showName && <Text style={nameTextStyle}>{name}</Text>}
+      {Boolean( showName ) && <Text style={nameTextStyle}>{name}</Text>}
     </View>
   );
 

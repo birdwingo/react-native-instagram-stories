@@ -7,9 +7,9 @@ export interface StoryAvatarProps extends InstagramStoryProps {
   loadingStory: SharedValue<string | undefined>;
   seenStories: SharedValue<ProgressStorageProps>;
   onPress: () => void;
-  colors?: string[];
-  seenColors?: string[];
-  size?: number;
+  colors: string[];
+  seenColors: string[];
+  size: number;
   showName?: boolean;
   nameTextStyle?: TextStyle;
 }

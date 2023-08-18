@@ -1,6 +1,6 @@
 import { Image, View } from 'react-native';
 import React, {
-  FC, memo, useState, useEffect,
+  FC, memo, useState, useEffect, useRef,
 } from 'react';
 import { runOnJS, useAnimatedReaction, useSharedValue } from 'react-native-reanimated';
 import { StoryImageProps } from '../../core/dto/componentsDTO';
@@ -18,6 +18,8 @@ const StoryImage: FC<StoryImageProps> = ( {
   const loading = useSharedValue( true );
   const color = useSharedValue( LOADER_COLORS );
 
+  const storyImgUrl = useRef( '' );
+
   const onImageChange = async () => {
 
     if ( !active.value ) {
@@ -26,32 +28,28 @@ const StoryImage: FC<StoryImageProps> = ( {
 
     }
 
-    const story = stories.find( ( item ) => item.id === activeStory.value );
+    const story = stories.find( ( item ) => item.id === activeStory.value )!;
 
     loading.value = true;
 
-    if ( story ) {
+    if ( preloadImages ) {
 
-      setUri( undefined );
+      const image = await loadImage( story?.imgUrl );
 
-      if ( preloadImages ) {
+      setUri( image );
 
-        const image = await loadImage( story.imgUrl );
-        setUri( image );
+      storyImgUrl.current = story?.imgUrl!;
+      const nextStory = stories[stories.indexOf( story! ) + 1];
 
-        const nextStory = stories[stories.indexOf( story ) ?? 0 + 1];
+      if ( nextStory ) {
 
-        if ( nextStory ) {
-
-          loadImage( nextStory.imgUrl );
-
-        }
-
-      } else {
-
-        setUri( story.imgUrl );
+        loadImage( nextStory.imgUrl );
 
       }
+
+    } else if ( story?.imgUrl !== uri ) {
+
+      setUri( story?.imgUrl );
 
     }
 
@@ -59,18 +57,15 @@ const StoryImage: FC<StoryImageProps> = ( {
 
   const setDefaultImage = async () => {
 
-    if ( !active.value ) {
+    if ( preloadImages ) {
 
-      if ( preloadImages ) {
+      const image = await loadImage( defaultImage );
+      setUri( image );
+      storyImgUrl.current = defaultImage;
 
-        const image = await loadImage( defaultImage );
-        setUri( image );
+    } else {
 
-      } else {
-
-        setUri( defaultImage );
-
-      }
+      setUri( defaultImage );
 
     }
 
@@ -99,20 +94,19 @@ const StoryImage: FC<StoryImageProps> = ( {
       <View style={ImageStyles.container}>
         <Loader loading={loading} color={color} size={50} />
       </View>
-      {uri && (
-        <Image
-          source={{ uri }}
-          style={{ width: WIDTH, aspectRatio: 0.5626 }}
-          resizeMode="contain"
-          onLayout={( e ) => onImageLayout( Math.min( HEIGHT, e.nativeEvent.layout.height ) )}
-          onLoad={() => {
+      <Image
+        source={{ uri }}
+        style={{ width: WIDTH, aspectRatio: 0.5626 }}
+        resizeMode="contain"
+        testID="storyImageComponent"
+        onLayout={( e ) => onImageLayout( Math.min( HEIGHT, e.nativeEvent.layout.height ) )}
+        onLoad={() => {
 
-            loading.value = false;
-            onLoad();
+          loading.value = false;
+          onLoad();
 
-          }}
-        />
-      )}
+        }}
+      />
     </>
   );
 

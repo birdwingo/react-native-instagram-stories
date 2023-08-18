@@ -60,6 +60,20 @@ const Loader: FC<StoryLoaderProps> = ( {
 
   };
 
+  const onColorChange = ( newColors: string[] ) => {
+
+    'worklet';
+
+    if ( JSON.stringify( colors ) === JSON.stringify( newColors ) ) {
+
+      return;
+
+    }
+
+    runOnJS( setColors )( newColors );
+
+  };
+
   useAnimatedReaction(
     () => loading.value,
     ( res ) => ( res ? startAnimation() : stopAnimation() ),
@@ -67,7 +81,7 @@ const Loader: FC<StoryLoaderProps> = ( {
   );
   useAnimatedReaction(
     () => color.value,
-    ( res ) => runOnJS( setColors )( res ),
+    ( res ) => onColorChange( res ),
     [ color.value ],
   );
 
