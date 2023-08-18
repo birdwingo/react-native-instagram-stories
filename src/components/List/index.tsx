@@ -39,6 +39,10 @@ const StoryList: FC<StoryListProps> = ( {
 
   };
 
+  const lastSeenIndex = stories.findIndex(
+    ( item ) => item.id === seenStories.value[id],
+  );
+
   return (
     <StoryAnimation x={x} index={index}>
       <Animated.View style={[ animatedStyles, ListStyles.container ]}>
@@ -46,9 +50,7 @@ const StoryList: FC<StoryListProps> = ( {
           stories={stories}
           active={isActive}
           activeStory={activeStory}
-          defaultImage={stories.find(
-            ( item ) => item.id === seenStories.value[id],
-          )?.imgUrl ?? stories[0].imgUrl}
+          defaultImage={stories[lastSeenIndex + 1]?.imgUrl ?? stories[0].imgUrl}
           onImageLayout={onImageLayout}
           onLoad={onImageLoad}
           preloadImages={preloadImages}
