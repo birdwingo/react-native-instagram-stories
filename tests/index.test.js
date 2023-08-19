@@ -1,4 +1,3 @@
-
 import { createRef } from 'react';
 import { render, fireEvent, act } from '@testing-library/react-native';
 import * as Reanimated from 'react-native-reanimated';
@@ -6,22 +5,23 @@ import { Platform, View } from 'react-native';
 import InstagramStories from '../src';
 import { WIDTH } from '../src/core/constants';
 import StoryAvatar from '../src/components/Avatar';
+import StoryImage from '../src/components/Image';
 import Loader from '../src/components/Loader';
 import * as Storage from '../src/core/helpers/storage';
 
 const reactions = new Map();
 
-const sleep = async () => new Promise( ( resolve ) => setTimeout( resolve, 250 ) );
+const sleep = async ( ms ) => new Promise( ( resolve ) => setTimeout( resolve, ms ?? 250 ) );
 jest.spyOn( Reanimated, 'useAnimatedReaction' ).mockImplementation( ( value, cb ) => {
 
-  if ( reactions.has( `${cb}`) && reactions.get( `${cb}` ) === value() ) {
+  if ( reactions.has( `${cb}` ) && reactions.get( `${cb}` ) === value() ) {
 
     return;
 
   }
 
   reactions.set( `${cb}`, value() );
-  cb( value(), '' )
+  cb( value(), '' );
 
 } );
 jest.spyOn( Reanimated, 'useSharedValue' ).mockImplementation( ( value ) => ( { value } ) );
@@ -424,7 +424,7 @@ describe( 'Instagram Stories test', () => {
     } );
 
   } );
-  
+
   it( 'Should work with video', async () => {
 
     const { getByTestId } = render( <InstagramStories stories={stories4} /> );
@@ -437,7 +437,7 @@ describe( 'Instagram Stories test', () => {
     } );
 
   } );
-  
+
   it( 'Should work with video & default duration', async () => {
 
     const { getByTestId } = render( <InstagramStories stories={stories4} videoAnimationMaxDuration={1000} /> );
@@ -480,6 +480,54 @@ describe( 'Loader test', () => {
 
     jest.spyOn( Reanimated, 'useAnimatedReaction' ).mockImplementation( ( value, cb ) => cb( typeof value() !== 'boolean' ? [ '#AAA' ] : value() ) );
     render( <Loader loading={{ value: false }} color={{ value: [ '#FFF' ] }} /> );
+
+  } );
+
+} );
+
+describe( 'Story Image test', () => {
+
+  it( 'Should work with wrong story', () => {
+
+    render( <StoryImage stories={stories[0].stories} active={{ value: true }} activeStory={{ value: '2' }} defaultImage="url" preloadImages /> );
+
+  } );
+
+} );
+
+describe( 'Story Image test', () => {
+
+  it( 'Should work if story already loaded', async () => {
+
+    const onLoad = jest.fn();
+
+    render( <StoryImage
+      stories={[ { id: '1', sourceUrl: '' } ]}
+      active={{ value: true }}
+      activeStory={{ value: '1' }}
+      defaultImage="url"
+      preloadImages
+      onLoad={onLoad}
+    /> );
+
+    expect( onLoad ).toHaveBeenCalled();
+
+  } );
+
+  it( 'Should work if story already loaded and preload next image', async () => {
+
+    const onLoad = jest.fn();
+
+    render( <StoryImage
+      stories={[ { id: '1', sourceUrl: '' }, { id: '2', sourceUrl: '' } ]}
+      active={{ value: true }}
+      activeStory={{ value: '1' }}
+      defaultImage="url"
+      preloadImages
+      onLoad={onLoad}
+    /> );
+
+    expect( onLoad ).toHaveBeenCalled();
 
   } );
 

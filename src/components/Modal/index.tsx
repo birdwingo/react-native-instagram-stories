@@ -309,10 +309,15 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
                 progress={animation}
                 seenStories={seenStories}
                 onClose={onClose}
-                onLoad={( value ) => startAnimation(
-                  undefined,
-                  value !== undefined ? ( videoDuration ?? value ) : duration,
-                )}
+                onLoad={( value ) => {
+
+                  onLoad?.();
+                  startAnimation(
+                    undefined,
+                    value !== undefined ? ( videoDuration ?? value ) : duration,
+                  );
+
+                }}
                 avatarSize={storyAvatarSize}
                 textStyle={textStyle}
                 buttonHandled={buttonHandled}

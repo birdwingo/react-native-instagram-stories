@@ -29,12 +29,6 @@ const StoryContent: FC<StoryContentProps> = ( { stories, active, activeStory } )
     [ activeStory.value ],
   );
 
-  useAnimatedReaction(
-    () => active.value,
-    ( res, prev ) => res !== prev && onChange(),
-    [ active.value ],
-  );
-
   const content = useMemo( () => stories[storyIndex]?.renderContent?.(), [ storyIndex ] );
 
   return content ? <View style={ContentStyles.container}>{content}</View> : null;

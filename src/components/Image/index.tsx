@@ -32,33 +32,47 @@ const StoryImage: FC<StoryImageProps> = ( {
 
     const story = stories.find( ( item ) => item.id === activeStory.value )!;
 
+    if ( !story ) {
+
+      return;
+
+    }
+
+    if ( storyImgUrl.current === story.sourceUrl ) {
+
+      onLoad();
+
+      if ( preloadImages ) {
+
+        const nextStory = stories[stories.indexOf( story ) + 1];
+
+        if ( nextStory ) {
+
+          loadImage( nextStory.sourceUrl );
+
+        }
+
+      }
+
+      return;
+
+    }
+
     loading.value = true;
 
     if ( preloadImages ) {
 
-      if ( storyImgUrl.current === story?.sourceUrl ) {
-
-        return;
-
-      }
-
       setData( { uri: '', isVideo: false } );
 
-      const uri = await loadImage( story?.sourceUrl );
+      const uri = await loadImage( story.sourceUrl );
 
-      setData( { uri, isVideo: story?.mediaType === 'video' } );
+      setData( { uri, isVideo: story.mediaType === 'video' } );
 
-      storyImgUrl.current = story?.sourceUrl!;
-      const nextStory = stories[stories.indexOf( story! ) + 1];
+      storyImgUrl.current = story.sourceUrl;
 
-      if ( nextStory ) {
+    } else {
 
-        loadImage( nextStory.sourceUrl );
-
-      }
-
-    } else if ( story?.sourceUrl !== data.uri ) {
-
+      storyImgUrl.current = story.sourceUrl;
       setData( { uri: story?.sourceUrl, isVideo: story?.mediaType === 'video' } );
 
     }
@@ -85,12 +99,6 @@ const StoryImage: FC<StoryImageProps> = ( {
     () => activeStory.value,
     ( res, prev ) => res !== prev && runOnJS( onImageChange )(),
     [ activeStory.value ],
-  );
-
-  useAnimatedReaction(
-    () => active.value,
-    ( res, prev ) => res !== prev && runOnJS( onImageChange )(),
-    [ active.value ],
   );
 
   const onContentLoad = ( duration?: number ) => {
