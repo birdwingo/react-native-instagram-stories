@@ -42,6 +42,8 @@ const StoryImage: FC<StoryImageProps> = ( {
 
       }
 
+      setData( { uri: '', isVideo: false } );
+
       const uri = await loadImage( story?.sourceUrl );
 
       setData( { uri, isVideo: story?.mediaType === 'video' } );
