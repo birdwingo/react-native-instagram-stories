@@ -8,7 +8,7 @@ import ImageStyles from './Image.styles';
 import StoryVideo from './video';
 
 const StoryImage: FC<StoryImageProps> = ( {
-  stories, active, activeStory, defaultImage, isDefaultVideo, paused,
+  stories, active, activeStory, defaultImage, isDefaultVideo, paused, videoProps,
   onImageLayout, onLoad,
 } ) => {
 
@@ -81,6 +81,7 @@ const StoryImage: FC<StoryImageProps> = ( {
             onLayout={onImageLayout}
             uri={data.uri}
             paused={paused}
+            {...videoProps}
           />
         ) : (
           <Image

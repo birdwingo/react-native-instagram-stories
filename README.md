@@ -79,6 +79,7 @@ export default YourComponent;
  `backgroundColor`          | string                                       | '#000000'                                  | The background color of story container.
  `showName`                 | boolean                                      | false                                      | Whether you want to show user name under avatar in avatar list.
  `nameTextStyle`            | TextStyle                                    |                                            | Additional styles for name text elements.
+ `videoProps`               | [react-native-video](https://www.npmjs.com/package/react-native-video?activeTab=readme#configurable-props)| | Additional props for video component. For more information, follow `react-native-video`.
  `onShow`                   | ( id: string ) => void                       |                                            | Callback when a story is shown.
  `onHide`                   | ( id: string ) => void                       |                                            | Callback when a story is hidden.
 

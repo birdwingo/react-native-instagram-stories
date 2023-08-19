@@ -29,6 +29,7 @@ export interface StoryModalProps {
   textStyle?: TextStyle;
   containerStyle?: ViewStyle;
   backgroundColor?: string;
+  videoProps?: any;
   onLoad: () => void;
   onShow?: ( id: string ) => void;
   onHide?: ( id: string ) => void;
@@ -61,6 +62,7 @@ export interface StoryImageProps {
   defaultImage: string;
   isDefaultVideo: boolean;
   paused: SharedValue<boolean>;
+  videoProps?: any;
   onImageLayout: ( height: number ) => void;
   onLoad: ( duration?: number ) => void;
 }
@@ -104,6 +106,7 @@ export interface StoryListProps extends InstagramStoryProps, StoryHeaderProps {
   progress: SharedValue<number>;
   seenStories: SharedValue<ProgressStorageProps>;
   paused: SharedValue<boolean>;
+  videoProps?: any;
   onLoad: ( duration?: number ) => void;
 }
 

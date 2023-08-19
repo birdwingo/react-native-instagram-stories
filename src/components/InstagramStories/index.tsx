@@ -28,6 +28,7 @@ const InstagramStories = forwardRef<InstagramStoriesPublicMethods, InstagramStor
   showName = false,
   nameTextStyle,
   videoAnimationMaxDuration,
+  videoProps,
   ...props
 }, ref ) => {
 
@@ -213,6 +214,7 @@ const InstagramStories = forwardRef<InstagramStoriesPublicMethods, InstagramStor
         onSeenStoriesChange={onSeenStoriesChange}
         backgroundColor={backgroundColor}
         videoDuration={videoAnimationMaxDuration}
+        videoProps={videoProps}
         {...props}
       />
     </>

@@ -31,6 +31,7 @@ export interface InstagramStoriesProps {
   backgroundColor?: string;
   showName?: boolean;
   nameTextStyle?: TextStyle;
+  videoProps?: any;
   onShow?: ( id: string ) => void;
   onHide?: ( id: string ) => void;
 }
