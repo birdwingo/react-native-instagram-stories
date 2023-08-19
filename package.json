@@ -7,7 +7,7 @@
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "release": "standard-version",
-    "test": "jest --coverage --silent"
+    "test": "jest --coverage"
   },
   "repository": "https://github.com/birdwingo/react-native-instagram-stories.git",
   "keywords": [
