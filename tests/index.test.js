@@ -123,13 +123,12 @@ describe( 'Instagram Stories test', () => {
 
   } );
 
-  it( 'Should work with preloadImages & saveProgress', async () => {
+  it( 'Should work with saveProgress', async () => {
 
     jest.spyOn( Storage, 'getProgressStorage' ).mockImplementation( () => ( { 1: '1' } ) );
     const { getByTestId, getAllByTestId } = render(
       <InstagramStories
         stories={stories2}
-        preloadImages
         saveProgress
       />,
     );
@@ -170,7 +169,6 @@ describe( 'Instagram Stories test', () => {
     const { getByTestId } = render(
       <InstagramStories
         stories={stories3}
-        preloadImages
         saveProgress
       />,
     );
@@ -357,7 +355,7 @@ describe( 'Instagram Stories test', () => {
 
   it( 'Should go to next story', async () => {
 
-    const { getByTestId } = render( <InstagramStories preloadImages stories={stories3} /> );
+    const { getByTestId } = render( <InstagramStories stories={stories3} /> );
 
     await act( async () => {
 
@@ -489,13 +487,9 @@ describe( 'Story Image test', () => {
 
   it( 'Should work with wrong story', () => {
 
-    render( <StoryImage stories={stories[0].stories} active={{ value: true }} activeStory={{ value: '2' }} defaultImage="url" preloadImages /> );
+    render( <StoryImage stories={stories[0].stories} active={{ value: true }} activeStory={{ value: '2' }} defaultImage="url" /> );
 
   } );
-
-} );
-
-describe( 'Story Image test', () => {
 
   it( 'Should work if story already loaded', async () => {
 
@@ -506,24 +500,6 @@ describe( 'Story Image test', () => {
       active={{ value: true }}
       activeStory={{ value: '1' }}
       defaultImage="url"
-      preloadImages
-      onLoad={onLoad}
-    /> );
-
-    expect( onLoad ).toHaveBeenCalled();
-
-  } );
-
-  it( 'Should work if story already loaded and preload next image', async () => {
-
-    const onLoad = jest.fn();
-
-    render( <StoryImage
-      stories={[ { id: '1', sourceUrl: '' }, { id: '2', sourceUrl: '' } ]}
-      active={{ value: true }}
-      activeStory={{ value: '1' }}
-      defaultImage="url"
-      preloadImages
       onLoad={onLoad}
     /> );
 
