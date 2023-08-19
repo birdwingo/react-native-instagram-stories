@@ -9,8 +9,21 @@ import StoryAvatar from '../src/components/Avatar';
 import Loader from '../src/components/Loader';
 import * as Storage from '../src/core/helpers/storage';
 
+const reactions = new Map();
+
 const sleep = async () => new Promise( ( resolve ) => setTimeout( resolve, 250 ) );
-jest.spyOn( Reanimated, 'useAnimatedReaction' ).mockImplementation( ( value, cb ) => cb( value(), '' ) );
+jest.spyOn( Reanimated, 'useAnimatedReaction' ).mockImplementation( ( value, cb ) => {
+
+  if ( reactions.has( `${cb}`) && reactions.get( `${cb}` ) === value() ) {
+
+    return;
+
+  }
+
+  reactions.set( `${cb}`, value() );
+  cb( value(), '' )
+
+} );
 jest.spyOn( Reanimated, 'useSharedValue' ).mockImplementation( ( value ) => ( { value } ) );
 jest.spyOn( Storage, 'getProgressStorage' ).mockImplementation( () => ( {} ) );
 jest.spyOn( Storage, 'setProgressStorage' ).mockImplementation( () => ( {} ) );
@@ -78,6 +91,12 @@ const stories4 = [ {
 } ];
 
 describe( 'Instagram Stories test', () => {
+
+  beforeEach( () => {
+
+    reactions.clear();
+
+  } );
 
   it( 'Should render the stories list', () => {
 
