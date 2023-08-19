@@ -107,11 +107,6 @@ jest.mock('react-native-gesture-handler', () => {
 
 });
 
-jest.mock('./src/core/helpers/image', () => ({
-  loadImage: (url) => url,
-  preloadStories: () => [],
-}));
-
 jest.mock('./src/core/helpers/storage', () => ({
   clearProgressStorage: () => {},
   getProgressStorage: jest.fn(),
