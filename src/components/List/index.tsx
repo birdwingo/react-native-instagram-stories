@@ -11,7 +11,7 @@ import StoryContent from '../Content';
 
 const StoryList: FC<StoryListProps> = ( {
   id, stories, index, x, activeUser, activeStory, progress, seenStories, paused,
-  onLoad, ...props
+  onLoad, videoProps, ...props
 } ) => {
 
   const imageHeight = useSharedValue( HEIGHT );
@@ -55,6 +55,7 @@ const StoryList: FC<StoryListProps> = ( {
           onImageLayout={onImageLayout}
           onLoad={onImageLoad}
           paused={paused}
+          videoProps={videoProps}
         />
         <Progress
           active={isActive}
