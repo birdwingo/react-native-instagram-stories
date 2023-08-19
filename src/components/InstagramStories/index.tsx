@@ -2,7 +2,7 @@ import React, {
   forwardRef, useImperativeHandle, useState, useEffect, useRef, memo,
 } from 'react';
 import { useSharedValue } from 'react-native-reanimated';
-import { ScrollView } from 'react-native';
+import { Image, ScrollView } from 'react-native';
 import StoryAvatar from '../Avatar';
 import { clearProgressStorage, getProgressStorage, setProgressStorage } from '../../core/helpers/storage';
 import { InstagramStoriesProps, InstagramStoriesPublicMethods } from '../../core/dto/instagramStoriesDTO';
@@ -13,12 +13,10 @@ import {
 } from '../../core/constants';
 import StoryModal from '../Modal';
 import { StoryModalPublicMethods } from '../../core/dto/componentsDTO';
-import { preloadStories } from '../../core/helpers/image';
 
 const InstagramStories = forwardRef<InstagramStoriesPublicMethods, InstagramStoriesProps>( ( {
   stories,
   saveProgress = false,
-  preloadImages = false,
   avatarBorderColors = DEFAULT_COLORS,
   avatarSeenBorderColors = SEEN_LOADER_COLORS,
   avatarSize = AVATAR_SIZE,
@@ -69,11 +67,18 @@ const InstagramStories = forwardRef<InstagramStoriesPublicMethods, InstagramStor
 
     seenStories.value = await ( saveProgress ? getProgressStorage() : {} );
 
-    if ( preloadImages ) {
+    const promises = stories.map( ( story ) => {
 
-      await preloadStories( data, seenStories.value );
+      const seenStoryIndex = story.stories.findIndex(
+        ( item ) => item.id === seenStories.value[story.id],
+      );
+      const seenStory = story.stories[seenStoryIndex + 1] || story.stories[0];
 
-    }
+      return Image.prefetch( seenStory.sourceUrl );
+
+    } );
+
+    await Promise.all( promises );
 
     loadedStories.value = true;
 
@@ -207,7 +212,6 @@ const InstagramStories = forwardRef<InstagramStoriesPublicMethods, InstagramStor
         onLoad={onLoad}
         onSeenStoriesChange={onSeenStoriesChange}
         backgroundColor={backgroundColor}
-        preloadImages={preloadImages}
         videoDuration={videoAnimationMaxDuration}
         {...props}
       />

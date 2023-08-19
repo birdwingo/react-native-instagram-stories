@@ -1,26 +1,23 @@
 import { Image, View } from 'react-native';
-import React, {
-  FC, memo, useState, useEffect, useRef,
-} from 'react';
+import React, { FC, memo, useState } from 'react';
 import { runOnJS, useAnimatedReaction, useSharedValue } from 'react-native-reanimated';
 import { StoryImageProps } from '../../core/dto/componentsDTO';
 import Loader from '../Loader';
 import { HEIGHT, LOADER_COLORS, WIDTH } from '../../core/constants';
 import ImageStyles from './Image.styles';
-import { loadImage } from '../../core/helpers/image';
 import StoryVideo from './video';
 
 const StoryImage: FC<StoryImageProps> = ( {
-  stories, active, activeStory, defaultImage, isDefaultVideo, preloadImages, paused,
+  stories, active, activeStory, defaultImage, isDefaultVideo, paused,
   onImageLayout, onLoad,
 } ) => {
 
-  const [ data, setData ] = useState<{ uri: string, isVideo?: boolean }>( { uri: '' } );
+  const [ data, setData ] = useState<{ uri: string, isVideo?: boolean }>(
+    { uri: defaultImage, isVideo: isDefaultVideo },
+  );
 
   const loading = useSharedValue( true );
   const color = useSharedValue( LOADER_COLORS );
-
-  const storyImgUrl = useRef( '' );
 
   const onImageChange = async () => {
 
@@ -38,58 +35,22 @@ const StoryImage: FC<StoryImageProps> = ( {
 
     }
 
-    if ( storyImgUrl.current === story.sourceUrl ) {
+    if ( data.uri === story.sourceUrl ) {
 
       onLoad();
 
-      if ( preloadImages ) {
-
-        const nextStory = stories[stories.indexOf( story ) + 1];
-
-        if ( nextStory ) {
-
-          loadImage( nextStory.sourceUrl );
-
-        }
-
-      }
-
-      return;
-
-    }
-
-    loading.value = true;
-
-    if ( preloadImages ) {
-
-      setData( { uri: '', isVideo: false } );
-
-      const uri = await loadImage( story.sourceUrl );
-
-      setData( { uri, isVideo: story.mediaType === 'video' } );
-
-      storyImgUrl.current = story.sourceUrl;
-
     } else {
 
-      storyImgUrl.current = story.sourceUrl;
+      loading.value = true;
       setData( { uri: story?.sourceUrl, isVideo: story?.mediaType === 'video' } );
 
     }
 
-  };
+    const nextStory = stories[stories.indexOf( story ) + 1];
 
-  const setDefaultImage = async () => {
+    if ( nextStory ) {
 
-    if ( preloadImages ) {
-
-      const uri = await loadImage( defaultImage );
-      setData( { uri, isVideo: isDefaultVideo } );
-      storyImgUrl.current = defaultImage;
-
-    } else {
-
-      setData( { uri: defaultImage, isVideo: isDefaultVideo } );
+      Image.prefetch( nextStory.sourceUrl );
 
     }
 
@@ -107,12 +68,6 @@ const StoryImage: FC<StoryImageProps> = ( {
     onLoad( duration );
 
   };
-
-  useEffect( () => {
-
-    setDefaultImage();
-
-  }, [] );
 
   return (
     <>
