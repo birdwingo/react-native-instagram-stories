@@ -18,7 +18,6 @@ export interface InstagramStoryProps {
 export interface InstagramStoriesProps {
   stories: InstagramStoryProps[];
   saveProgress?: boolean;
-  preloadImages?: boolean;
   avatarBorderColors?: string[];
   avatarSeenBorderColors?: string[];
   avatarSize?: number;

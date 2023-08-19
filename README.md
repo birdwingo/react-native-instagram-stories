@@ -20,11 +20,9 @@ npm install react-native-gesture-handler
 npm install @birdwingo/react-native-instagram-stories
 ```
 
-## Integration with Storage, Preloading and Video
+## Integration with Storage and Video
 
 The component offers an option to save and track the progress of seen stories using `saveProgress`. If you use `saveProgress`, please make sure you have `@react-native-async-storage/async-storage` installed.
-
-Additionally, the component preloads images to improve performance when navigating between stories using `preloadImages`. If you use `preloadImages`, please make sure you have `react-native-blob-util` installed.
 
 If you use video in your stories, please make sure you have `react-native-video` installed.
 
@@ -68,7 +66,6 @@ export default YourComponent;
 ----------------------------|----------------------------------------------|--------------------------------------------|---------------------
  `stories`                  | [InstagramStoryProps](#instagramstoryprops)[]| **required**                               | An array of stories.
  `saveProgress`             | boolean                                      | false                                      | A boolean indicating whether to save and track the progress of seen stories.
- `preloadImages`            | boolean                                      | false                                      | A boolean indicating whether to preload images.
  `avatarBorderColors`       | string[]                                     | [DEFAULT_COLORS](#default-gradient-colors) | An array of string colors representing the border colors of story avatars.
  `avatarSeenBorderColors`   | string[]                                     | [ '#2A2A2C' ]                              | An array of string colors representing the border colors of seen story avatars.
  `avatarSize`               | number                                       | 60                                         | The size of the story avatars.
