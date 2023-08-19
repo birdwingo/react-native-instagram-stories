@@ -9,7 +9,7 @@ const getDownloadConfig = ( url: string ) => {
 
   try {
 
-    const RNFetchBlob = require( 'react-native-fetch-blob' ).default;
+    const RNFetchBlob = require( 'react-native-blob-util' ).default;
 
     return { path: `${RNFetchBlob.fs.dirs.DocumentDir}/${STORAGE_KEY}/${url}` };
 
@@ -27,7 +27,7 @@ const downloadFile = async ( url: string ): Promise<string> => new Promise( ( re
 
     try {
 
-      const RNFetchBlob = require( 'react-native-fetch-blob' ).default;
+      const RNFetchBlob = require( 'react-native-blob-util' ).default;
       RNFetchBlob.config( getDownloadConfig( url ) ).fetch( 'GET', url ).then( ( res: any ) => {
 
         resolve( convertPath( res.path() ) );
@@ -54,7 +54,7 @@ export const loadImage = async ( url: string ) => {
 
   try {
 
-    const RNFetchBlob = require( 'react-native-fetch-blob' ).default;
+    const RNFetchBlob = require( 'react-native-blob-util' ).default;
     if ( await RNFetchBlob.fs.exists( getDownloadConfig( url ).path ) ) {
 
       return convertPath( getDownloadConfig( url ).path );
@@ -81,7 +81,7 @@ export const preloadStories = async (
     const seenStoryIndex = story.stories.findIndex( ( item ) => item.id === seen[story.id] );
     const seenStory = story.stories[seenStoryIndex + 1] || story.stories[0];
 
-    return loadImage( seenStory.imgUrl );
+    return loadImage( seenStory.sourceUrl );
 
   } );
 
