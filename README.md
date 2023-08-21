@@ -42,7 +42,8 @@ const YourComponent = () => {
     name: 'User 1',
     imgUrl: 'user1-profile-image-url',
     stories: [
-      { id: 'story1', imgUrl: 'story1-image-url' },
+      { id: 'story1', sourceUrl: 'story1-image-url' },
+      { id: 'story2', sourceUrl: 'story1-video-url', mediaType: 'video' },
       // ...
     ]}, // ...
   ];
