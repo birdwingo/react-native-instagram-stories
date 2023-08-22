@@ -5,6 +5,24 @@
 ![github release](https://github.com/birdwingo/react-native-instagram-stories/actions/workflows/release.yml/badge.svg?event=pull_request)
 ![npm release](https://github.com/birdwingo/react-native-instagram-stories/actions/workflows/public.yml/badge.svg?event=release)
 
+## Features 🌟
+
+📸 Capture Moments: Easily integrate Instagram-like stories in your React Native app to let users share their favorite moments.
+
+✨ Inspired by Instagram: Crafted with inspiration from the real Instagram stories feature, capturing its essence and style.
+
+📱 Mobile-Friendly: Designed with mobile users in mind, providing a smooth and responsive experience on all devices.
+
+💾 Using Async Storage: Utilize Async Storage to save the progress of users and load them whenever they want.
+
+🛠️ Developer Friendly: Well-documented and easy to set up, making the developer's life a breeze.
+
+🚀 High Performance: Optimized for speed, ensuring a lag-free experience for users.
+
+💡 Rich Features: Support for video, images, and text, plus more – all in one powerful package!
+
+🎉 Community Support: Join a growing community of developers and users, eager to help and share their experiences.
+
 ## About
 
 `react-native-instagram-stories` component is a versatile React Native component designed to display a horizontal scrollable list of user stories, similar to the stories feature found in the Instagram app. It provides a visually appealing way to showcase stories with various customizable options. It is used in the [Birdwingo mobile app](https://www.birdwingo.com) for **Birdwingo Academy** which allows users to learn the basics of investing in stocks and ETFs.
