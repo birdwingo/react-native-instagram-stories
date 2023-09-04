@@ -34,6 +34,8 @@ export interface InstagramStoriesProps {
   videoProps?: any;
   onShow?: ( id: string ) => void;
   onHide?: ( id: string ) => void;
+  open: boolean;
+  onClose: () => void;
 }
 
 export type InstagramStoriesPublicMethods = {

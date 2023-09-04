@@ -29,6 +29,8 @@ const InstagramStories = forwardRef<InstagramStoriesPublicMethods, InstagramStor
   nameTextStyle,
   videoAnimationMaxDuration,
   videoProps,
+  open = false,
+  onClose,
   ...props
 }, ref ) => {
 
@@ -169,7 +171,10 @@ const InstagramStories = forwardRef<InstagramStoriesPublicMethods, InstagramStor
 
       },
       clearProgressStorage,
-      hide: () => modalRef.current?.hide(),
+      hide: () => {
+        modalRef.current?.hide();
+        onClose()
+      },
     } ),
     [ data ],
   );
@@ -186,24 +191,18 @@ const InstagramStories = forwardRef<InstagramStoriesPublicMethods, InstagramStor
 
   }, [ stories ] );
 
+  useEffect( () => {
+
+    if (open) {
+      stories?.[0]?.id && onPress( stories?.[0]?.id )
+    } else {
+      modalRef.current?.hide();
+    }
+ 
+  }, [ open ] );
+
   return (
     <>
-      <ScrollView horizontal {...listContainerProps} contentContainerStyle={listContainerStyle} testID="storiesList">
-        {data.map( ( story ) => (
-          <StoryAvatar
-            {...story}
-            loadingStory={loadingStory}
-            seenStories={seenStories}
-            onPress={() => onPress( story.id )}
-            colors={avatarBorderColors}
-            seenColors={avatarSeenBorderColors}
-            size={avatarSize}
-            showName={showName}
-            nameTextStyle={nameTextStyle}
-            key={`avatar${story.id}`}
-          />
-        ) )}
-      </ScrollView>
       <StoryModal
         ref={modalRef}
         stories={data}
