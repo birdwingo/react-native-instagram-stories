@@ -291,7 +291,7 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
     <Modal visible={visible} transparent animationType="none" testID="storyRNModal">
       <GestureHandler onGestureEvent={onGestureEvent}>
         <Animated.View style={ModalStyles.container} testID="storyModal">
-          <Animated.View style={[ ModalStyles.absolute, backgroundAnimatedStyles ]} />
+          <Animated.View style={[ ModalStyles.bgAnimation, backgroundAnimatedStyles ]} />
           <Animated.View style={[ ModalStyles.absolute, animatedStyles, containerStyle ]}>
             {stories?.map( ( story, index ) => (
               <StoryList
