@@ -99,6 +99,7 @@ export default YourComponent;
  `showName`                 | boolean                                      | false                                      | Whether you want to show user name under avatar in avatar list.
  `nameTextStyle`            | TextStyle                                    |                                            | Additional styles for name text elements.
  `videoProps`               | [react-native-video](https://www.npmjs.com/package/react-native-video?activeTab=readme#configurable-props)| | Additional props for video component. For more information, follow `react-native-video`.
+ `closeIconColor`           | string                                       | '#00000099'                                | The color of story close icon.
  `onShow`                   | ( id: string ) => void                       |                                            | Callback when a story is shown.
  `onHide`                   | ( id: string ) => void                       |                                            | Callback when a story is hidden.
 
@@ -111,28 +112,29 @@ export default YourComponent;
  `setStories`          | ( stories: [InstagramStoryProps](#instagramstoryprops)[] ) => void                               | Replace the current stories with a new set of stories.
  `clearProgressStorage`| () => void                                                                                       | Clear the progress storage for seen stories.
  `hide`                | () => void                                                                                       | Hide stories if currently visible
+ `show`                | ( id?: string ) => void                                                                          | Show stories modal with provided story `id`. If `id` is not provided, will be show first story
 
 ## Types
 
 ### InstagramStoryProps
 
- Parameter             | Type
------------------------|---------------------
- `id`                  | string
- `imgUrl`              | string
- `name`                | string
- `stories`             | [StoryItemProps](#storyitemprops)[]
+ Parameter             | Type                                   | Required
+-----------------------|----------------------------------------|----------------
+ `id`                  | string                                 | true
+ `imgUrl`              | string                                 | false
+ `name`                | string                                 | false
+ `stories`             | [StoryItemProps](#storyitemprops)[]    | true
 
 **Please note that id parameter must be unique for every user**
 
 ### StoryItemProps
 
- Parameter             | Type
------------------------|---------------------
- `id`                  | string
- `sourceUrl`           | string
- `mediaType`           | 'video' \| 'image' (default: `'image'`)
- `renderContent`       | () => ReactNode
+ Parameter             | Type                                     | Required
+-----------------------|------------------------------------------|-------------------
+ `id`                  | string                                   | true
+ `sourceUrl`           | string                                   | true
+ `mediaType`           | 'video' \| 'image' (default: `'image'`)  | false
+ `renderContent`       | () => ReactNode                          | false
 
 **Please note that id parameter must be unique for every story**
 

@@ -17,7 +17,7 @@ import ModalStyles from './Modal.styles';
 
 const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
   stories, seenStories, duration, videoDuration, storyAvatarSize, textStyle, containerStyle,
-  backgroundColor, videoProps, onLoad, onShow, onHide, onSeenStoriesChange,
+  backgroundColor, videoProps, closeIconColor, onLoad, onShow, onHide, onSeenStoriesChange,
 }, ref ) => {
 
   const [ visible, setVisible ] = useState( false );
@@ -291,14 +291,8 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
     <Modal visible={visible} transparent animationType="none" testID="storyRNModal">
       <GestureHandler onGestureEvent={onGestureEvent}>
         <Animated.View style={ModalStyles.container} testID="storyModal">
-          <Animated.View style={[ ModalStyles.bgAnimation, backgroundAnimatedStyles ]} />
-          <Animated.View style={[
-            ModalStyles.absolute,
-            { width: WIDTH, height: HEIGHT },
-            animatedStyles,
-            containerStyle,
-          ]}
-          >
+          <Animated.View style={[ ModalStyles.absolute, backgroundAnimatedStyles ]} />
+          <Animated.View style={[ ModalStyles.absolute, animatedStyles, containerStyle ]}>
             {stories?.map( ( story, index ) => (
               <StoryList
                 {...story}
@@ -323,6 +317,7 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
                 buttonHandled={buttonHandled}
                 paused={paused}
                 videoProps={videoProps}
+                closeColor={closeIconColor}
                 key={story.id}
               />
             ) )}

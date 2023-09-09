@@ -10,8 +10,8 @@ export interface StoryItemProps {
 
 export interface InstagramStoryProps {
   id: string;
-  imgUrl: string;
-  name: string;
+  imgUrl?: string;
+  name?: string;
   stories: StoryItemProps[];
 }
 
@@ -32,6 +32,7 @@ export interface InstagramStoriesProps {
   showName?: boolean;
   nameTextStyle?: TextStyle;
   videoProps?: any;
+  closeIconColor?: string;
   onShow?: ( id: string ) => void;
   onHide?: ( id: string ) => void;
 }
@@ -42,4 +43,5 @@ export type InstagramStoriesPublicMethods = {
   setStories: ( stories: InstagramStoryProps[] ) => void;
   clearProgressStorage: () => void;
   hide: () => void;
+  show: ( id?: string ) => void;
 };
