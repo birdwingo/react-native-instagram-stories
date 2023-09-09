@@ -30,6 +30,7 @@ export interface StoryModalProps {
   containerStyle?: ViewStyle;
   backgroundColor?: string;
   videoProps?: any;
+  closeIconColor: string;
   onLoad: () => void;
   onShow?: ( id: string ) => void;
   onHide?: ( id: string ) => void;
@@ -80,11 +81,12 @@ export interface StoryProgressItemProps extends Omit<StoryProgressProps, 'length
 }
 
 export interface StoryHeaderProps {
-  imgUrl: string;
-  name: string;
+  imgUrl?: string;
+  name?: string;
   avatarSize: number;
   textStyle?: TextStyle;
   buttonHandled: SharedValue<boolean>;
+  closeColor: string;
   onClose: () => void;
 }
 

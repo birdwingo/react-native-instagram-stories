@@ -74,26 +74,28 @@ const StoryImage: FC<StoryImageProps> = ( {
       <View style={ImageStyles.container}>
         <Loader loading={loading} color={color} size={50} />
       </View>
-      {data.uri && (
-        data.isVideo ? (
-          <StoryVideo
-            onLoad={onContentLoad}
-            onLayout={onImageLayout}
-            uri={data.uri}
-            paused={paused}
-            {...videoProps}
-          />
-        ) : (
-          <Image
-            source={{ uri: data.uri }}
-            style={{ width: WIDTH, aspectRatio: 0.5626 }}
-            resizeMode="contain"
-            testID="storyImageComponent"
-            onLayout={( e ) => onImageLayout( Math.min( HEIGHT, e.nativeEvent.layout.height ) )}
-            onLoad={() => onContentLoad()}
-          />
-        )
-      )}
+      <View style={ImageStyles.image}>
+        {data.uri && (
+          data.isVideo ? (
+            <StoryVideo
+              onLoad={onContentLoad}
+              onLayout={onImageLayout}
+              uri={data.uri}
+              paused={paused}
+              {...videoProps}
+            />
+          ) : (
+            <Image
+              source={{ uri: data.uri }}
+              style={{ width: WIDTH, aspectRatio: 0.5626 }}
+              resizeMode="contain"
+              testID="storyImageComponent"
+              onLayout={( e ) => onImageLayout( Math.min( HEIGHT, e.nativeEvent.layout.height ) )}
+              onLoad={() => onContentLoad()}
+            />
+          )
+        )}
+      </View>
     </>
   );
 

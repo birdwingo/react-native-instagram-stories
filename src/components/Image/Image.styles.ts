@@ -10,4 +10,8 @@ export default StyleSheet.create( {
     alignItems: 'center',
     justifyContent: 'center',
   },
+  image: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 } );

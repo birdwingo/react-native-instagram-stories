@@ -9,7 +9,7 @@ import { InstagramStoriesProps, InstagramStoriesPublicMethods } from '../../core
 import { ProgressStorageProps } from '../../core/dto/helpersDTO';
 import {
   ANIMATION_DURATION, DEFAULT_COLORS, SEEN_LOADER_COLORS,
-  STORY_AVATAR_SIZE, AVATAR_SIZE, BACKGROUND_COLOR,
+  STORY_AVATAR_SIZE, AVATAR_SIZE, BACKGROUND_COLOR, CLOSE_COLOR,
 } from '../../core/constants';
 import StoryModal from '../Modal';
 import { StoryModalPublicMethods } from '../../core/dto/componentsDTO';
@@ -29,6 +29,7 @@ const InstagramStories = forwardRef<InstagramStoriesPublicMethods, InstagramStor
   nameTextStyle,
   videoAnimationMaxDuration,
   videoProps,
+  closeIconColor = CLOSE_COLOR,
   ...props
 }, ref ) => {
 
@@ -170,6 +171,19 @@ const InstagramStories = forwardRef<InstagramStoriesPublicMethods, InstagramStor
       },
       clearProgressStorage,
       hide: () => modalRef.current?.hide(),
+      show: ( id ) => {
+
+        if ( id ) {
+
+          onPress( id );
+
+        } else if ( data[0]?.id ) {
+
+          onPress( data[0]?.id );
+
+        }
+
+      },
     } ),
     [ data ],
   );
@@ -189,7 +203,7 @@ const InstagramStories = forwardRef<InstagramStoriesPublicMethods, InstagramStor
   return (
     <>
       <ScrollView horizontal {...listContainerProps} contentContainerStyle={listContainerStyle} testID="storiesList">
-        {data.map( ( story ) => (
+        {data.map( ( story ) => story.imgUrl && (
           <StoryAvatar
             {...story}
             loadingStory={loadingStory}
@@ -215,6 +229,7 @@ const InstagramStories = forwardRef<InstagramStoriesPublicMethods, InstagramStor
         backgroundColor={backgroundColor}
         videoDuration={videoAnimationMaxDuration}
         videoProps={videoProps}
+        closeIconColor={closeIconColor}
         {...props}
       />
     </>
