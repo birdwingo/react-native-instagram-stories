@@ -76,7 +76,7 @@ const InstagramStories = forwardRef<InstagramStoriesPublicMethods, InstagramStor
       );
       const seenStory = story.stories[seenStoryIndex + 1] || story.stories[0];
 
-      return Image.prefetch( seenStory.sourceUrl );
+      return seenStory.mediaType === 'image' ? Image.prefetch( seenStory.sourceUrl ) : true;
 
     } );
 
