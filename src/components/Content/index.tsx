@@ -31,7 +31,7 @@ const StoryContent: FC<StoryContentProps> = ( { stories, active, activeStory } )
 
   const content = useMemo( () => stories[storyIndex]?.renderContent?.(), [ storyIndex ] );
 
-  return content ? <View style={ContentStyles.container}>{content}</View> : null;
+  return content ? <View style={ContentStyles.container} pointerEvents="box-none">{content}</View> : null;
 
 };
 

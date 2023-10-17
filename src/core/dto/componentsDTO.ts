@@ -58,7 +58,6 @@ export interface AnimationProps {
 
 export interface StoryImageProps {
   stories: InstagramStoryProps['stories'];
-  active: SharedValue<boolean>;
   activeStory: SharedValue<string>;
   defaultImage: string;
   isDefaultVideo: boolean;

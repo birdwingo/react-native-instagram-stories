@@ -8,7 +8,7 @@ import ImageStyles from './Image.styles';
 import StoryVideo from './video';
 
 const StoryImage: FC<StoryImageProps> = ( {
-  stories, active, activeStory, defaultImage, isDefaultVideo, paused, videoProps,
+  stories, activeStory, defaultImage, isDefaultVideo, paused, videoProps,
   onImageLayout, onLoad,
 } ) => {
 
@@ -20,12 +20,6 @@ const StoryImage: FC<StoryImageProps> = ( {
   const color = useSharedValue( LOADER_COLORS );
 
   const onImageChange = async () => {
-
-    if ( !active.value ) {
-
-      return;
-
-    }
 
     const story = stories.find( ( item ) => item.id === activeStory.value )!;
 
@@ -42,13 +36,13 @@ const StoryImage: FC<StoryImageProps> = ( {
     } else {
 
       loading.value = true;
-      setData( { uri: story?.sourceUrl, isVideo: story?.mediaType === 'video' } );
+      setData( { uri: story.sourceUrl, isVideo: story.mediaType === 'video' } );
 
     }
 
     const nextStory = stories[stories.indexOf( story ) + 1];
 
-    if ( nextStory ) {
+    if ( nextStory && nextStory.mediaType === 'image' ) {
 
       Image.prefetch( nextStory.sourceUrl );
 
