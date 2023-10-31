@@ -1,6 +1,8 @@
 import { Image, View } from 'react-native';
 import React, { FC, memo, useState } from 'react';
-import { runOnJS, useAnimatedReaction, useSharedValue } from 'react-native-reanimated';
+import {
+  runOnJS, useAnimatedReaction, useDerivedValue, useSharedValue,
+} from 'react-native-reanimated';
 import { StoryImageProps } from '../../core/dto/componentsDTO';
 import Loader from '../Loader';
 import { HEIGHT, LOADER_COLORS, WIDTH } from '../../core/constants';
@@ -8,7 +10,7 @@ import ImageStyles from './Image.styles';
 import StoryVideo from './video';
 
 const StoryImage: FC<StoryImageProps> = ( {
-  stories, activeStory, defaultImage, isDefaultVideo, paused, videoProps,
+  stories, activeStory, defaultImage, isDefaultVideo, paused, videoProps, isActive,
   onImageLayout, onLoad,
 } ) => {
 
@@ -18,6 +20,7 @@ const StoryImage: FC<StoryImageProps> = ( {
 
   const loading = useSharedValue( true );
   const color = useSharedValue( LOADER_COLORS );
+  const isPaused = useDerivedValue( () => paused.value && isActive.value );
 
   const onImageChange = async () => {
 
@@ -42,7 +45,7 @@ const StoryImage: FC<StoryImageProps> = ( {
 
     const nextStory = stories[stories.indexOf( story ) + 1];
 
-    if ( nextStory && nextStory.mediaType === 'image' ) {
+    if ( nextStory && nextStory.mediaType !== 'video' ) {
 
       Image.prefetch( nextStory.sourceUrl );
 
@@ -75,7 +78,7 @@ const StoryImage: FC<StoryImageProps> = ( {
               onLoad={onContentLoad}
               onLayout={onImageLayout}
               uri={data.uri}
-              paused={paused}
+              paused={isPaused}
               {...videoProps}
             />
           ) : (

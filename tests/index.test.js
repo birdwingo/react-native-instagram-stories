@@ -264,6 +264,33 @@ describe( 'Instagram Stories test', () => {
 
       expect( getByTestId( '1StoryAvatar1Story' ) ).toBeTruthy();
 
+      ref.current.show();
+      ref.current.show('1');
+
+    } );
+
+  } );
+
+  it( 'Should not open if empty array', async () => {
+
+    const ref = createRef();
+
+    const { queryByTestId } = render(
+      <InstagramStories
+        stories={[]}
+        ref={ref}
+        saveProgress
+      />,
+    );
+
+    await act( async () => {
+
+      ref.current.show();
+
+      await sleep();
+
+      expect( queryByTestId( 'storyModal' ) ).toBeFalsy();
+
     } );
 
   } );
@@ -487,7 +514,7 @@ describe( 'Story Image test', () => {
 
   it( 'Should work with wrong story', () => {
 
-    render( <StoryImage stories={stories[0].stories} active={{ value: true }} activeStory={{ value: '2' }} defaultImage="url" /> );
+    render( <StoryImage stories={stories[0].stories} active={{ value: true }} activeStory={{ value: '2' }} defaultImage="url" paused={{ value: true }} isActive={{ value: true }} /> );
 
   } );
 
@@ -501,6 +528,8 @@ describe( 'Story Image test', () => {
       activeStory={{ value: '1' }}
       defaultImage="url"
       onLoad={onLoad}
+      paused={{ value: true }}
+      isActive={{ value: true }}
     /> );
 
     expect( onLoad ).toHaveBeenCalled();

@@ -54,6 +54,7 @@ const StoryList: FC<StoryListProps> = ( {
           onImageLayout={onImageLayout}
           onLoad={onImageLoad}
           paused={paused}
+          isActive={isActive}
           videoProps={videoProps}
         />
         <Progress
