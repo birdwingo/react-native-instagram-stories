@@ -115,6 +115,7 @@ export interface StoryListProps extends InstagramStoryProps, StoryHeaderProps {
 export interface StoryVideoProps {
   uri: string;
   paused: SharedValue<boolean>;
+  isActive: SharedValue<boolean>;
   onLoad: ( duration: number ) => void;
   onLayout: ( height: number ) => void;
 }

@@ -112,7 +112,7 @@ export default YourComponent;
  `setStories`          | ( stories: [InstagramStoryProps](#instagramstoryprops)[] ) => void                               | Replace the current stories with a new set of stories.
  `clearProgressStorage`| () => void                                                                                       | Clear the progress storage for seen stories.
  `hide`                | () => void                                                                                       | Hide stories if currently visible
- `show`                | ( id?: string ) => void                                                                          | Show stories modal with provided story `id`. If `id` is not provided, will be show first story
+ `show`                | ( id?: string ) => void                                                                          | Show stories modal with provided story `id`. If `id` is not provided, will be shown first story
 
 ## Types
 

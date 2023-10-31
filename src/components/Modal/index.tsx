@@ -113,8 +113,6 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
     const userStories = stories[newUserIndex]?.stories;
     currentStory.value = userStories[newStoryIndex + 1]?.id ?? userStories[0]?.id;
 
-    startAnimation();
-
   };
 
   const toNextStory = ( value = true ) => {
