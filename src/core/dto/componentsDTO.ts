@@ -63,6 +63,7 @@ export interface StoryImageProps {
   isDefaultVideo: boolean;
   paused: SharedValue<boolean>;
   videoProps?: any;
+  isActive: SharedValue<boolean>;
   onImageLayout: ( height: number ) => void;
   onLoad: ( duration?: number ) => void;
 }
