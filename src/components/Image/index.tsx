@@ -33,7 +33,7 @@ const StoryImage: FC<StoryImageProps> = ( {
 
     }
 
-    if ( data.uri === story.sourceUrl && ( data.isVideo || videoDuration.value !== undefined ) ) {
+    if ( data.uri === story.sourceUrl && ( !data.isVideo || videoDuration.value !== undefined ) ) {
 
       onLoad( videoDuration.value );
 
