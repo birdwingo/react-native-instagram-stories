@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 1.0.5 (2023-10-31)
+
+
+### Bug Fixes
+
+* en gif ([542f651](https://github.com/birdwingo/react-native-instagram-stories/commit/542f651b572b204ad635f8a2f4095c9465648391))
+
 ### 1.0.4 (2023-09-11)
 
 
