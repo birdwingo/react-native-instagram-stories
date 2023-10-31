@@ -20,7 +20,8 @@ const StoryImage: FC<StoryImageProps> = ( {
 
   const loading = useSharedValue( true );
   const color = useSharedValue( LOADER_COLORS );
-  const isPaused = useDerivedValue( () => paused.value && isActive.value );
+  const videoDuration = useSharedValue<number | undefined>( undefined );
+  const isPaused = useDerivedValue( () => paused.value || !isActive.value );
 
   const onImageChange = async () => {
 
@@ -32,9 +33,9 @@ const StoryImage: FC<StoryImageProps> = ( {
 
     }
 
-    if ( data.uri === story.sourceUrl ) {
+    if ( data.uri === story.sourceUrl && ( data.isVideo || videoDuration.value !== undefined ) ) {
 
-      onLoad();
+      onLoad( videoDuration.value );
 
     } else {
 
@@ -61,6 +62,12 @@ const StoryImage: FC<StoryImageProps> = ( {
 
   const onContentLoad = ( duration?: number ) => {
 
+    if ( data.isVideo ) {
+
+      videoDuration.value = duration;
+
+    }
+
     loading.value = false;
     onLoad( duration );
 
@@ -79,6 +86,7 @@ const StoryImage: FC<StoryImageProps> = ( {
               onLayout={onImageLayout}
               uri={data.uri}
               paused={isPaused}
+              isActive={isActive}
               {...videoProps}
             />
           ) : (
