@@ -37,12 +37,12 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
   const userId = useDerivedValue( () => stories[userIndex.value]?.id );
   const previousUserId = useDerivedValue( () => stories[userIndex.value - 1]?.id );
   const nextUserId = useDerivedValue( () => stories[userIndex.value + 1]?.id );
-  const previousStory = useDerivedValue(
-    () => stories[userIndex.value]?.stories[storyIndex.value - 1]?.id,
-  );
-  const nextStory = useDerivedValue(
-    () => stories[userIndex.value]?.stories[storyIndex.value + 1]?.id,
-  );
+  const previousStory = useDerivedValue( () => ( storyIndex.value !== undefined
+    ? stories[userIndex.value]?.stories[storyIndex.value - 1]?.id
+    : undefined ) );
+  const nextStory = useDerivedValue( () => ( storyIndex.value !== undefined
+    ? stories[userIndex.value]?.stories[storyIndex.value + 1]?.id
+    : undefined ) );
 
   const animatedStyles = useAnimatedStyle( () => ( { top: y.value } ) );
   const backgroundAnimatedStyles = useAnimatedStyle( () => ( {
@@ -91,7 +91,12 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
     } else {
 
       animation.value = 0;
-      runOnJS( onSeenStoriesChange )( userId.value, currentStory.value );
+
+      if ( userId.value !== undefined && currentStory.value !== undefined ) {
+
+        runOnJS( onSeenStoriesChange )( userId.value, currentStory.value );
+
+      }
 
     }
 
@@ -111,7 +116,8 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
       ( story ) => story.id === seenStories.value[id],
     );
     const userStories = stories[newUserIndex]?.stories;
-    currentStory.value = userStories[newStoryIndex + 1]?.id ?? userStories[0]?.id;
+    currentStory.value = newStoryIndex !== undefined
+      ? userStories?.[newStoryIndex + 1]?.id ?? userStories?.[0]?.id : undefined;
 
   };
 
@@ -236,7 +242,11 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
         }
 
         const newUserId = stories[Math.round( newX / WIDTH )]?.id;
-        scrollTo( newUserId );
+        if ( newUserId !== undefined ) {
+
+          scrollTo( newUserId );
+
+        }
 
       } else if ( ctx.pressedAt + LONG_PRESS_DURATION < Date.now() ) {
 
@@ -266,12 +276,16 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
 
     if ( visible ) {
 
-      onShow?.( currentStory.value );
+      if ( currentStory.value !== undefined ) {
+
+        onShow?.( currentStory.value );
+
+      }
       onLoad?.();
 
       y.value = withTiming( 0, ANIMATION_CONFIG );
 
-    } else {
+    } else if ( currentStory.value !== undefined ) {
 
       onHide?.( currentStory.value );
 

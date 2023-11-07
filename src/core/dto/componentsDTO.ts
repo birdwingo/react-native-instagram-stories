@@ -58,8 +58,8 @@ export interface AnimationProps {
 
 export interface StoryImageProps {
   stories: InstagramStoryProps['stories'];
-  activeStory: SharedValue<string>;
-  defaultImage: string;
+  activeStory: SharedValue<string | undefined>;
+  defaultImage: string | undefined;
   isDefaultVideo: boolean;
   paused: SharedValue<boolean>;
   videoProps?: any;
@@ -97,14 +97,14 @@ export interface IconProps {
 export interface StoryContentProps {
   stories: InstagramStoryProps['stories'];
   active: SharedValue<boolean>;
-  activeStory: SharedValue<string>;
+  activeStory: SharedValue<string | undefined>;
 }
 
 export interface StoryListProps extends InstagramStoryProps, StoryHeaderProps {
   index: number;
   x: SharedValue<number>;
-  activeUser: SharedValue<string>;
-  activeStory: SharedValue<string>;
+  activeUser: SharedValue<string | undefined>;
+  activeStory: SharedValue<string | undefined>;
   progress: SharedValue<number>;
   seenStories: SharedValue<ProgressStorageProps>;
   paused: SharedValue<boolean>;
