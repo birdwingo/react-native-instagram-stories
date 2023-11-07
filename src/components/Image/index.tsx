@@ -14,7 +14,7 @@ const StoryImage: FC<StoryImageProps> = ( {
   onImageLayout, onLoad,
 } ) => {
 
-  const [ data, setData ] = useState<{ uri: string, isVideo?: boolean }>(
+  const [ data, setData ] = useState<{ uri: string | undefined, isVideo?: boolean }>(
     { uri: defaultImage, isVideo: isDefaultVideo },
   );
 
