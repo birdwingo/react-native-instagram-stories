@@ -1,12 +1,13 @@
 import React, { FC, memo } from 'react';
 import { View } from 'react-native';
 import ProgressItem from './item';
-import { WIDTH } from '../../core/constants';
+import { PROGRESS_ACTIVE_COLOR, PROGRESS_COLOR, WIDTH } from '../../core/constants';
 import ProgressStyles from './Progress.styles';
 import { StoryProgressProps } from '../../core/dto/componentsDTO';
 
 const Progress: FC<StoryProgressProps> = ( {
   progress, active, activeStory, length,
+  progressActiveColor = PROGRESS_ACTIVE_COLOR, progressColor = PROGRESS_COLOR,
 } ) => {
 
   const width = ( (
@@ -23,6 +24,8 @@ const Progress: FC<StoryProgressProps> = ( {
           index={val}
           width={width}
           key={val}
+          progressActiveColor={progressActiveColor}
+          progressColor={progressColor}
         />
       ) )}
     </View>

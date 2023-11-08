@@ -100,6 +100,8 @@ export default YourComponent;
  `nameTextStyle`            | TextStyle                                    |                                            | Additional styles for name text elements.
  `videoProps`               | [react-native-video](https://www.npmjs.com/package/react-native-video?activeTab=readme#configurable-props)| | Additional props for video component. For more information, follow `react-native-video`.
  `closeIconColor`           | string                                       | '#00000099'                                | The color of story close icon.
+ `progressColor`            | string                                       | '#00000099'                                | Background color of progress bar item in inactive state
+ `progressActiveColor`      | string                                       | '#FFFFFF'                                  | Background color of progress bar item in active state
  `onShow`                   | ( id: string ) => void                       |                                            | Callback when a story is shown.
  `onHide`                   | ( id: string ) => void                       |                                            | Callback when a story is hidden.
 
