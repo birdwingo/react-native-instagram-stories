@@ -8,7 +8,7 @@ import Animated, {
 import { StoryAvatarProps } from '../../core/dto/componentsDTO';
 import AvatarStyles from './Avatar.styles';
 import Loader from '../Loader';
-import { AVATAR_OFFSET, AVATAR_SIZE } from '../../core/constants';
+import { AVATAR_OFFSET } from '../../core/constants';
 
 const AnimatedImage = Animated.createAnimatedComponent( Image );
 
@@ -55,7 +55,7 @@ const StoryAvatar: FC<StoryAvatarProps> = ( {
             style={[
               AvatarStyles.avatar,
               imageAnimatedStyles,
-              { width: AVATAR_SIZE, height: AVATAR_SIZE, borderRadius: AVATAR_SIZE / 2 },
+              { width: size, height: size, borderRadius: size / 2 },
             ]}
             testID="storyAvatarImage"
             onLoad={onLoad}
