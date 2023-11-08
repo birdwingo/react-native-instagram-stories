@@ -31,11 +31,7 @@ const StoryList: FC<StoryListProps> = ( {
 
   const onImageLoad = ( duration?: number ) => {
 
-    if ( isActive.value ) {
-
-      onLoad( duration );
-
-    }
+    onLoad( duration );
 
   };
 

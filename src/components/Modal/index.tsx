@@ -112,6 +112,15 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
     const newX = newUserIndex * WIDTH;
 
     x.value = animated ? withTiming( newX, ANIMATION_CONFIG ) : newX;
+
+    if ( id === userId.value ) {
+
+      startAnimation( true );
+
+      return;
+
+    }
+
     const newStoryIndex = stories[newUserIndex]?.stories.findIndex(
       ( story ) => story.id === seenStories.value[id],
     );
