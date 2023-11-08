@@ -43,8 +43,6 @@ const InstagramStories = forwardRef<InstagramStoriesPublicMethods, InstagramStor
 
   const onPress = ( id: string ) => {
 
-    'worklet';
-
     loadingStory.value = id;
 
     if ( loadedStories.value ) {
@@ -57,15 +55,11 @@ const InstagramStories = forwardRef<InstagramStoriesPublicMethods, InstagramStor
 
   const onLoad = () => {
 
-    'worklet';
-
     loadingStory.value = undefined;
 
   };
 
   const onStoriesChange = async () => {
-
-    'worklet';
 
     seenStories.value = await ( saveProgress ? getProgressStorage() : {} );
 
