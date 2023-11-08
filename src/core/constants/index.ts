@@ -8,6 +8,7 @@ export const DEFAULT_COLORS = [ '#F7B801', '#F18701', '#F35B04', '#F5301E', '#C8
 export const LOADER_COLORS = [ '#FFF' ];
 export const SEEN_LOADER_COLORS = [ '#2A2A2C' ];
 export const PROGRESS_COLOR = '#00000099';
+export const PROGRESS_ACTIVE_COLOR = '#FFFFFF';
 export const BACKGROUND_COLOR = '#000000';
 export const CLOSE_COLOR = '#00000099';
 
