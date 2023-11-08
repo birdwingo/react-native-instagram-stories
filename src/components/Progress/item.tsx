@@ -3,7 +3,7 @@ import { View } from 'react-native';
 import Animated, { useAnimatedStyle } from 'react-native-reanimated';
 import { StoryProgressItemProps } from '../../core/dto/componentsDTO';
 import ProgressStyles from './Progress.styles';
-import { PROGRESS_ACTIVE_COLOR, PROGRESS_COLOR } from '~/core/constants';
+import { PROGRESS_ACTIVE_COLOR, PROGRESS_COLOR } from '../../core/constants';
 
 const AnimatedView = Animated.createAnimatedComponent( View );
 
