@@ -3,11 +3,13 @@ import { View } from 'react-native';
 import Animated, { useAnimatedStyle } from 'react-native-reanimated';
 import { StoryProgressItemProps } from '../../core/dto/componentsDTO';
 import ProgressStyles from './Progress.styles';
+import { PROGRESS_ACTIVE_COLOR, PROGRESS_COLOR } from '~/core/constants';
 
 const AnimatedView = Animated.createAnimatedComponent( View );
 
 const ProgressItem: FC<StoryProgressItemProps> = ( {
   progress, active, activeStory, index, width,
+  progressActiveColor = PROGRESS_ACTIVE_COLOR, progressColor = PROGRESS_COLOR,
 } ) => {
 
   const animatedStyle = useAnimatedStyle( () => {
@@ -29,8 +31,10 @@ const ProgressItem: FC<StoryProgressItemProps> = ( {
   } );
 
   return (
-    <View style={[ ProgressStyles.item, ProgressStyles.itemInactive, { width } ]}>
-      <AnimatedView style={[ ProgressStyles.item, ProgressStyles.itemActive, animatedStyle ]} />
+    <View style={[ ProgressStyles.item, { backgroundColor: progressColor }, { width } ]}>
+      <AnimatedView
+        style={[ ProgressStyles.item, { backgroundColor: progressActiveColor }, animatedStyle ]}
+      />
     </View>
   );
 

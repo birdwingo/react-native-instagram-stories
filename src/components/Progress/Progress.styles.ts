@@ -1,5 +1,4 @@
 import { StyleSheet } from 'react-native';
-import { PROGRESS_COLOR } from '../../core/constants';
 
 export default StyleSheet.create( {
   container: {
@@ -14,11 +13,5 @@ export default StyleSheet.create( {
     height: 3,
     borderRadius: 8,
     overflow: 'hidden',
-  },
-  itemActive: {
-    backgroundColor: '#FFF',
-  },
-  itemInactive: {
-    backgroundColor: PROGRESS_COLOR,
   },
 } );
