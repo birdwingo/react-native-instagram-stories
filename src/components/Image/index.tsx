@@ -35,7 +35,11 @@ const StoryImage: FC<StoryImageProps> = ( {
 
     if ( data.uri === story.sourceUrl ) {
 
-      onLoad( videoDuration.value );
+      if ( !loading.value ) {
+
+        onLoad( videoDuration.value );
+
+      }
 
     } else {
 
@@ -69,7 +73,12 @@ const StoryImage: FC<StoryImageProps> = ( {
     }
 
     loading.value = false;
-    onLoad( duration );
+
+    if ( isActive.value ) {
+
+      onLoad( duration );
+
+    }
 
   };
 
