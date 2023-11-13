@@ -29,12 +29,6 @@ const StoryList: FC<StoryListProps> = ( {
 
   };
 
-  const onImageLoad = ( duration?: number ) => {
-
-    onLoad( duration );
-
-  };
-
   const lastSeenIndex = stories.findIndex(
     ( item ) => item.id === seenStories.value[id],
   );
@@ -48,7 +42,7 @@ const StoryList: FC<StoryListProps> = ( {
           defaultImage={stories[lastSeenIndex + 1]?.sourceUrl ?? stories[0]?.sourceUrl}
           isDefaultVideo={( stories[lastSeenIndex + 1]?.mediaType ?? stories[0]?.mediaType ) === 'video'}
           onImageLayout={onImageLayout}
-          onLoad={onImageLoad}
+          onLoad={onLoad}
           paused={paused}
           isActive={isActive}
           videoProps={videoProps}

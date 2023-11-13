@@ -229,7 +229,7 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
         } else {
 
           y.value = withTiming( 0 );
-          startAnimation();
+          startAnimation( true );
 
         }
 
