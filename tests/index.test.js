@@ -463,6 +463,17 @@ describe( 'Instagram Stories test', () => {
 
   } );
 
+  it( 'Should work with empty array', async () => {
+
+    render( <InstagramStories stories={[ {
+      id: '1',
+      name: 'John Doe',
+      imgUrl: 'https://picsum.photos/200/300',
+      stories: [],
+    } ]} /> );
+
+  } );
+
   it( 'Should work with video & default duration', async () => {
 
     const { getByTestId } = render( <InstagramStories stories={stories4} videoAnimationMaxDuration={1000} /> );
@@ -519,6 +530,8 @@ describe( 'Story Image test', () => {
   } );
 
   it( 'Should work if story already loaded', async () => {
+
+    jest.spyOn(Reanimated, 'useSharedValue').mockImplementation((value) => ({ value: value === true ? false : value }));
 
     const onLoad = jest.fn();
 
