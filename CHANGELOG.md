@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 1.0.10 (2023-11-14)
+
+
+### Bug Fixes
+
+* progress bar animation bug ([fa1b936](https://github.com/birdwingo/react-native-instagram-stories/commit/fa1b9360d40e26b3be79bae099500468ee32ada0))
+
 ### 1.0.9 (2023-11-08)
 
 
