@@ -122,9 +122,9 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
 
     }
 
-    const newStoryIndex = Math.max( 0, stories[newUserIndex]?.stories.findIndex(
+    const newStoryIndex = stories[newUserIndex]?.stories.findIndex(
       ( story ) => story.id === seenStories.value[id],
-    ) ?? 0 );
+    );
     const userStories = stories[newUserIndex]?.stories;
     currentStory.value = newStoryIndex !== undefined
       ? userStories?.[newStoryIndex + 1]?.id ?? userStories?.[0]?.id : undefined;
