@@ -105,7 +105,7 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
 
   };
 
-  const scrollTo = ( id: string, animated = true ) => {
+  const scrollTo = ( id: string, animated = true, started = false ) => {
 
     'worklet';
 
@@ -114,7 +114,7 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
 
     x.value = animated ? withTiming( newX, ANIMATION_CONFIG ) : newX;
 
-    if ( id === userId.value ) {
+    if ( id === userId.value && !started ) {
 
       startAnimation( true );
 
@@ -186,7 +186,7 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
   const show = ( id: string ) => {
 
     setVisible( true );
-    scrollTo( id, false );
+    scrollTo( id, false, true );
 
   };
 
