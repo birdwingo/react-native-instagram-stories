@@ -105,7 +105,7 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
 
   };
 
-  const scrollTo = ( id: string, animated = true, started = false ) => {
+  const scrollTo = ( id: string, animated = true, sameUser = false ) => {
 
     'worklet';
 
@@ -114,7 +114,7 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
 
     x.value = animated ? withTiming( newX, ANIMATION_CONFIG ) : newX;
 
-    if ( id === userId.value && !started ) {
+    if ( sameUser ) {
 
       startAnimation( true );
 
@@ -186,7 +186,7 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
   const show = ( id: string ) => {
 
     setVisible( true );
-    scrollTo( id, false, true );
+    scrollTo( id, false );
 
   };
 
@@ -198,6 +198,7 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
       ctx.pressedAt = Date.now();
       stopAnimation();
       paused.value = true;
+      ctx.userId = userId.value;
 
     },
     onActive: ( e, ctx ) => {
@@ -254,7 +255,7 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
         const newUserId = stories[Math.round( newX / WIDTH )]?.id;
         if ( newUserId !== undefined ) {
 
-          scrollTo( newUserId );
+          scrollTo( newUserId, true, newUserId === ctx.userId );
 
         }
 
@@ -276,6 +277,7 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
       ctx.vertical = false;
       buttonHandled.value = false;
       paused.value = false;
+      ctx.userId = undefined;
 
     },
   } );
