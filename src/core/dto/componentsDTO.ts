@@ -51,6 +51,7 @@ export type GestureContext = {
   pressedAt: number,
   moving: boolean,
   vertical: boolean,
+  userId?: string,
 };
 
 export interface AnimationProps {

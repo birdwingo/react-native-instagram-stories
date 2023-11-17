@@ -25,7 +25,13 @@ const StoryImage: FC<StoryImageProps> = ( {
 
   const onImageChange = async () => {
 
-    const story = stories.find( ( item ) => item.id === activeStory.value )!;
+    if ( !activeStory.value ) {
+
+      return;
+
+    }
+
+    const story = stories.find( ( item ) => item.id === activeStory.value );
 
     if ( !story ) {
 
@@ -57,6 +63,12 @@ const StoryImage: FC<StoryImageProps> = ( {
     }
 
   };
+
+  useAnimatedReaction(
+    () => isActive.value,
+    ( res, prev ) => res !== prev && res && runOnJS( onImageChange )(),
+    [ isActive.value ],
+  );
 
   useAnimatedReaction(
     () => activeStory.value,
