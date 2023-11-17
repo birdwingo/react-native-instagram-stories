@@ -17,7 +17,8 @@ import ModalStyles from './Modal.styles';
 
 const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
   stories, seenStories, duration, videoDuration, storyAvatarSize, textStyle, containerStyle,
-  backgroundColor, videoProps, closeIconColor, onLoad, onShow, onHide, onSeenStoriesChange, ...props
+  backgroundColor, videoProps, closeIconColor, modalAnimationDuration = 800, onLoad, onShow, onHide,
+  onSeenStoriesChange, ...props
 }, ref ) => {
 
   const [ visible, setVisible ] = useState( false );
@@ -56,7 +57,7 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
 
     y.value = withTiming(
       HEIGHT,
-      ANIMATION_CONFIG,
+      { duration: modalAnimationDuration },
       () => runOnJS( setVisible )( false ),
     );
 
@@ -292,7 +293,7 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
       }
       onLoad?.();
 
-      y.value = withTiming( 0, ANIMATION_CONFIG );
+      y.value = withTiming( 0, { duration: modalAnimationDuration } );
 
     } else if ( currentStory.value !== undefined ) {
 
