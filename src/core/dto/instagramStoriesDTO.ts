@@ -35,6 +35,7 @@ export interface InstagramStoriesProps {
   closeIconColor?: string;
   progressActiveColor?: string;
   progressColor?: string;
+  modalAnimationDuration?: number;
   onShow?: ( id: string ) => void;
   onHide?: ( id: string ) => void;
 }

@@ -33,6 +33,7 @@ export interface StoryModalProps {
   closeIconColor: string;
   progressActiveColor?: string;
   progressColor?: string;
+  modalAnimationDuration?: number;
   onLoad: () => void;
   onShow?: ( id: string ) => void;
   onHide?: ( id: string ) => void;

@@ -102,6 +102,7 @@ export default YourComponent;
  `closeIconColor`           | string                                       | '#00000099'                                | The color of story close icon.
  `progressColor`            | string                                       | '#00000099'                                | Background color of progress bar item in inactive state
  `progressActiveColor`      | string                                       | '#FFFFFF'                                  | Background color of progress bar item in active state
+ `modalAnimationDuration`   | number                                       | 800                                        | Duration of modal animation (showing/closing instagram stories)
  `onShow`                   | ( id: string ) => void                       |                                            | Callback when a story is shown.
  `onHide`                   | ( id: string ) => void                       |                                            | Callback when a story is hidden.
 
