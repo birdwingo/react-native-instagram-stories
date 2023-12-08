@@ -38,6 +38,7 @@ export interface StoryModalProps {
   onShow?: ( id: string ) => void;
   onHide?: ( id: string ) => void;
   onSeenStoriesChange: ( user: string, value: string ) => void;
+  onSwipeUp?: ( userId?: string, storyId?: string ) => void;
 }
 
 export type StoryModalPublicMethods = {

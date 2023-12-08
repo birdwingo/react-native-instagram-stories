@@ -18,7 +18,7 @@ import ModalStyles from './Modal.styles';
 const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
   stories, seenStories, duration, videoDuration, storyAvatarSize, textStyle, containerStyle,
   backgroundColor, videoProps, closeIconColor, modalAnimationDuration = 800, onLoad, onShow, onHide,
-  onSeenStoriesChange, ...props
+  onSeenStoriesChange, onSwipeUp, ...props
 }, ref ) => {
 
   const [ visible, setVisible ] = useState( false );
@@ -207,7 +207,7 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
         && ( ctx.vertical || ( Math.abs( e.velocityX ) < Math.abs( e.velocityY ) ) ) ) {
 
         ctx.vertical = true;
-        y.value = Math.max( 0, e.translationY / 2 );
+        y.value = e.translationY / 2;
 
       } else {
 
@@ -229,6 +229,15 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
           onClose();
 
         } else {
+
+          if ( e.translationY < -100 ) {
+
+            onSwipeUp?.(
+              stories[userIndex.value]?.id,
+              stories[userIndex.value]?.stories[storyIndex.value ?? 0]?.id,
+            );
+
+          }
 
           y.value = withTiming( 0 );
           startAnimation( true );
