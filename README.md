@@ -105,6 +105,7 @@ export default YourComponent;
  `modalAnimationDuration`   | number                                       | 800                                        | Duration of modal animation in ms (showing/closing instagram stories)
  `onShow`                   | ( id: string ) => void                       |                                            | Callback when a story is shown.
  `onHide`                   | ( id: string ) => void                       |                                            | Callback when a story is hidden.
+ `onSwipeUp`                | ( userId?: string, storyId?: string ) => void|                                            | Callback when user swipes up.
 
 ## Public Methods
 

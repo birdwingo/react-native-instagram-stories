@@ -38,6 +38,7 @@ export interface InstagramStoriesProps {
   modalAnimationDuration?: number;
   onShow?: ( id: string ) => void;
   onHide?: ( id: string ) => void;
+  onSwipeUp?: ( userId?: string, storyId?: string ) => void;
 }
 
 export type InstagramStoriesPublicMethods = {
