@@ -230,9 +230,9 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
 
         } else {
 
-          if ( e.translationY < -100 ) {
+          if ( e.translationY < -100 && onSwipeUp ) {
 
-            onSwipeUp?.(
+            runOnJS( onSwipeUp )(
               stories[userIndex.value]?.id,
               stories[userIndex.value]?.stories[storyIndex.value ?? 0]?.id,
             );
