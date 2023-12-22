@@ -36,16 +36,17 @@ export interface InstagramStoriesProps {
   progressActiveColor?: string;
   progressColor?: string;
   modalAnimationDuration?: number;
-  onShow?: ( id: string ) => void;
-  onHide?: ( id: string ) => void;
-  onSwipeUp?: ( userId?: string, storyId?: string ) => void;
+  onShow?: (id: string) => void;
+  onHide?: (id: string) => void;
+  onSwipeUp?: (userId?: string, storyId?: string) => void;
+  onChange?: (storyId?: string) => void;
 }
 
 export type InstagramStoriesPublicMethods = {
-  spliceStories: ( stories: InstagramStoryProps[], index?: number ) => void;
-  spliceUserStories: ( stories: StoryItemProps[], user: string, index?: number ) => void;
-  setStories: ( stories: InstagramStoryProps[] ) => void;
+  spliceStories: (stories: InstagramStoryProps[], index?: number) => void;
+  spliceUserStories: (stories: StoryItemProps[], user: string, index?: number) => void;
+  setStories: (stories: InstagramStoryProps[]) => void;
   clearProgressStorage: () => void;
   hide: () => void;
-  show: ( id?: string ) => void;
+  show: (id?: string) => void;
 };
