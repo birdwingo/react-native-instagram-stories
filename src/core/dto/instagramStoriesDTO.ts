@@ -39,6 +39,8 @@ export interface InstagramStoriesProps {
   onShow?: ( id: string ) => void;
   onHide?: ( id: string ) => void;
   onSwipeUp?: ( userId?: string, storyId?: string ) => void;
+  onStoryStart?: ( userId?: string, storyId?: string ) => void;
+  onStoryEnd?: ( userId?: string, storyId?: string ) => void;
 }
 
 export type InstagramStoriesPublicMethods = {
