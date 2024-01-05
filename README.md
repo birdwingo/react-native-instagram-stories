@@ -119,8 +119,9 @@ export default YourComponent;
  `clearProgressStorage`| () => void                                                                                       | Clear the progress storage for seen stories.
  `hide`                | () => void                                                                                       | Hide stories if currently visible
  `show`                | ( id?: string ) => void                                                                          | Show stories modal with provided story `id`. If `id` is not provided, will be shown first story
- `pause`               | () => {userId?: string, storyId?: string}                                                        | Pause story and return current userId and storyId
- `resume`              | () => {userId?: string, storyId?: string}                                                        | Resume story and return current userId and storyId
+ `pause`               | () => void                                                                                       | Pause story
+ `resume`              | () => void                                                                                       | Resume story
+ `getCurrentStory`    | () => {userId?: string, storyId?: string}                                                        | Returns current userId and storyId
 
 ## Types
 

@@ -51,6 +51,7 @@ export type InstagramStoriesPublicMethods = {
   clearProgressStorage: () => void;
   hide: () => void;
   show: ( id?: string ) => void;
-  pause: () => { userId?: string, storyId?: string };
-  resume: () => { userId?: string, storyId?: string };
+  pause: () => void;
+  resume: () => void;
+  getCurrentStory: () => { userId?: string, storyId?: string };
 };

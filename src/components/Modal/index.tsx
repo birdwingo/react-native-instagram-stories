@@ -332,17 +332,14 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
       stopAnimation();
       paused.value = true;
 
-      return { userId: userId.value, storyId: currentStory.value };
-
     },
     resume: () => {
 
       startAnimation( true );
       paused.value = false;
 
-      return { userId: userId.value, storyId: currentStory.value };
-
     },
+    getCurrentStory: () => ( { userId: userId.value, storyId: currentStory.value } ),
   } ), [ userId.value, currentStory.value ] );
 
   useEffect( () => {
