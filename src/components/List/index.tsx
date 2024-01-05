@@ -8,6 +8,7 @@ import StoryHeader from '../Header';
 import { StoryListProps } from '../../core/dto/componentsDTO';
 import { HEIGHT } from '../../core/constants';
 import StoryContent from '../Content';
+import StoryFooter from '../Footer';
 
 const StoryList: FC<StoryListProps> = ( {
   id, stories, index, x, activeUser, activeStory, progress, seenStories, paused,
@@ -58,6 +59,7 @@ const StoryList: FC<StoryListProps> = ( {
         <StoryHeader {...props} />
         <StoryContent stories={stories} active={isActive} activeStory={activeStory} />
       </Animated.View>
+      <StoryFooter stories={stories} active={isActive} activeStory={activeStory} />
     </StoryAnimation>
   );
 
