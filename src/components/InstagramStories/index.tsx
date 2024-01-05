@@ -186,6 +186,7 @@ const InstagramStories = forwardRef<InstagramStoriesPublicMethods, InstagramStor
       },
       pause: () => modalRef.current?.pause()!,
       resume: () => modalRef.current?.resume()!,
+      getCurrentStory: () => modalRef.current?.getCurrentStory()!,
     } ),
     [ data ],
   );
