@@ -122,7 +122,11 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
 
     }
 
-    onStoryEnd?.( userId.value, currentStory.value );
+    if ( onStoryEnd ) {
+
+      runOnJS( onStoryEnd )( userId.value, currentStory.value );
+
+    }
 
     const newStoryIndex = stories[newUserIndex]?.stories.findIndex(
       ( story ) => story.id === seenStories.value[id],
@@ -131,7 +135,11 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
     currentStory.value = newStoryIndex !== undefined
       ? userStories?.[newStoryIndex + 1]?.id ?? userStories?.[0]?.id : undefined;
 
-    onStoryStart?.( id, currentStory.value );
+    if ( onStoryStart ) {
+
+      runOnJS( onStoryStart )( id, currentStory.value );
+
+    }
 
   };
 
@@ -159,8 +167,17 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
 
     } else {
 
-      onStoryEnd?.( userId.value, currentStory.value );
-      onStoryStart?.( userId.value, nextStory.value );
+      if ( onStoryEnd ) {
+
+        runOnJS( onStoryEnd )( userId.value, currentStory.value );
+
+      }
+
+      if ( onStoryStart ) {
+
+        runOnJS( onStoryStart )( userId.value, nextStory.value );
+
+      }
 
       animation.value = 0;
       currentStory.value = nextStory.value;
