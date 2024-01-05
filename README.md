@@ -106,6 +106,8 @@ export default YourComponent;
  `onShow`                   | ( id: string ) => void                       |                                            | Callback when a story is shown.
  `onHide`                   | ( id: string ) => void                       |                                            | Callback when a story is hidden.
  `onSwipeUp`                | ( userId?: string, storyId?: string ) => void|                                            | Callback when user swipes up.
+ `onStoryStart`             | ( userId?: string, storyId?: string ) => void|                                            | Callback when story started
+ `onStoryEnd`               | ( userId?: string, storyId?: string ) => void|                                            | Callback when story ended
 
 ## Public Methods
 
@@ -117,6 +119,8 @@ export default YourComponent;
  `clearProgressStorage`| () => void                                                                                       | Clear the progress storage for seen stories.
  `hide`                | () => void                                                                                       | Hide stories if currently visible
  `show`                | ( id?: string ) => void                                                                          | Show stories modal with provided story `id`. If `id` is not provided, will be shown first story
+ `pause`               | () => {userId?: string, storyId?: string}                                                        | Pause story and return current userId and storyId
+ `resume`              | () => {userId?: string, storyId?: string}                                                        | Resume story and return current userId and storyId
 
 ## Types
 
@@ -139,6 +143,7 @@ export default YourComponent;
  `sourceUrl`           | string                                   | true
  `mediaType`           | 'video' \| 'image' (default: `'image'`)  | false
  `renderContent`       | () => ReactNode                          | false
+ `renderFooter`        | () => ReactNode                          | false
 
 **Please note that id parameter must be unique for every story**
 
