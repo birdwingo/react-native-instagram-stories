@@ -301,7 +301,26 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
     },
   } );
 
-  useImperativeHandle( ref, () => ( { show, hide: onClose } ) );
+  useImperativeHandle( ref, () => ( {
+    show,
+    hide: onClose,
+    pause: () => {
+
+      stopAnimation();
+      paused.value = true;
+
+      return { userId: userId.value, storyId: currentStory.value };
+
+    },
+    resume: () => {
+
+      startAnimation( true );
+      paused.value = false;
+
+      return { userId: userId.value, storyId: currentStory.value };
+
+    },
+  } ) );
 
   useEffect( () => {
 

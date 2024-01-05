@@ -46,6 +46,8 @@ export interface StoryModalProps {
 export type StoryModalPublicMethods = {
   show: ( id: string ) => void;
   hide: () => void;
+  pause: () => { userId?: string, storyId?: string };
+  resume: () => { userId?: string, storyId?: string };
 };
 
 export type GestureContext = {
