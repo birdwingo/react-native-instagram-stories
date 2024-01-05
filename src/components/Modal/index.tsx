@@ -105,7 +105,12 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
 
   };
 
-  const scrollTo = ( id: string, animated = true, sameUser = false ) => {
+  const scrollTo = (
+    id: string,
+    animated = true,
+    sameUser = false,
+    previousUser = userId.value,
+  ) => {
 
     'worklet';
 
@@ -124,7 +129,7 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
 
     if ( onStoryEnd ) {
 
-      runOnJS( onStoryEnd )( userId.value, currentStory.value );
+      runOnJS( onStoryEnd )( previousUser, currentStory.value );
 
     }
 
@@ -132,12 +137,13 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
       ( story ) => story.id === seenStories.value[id],
     );
     const userStories = stories[newUserIndex]?.stories;
-    currentStory.value = newStoryIndex !== undefined
+    const newStory = newStoryIndex !== undefined
       ? userStories?.[newStoryIndex + 1]?.id ?? userStories?.[0]?.id : undefined;
+    currentStory.value = newStory;
 
     if ( onStoryStart ) {
 
-      runOnJS( onStoryStart )( id, currentStory.value );
+      runOnJS( onStoryStart )( id, newStory );
 
     }
 
@@ -291,7 +297,7 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
         const newUserId = stories[Math.round( newX / WIDTH )]?.id;
         if ( newUserId !== undefined ) {
 
-          scrollTo( newUserId, true, newUserId === ctx.userId );
+          scrollTo( newUserId, true, newUserId === ctx.userId, ctx.userId );
 
         }
 
@@ -337,7 +343,7 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
       return { userId: userId.value, storyId: currentStory.value };
 
     },
-  } ) );
+  } ), [ userId.value, currentStory.value ] );
 
   useEffect( () => {
 
