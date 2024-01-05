@@ -18,7 +18,7 @@ import ModalStyles from './Modal.styles';
 const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
   stories, seenStories, duration, videoDuration, storyAvatarSize, textStyle, containerStyle,
   backgroundColor, videoProps, closeIconColor, modalAnimationDuration = 800, onLoad, onShow, onHide,
-  onSeenStoriesChange, onSwipeUp, ...props
+  onSeenStoriesChange, onSwipeUp, onStoryStart, onStoryEnd, ...props
 }, ref ) => {
 
   const [ visible, setVisible ] = useState( false );
@@ -122,12 +122,16 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
 
     }
 
+    onStoryEnd?.( userId.value, currentStory.value );
+
     const newStoryIndex = stories[newUserIndex]?.stories.findIndex(
       ( story ) => story.id === seenStories.value[id],
     );
     const userStories = stories[newUserIndex]?.stories;
     currentStory.value = newStoryIndex !== undefined
       ? userStories?.[newStoryIndex + 1]?.id ?? userStories?.[0]?.id : undefined;
+
+    onStoryStart?.( id, currentStory.value );
 
   };
 
@@ -155,6 +159,9 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
 
     } else {
 
+      onStoryEnd?.( userId.value, currentStory.value );
+      onStoryStart?.( userId.value, nextStory.value );
+
       animation.value = 0;
       currentStory.value = nextStory.value;
 
@@ -175,6 +182,9 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
       }
 
     } else {
+
+      onStoryEnd?.( userId.value, currentStory.value );
+      onStoryStart?.( userId.value, previousStory.value );
 
       animation.value = 0;
       currentStory.value = previousStory.value;
