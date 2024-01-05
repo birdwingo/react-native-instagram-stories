@@ -6,6 +6,7 @@ export interface StoryItemProps {
   sourceUrl: string;
   mediaType?: 'image' | 'video';
   renderContent?: () => ReactNode;
+  renderFooter?: () => ReactNode;
 }
 
 export interface InstagramStoryProps {
