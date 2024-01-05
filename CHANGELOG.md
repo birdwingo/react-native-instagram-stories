@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## 1.1.0 (2024-01-05)
+
+
+### Features
+
+* getCurrentStory ([9c1256e](https://github.com/birdwingo/react-native-instagram-stories/commit/9c1256eaa0e58c6c8c42e94056dc13474fe907cf))
+
 ### 1.0.13 (2023-12-08)
 
 
