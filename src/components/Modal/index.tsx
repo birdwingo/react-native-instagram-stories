@@ -109,7 +109,7 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
     id: string,
     animated = true,
     sameUser = false,
-    previousUser = userId.value,
+    previousUser?: string,
   ) => {
 
     'worklet';
@@ -129,7 +129,7 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
 
     if ( onStoryEnd ) {
 
-      runOnJS( onStoryEnd )( previousUser, currentStory.value );
+      runOnJS( onStoryEnd )( previousUser ?? userId.value, currentStory.value );
 
     }
 
@@ -370,7 +370,7 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
   );
 
   return (
-    <Modal visible={visible} transparent animationType="none" testID="storyRNModal">
+    <Modal visible={visible} transparent animationType="none" testID="storyRNModal" onRequestClose={onClose}>
       <GestureHandler onGestureEvent={onGestureEvent}>
         <Animated.View style={ModalStyles.container} testID="storyModal">
           <Animated.View style={[ ModalStyles.bgAnimation, backgroundAnimatedStyles ]} />
