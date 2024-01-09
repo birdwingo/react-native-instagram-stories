@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 1.1.1 (2024-01-09)
+
+
+### Bug Fixes
+
+* Property 'userId' doesn't exist ([57546c2](https://github.com/birdwingo/react-native-instagram-stories/commit/57546c2595689d058f8a01740e6aafd0e785978d))
+
 ## 1.1.0 (2024-01-05)
 
 
