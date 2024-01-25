@@ -100,6 +100,7 @@ export default YourComponent;
  `nameTextStyle`            | TextStyle                                    |                                            | Additional styles for name text elements.
  `videoProps`               | [react-native-video](https://www.npmjs.com/package/react-native-video?activeTab=readme#configurable-props)| | Additional props for video component. For more information, follow `react-native-video`.
  `closeIconColor`           | string                                       | '#00000099'                                | The color of story close icon.
+ `linkButtonConfig`         | [LinkButtonConfigProps](#linkbuttonconfigprops)|                                          | Config for story link button
  `progressColor`            | string                                       | '#00000099'                                | Background color of progress bar item in inactive state
  `progressActiveColor`      | string                                       | '#FFFFFF'                                  | Background color of progress bar item in active state
  `modalAnimationDuration`   | number                                       | 800                                        | Duration of modal animation in ms (showing/closing instagram stories)
@@ -143,10 +144,20 @@ export default YourComponent;
  `id`                  | string                                   | true
  `sourceUrl`           | string                                   | true
  `mediaType`           | 'video' \| 'image' (default: `'image'`)  | false
+ `link`                | string                                   | false (required to show the link button)
  `renderContent`       | () => ReactNode                          | false
  `renderFooter`        | () => ReactNode                          | false
 
 **Please note that id parameter must be unique for every story**
+
+### LinkButtonConfigProps
+
+ Parameter                  | Type                                         | Default value                              | Description       
+----------------------------|----------------------------------------------|--------------------------------------------|---------------------
+ `buttonStyle`              | ViewStyle                                    |                                            | Additional styles for the button container.
+ `buttonTextStyle`          | TextStyle                                    |                                            | Additional styles for the text inside button.
+ `hasIcon`                  | boolean                                      | true                                       | Boolean to show or not the default icon.
+ `buttonText`               | string                                       |                                            | Text shown on link button. (required to show the link button)
 
 ### Default Gradient Colors
 Default colors for avatar gradient are the same as on Instagram - `[ '#F7B801', '#F18701', '#F35B04', '#F5301E', '#C81D4E', '#8F1D4E' ]`
