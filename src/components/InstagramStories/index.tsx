@@ -9,7 +9,7 @@ import { InstagramStoriesProps, InstagramStoriesPublicMethods } from '../../core
 import { ProgressStorageProps } from '../../core/dto/helpersDTO';
 import {
   ANIMATION_DURATION, DEFAULT_COLORS, SEEN_LOADER_COLORS,
-  STORY_AVATAR_SIZE, AVATAR_SIZE, BACKGROUND_COLOR, CLOSE_COLOR,
+  STORY_AVATAR_SIZE, AVATAR_SIZE, BACKGROUND_COLOR, CLOSE_COLOR, LINK_BUTTON_CONFIG,
 } from '../../core/constants';
 import StoryModal from '../Modal';
 import { StoryModalPublicMethods } from '../../core/dto/componentsDTO';
@@ -30,6 +30,7 @@ const InstagramStories = forwardRef<InstagramStoriesPublicMethods, InstagramStor
   videoAnimationMaxDuration,
   videoProps,
   closeIconColor = CLOSE_COLOR,
+  linkButtonConfig = LINK_BUTTON_CONFIG,
   ...props
 }, ref ) => {
 
@@ -233,6 +234,10 @@ const InstagramStories = forwardRef<InstagramStoriesPublicMethods, InstagramStor
         videoDuration={videoAnimationMaxDuration}
         videoProps={videoProps}
         closeIconColor={closeIconColor}
+        linkButtonConfig={{
+          ...LINK_BUTTON_CONFIG,
+          ...linkButtonConfig,
+        }}
         {...props}
       />
     </>

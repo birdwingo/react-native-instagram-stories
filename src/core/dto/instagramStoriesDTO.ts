@@ -5,6 +5,7 @@ export interface StoryItemProps {
   id: string;
   sourceUrl: string;
   mediaType?: 'image' | 'video';
+  link: string | null
   renderContent?: () => ReactNode;
   renderFooter?: () => ReactNode;
 }
@@ -14,6 +15,13 @@ export interface InstagramStoryProps {
   imgUrl?: string;
   name?: string;
   stories: StoryItemProps[];
+}
+
+export interface LinkButtonConfigProps {
+  buttonStyle: ViewStyle,
+  buttonTextStyle: TextStyle,
+  hasIcon: boolean,
+  buttonText: string
 }
 
 export interface InstagramStoriesProps {
@@ -34,6 +42,7 @@ export interface InstagramStoriesProps {
   nameTextStyle?: TextStyle;
   videoProps?: any;
   closeIconColor?: string;
+  linkButtonConfig: LinkButtonConfigProps;
   progressActiveColor?: string;
   progressColor?: string;
   modalAnimationDuration?: number;

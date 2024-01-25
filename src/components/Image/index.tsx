@@ -1,4 +1,6 @@
-import { Image, View } from 'react-native';
+import {
+  Image, Linking, Text, TouchableOpacity, View,
+} from 'react-native';
 import React, { FC, memo, useState } from 'react';
 import {
   runOnJS, useAnimatedReaction, useDerivedValue, useSharedValue,
@@ -8,15 +10,18 @@ import Loader from '../Loader';
 import { HEIGHT, LOADER_COLORS, WIDTH } from '../../core/constants';
 import ImageStyles from './Image.styles';
 import StoryVideo from './video';
+import LinkIcon from '../Icon/link';
 
 const StoryImage: FC<StoryImageProps> = ( {
   stories, activeStory, defaultImage, isDefaultVideo, paused, videoProps, isActive,
-  onImageLayout, onLoad,
+  onImageLayout, onLoad, hasClickedOnStoryLink, linkButtonConfig, defaultLink,
 } ) => {
 
-  const [ data, setData ] = useState<{ uri: string | undefined, isVideo?: boolean }>(
-    { uri: defaultImage, isVideo: isDefaultVideo },
-  );
+  const [ data, setData ] = useState<{
+    uri: string | undefined;
+    isVideo?: boolean;
+    link: string | null;
+  }>( { uri: defaultImage, isVideo: isDefaultVideo, link: defaultLink } );
 
   const loading = useSharedValue( true );
   const color = useSharedValue( LOADER_COLORS );
@@ -50,7 +55,7 @@ const StoryImage: FC<StoryImageProps> = ( {
     } else {
 
       loading.value = true;
-      setData( { uri: story.sourceUrl, isVideo: story.mediaType === 'video' } );
+      setData( { uri: story.sourceUrl, isVideo: story.mediaType === 'video', link: story.link } );
 
     }
 
@@ -120,6 +125,35 @@ const StoryImage: FC<StoryImageProps> = ( {
               onLoad={() => onContentLoad()}
             />
           )
+        )}
+        {linkButtonConfig.buttonText && data.link && (
+          <TouchableOpacity
+            style={{ ...ImageStyles.button, ...linkButtonConfig.buttonStyle }}
+            onPressIn={() => {
+
+              hasClickedOnStoryLink.value = true;
+              Linking.openURL( data.link! );
+
+            }}
+          >
+            <Text
+              style={{
+                ...ImageStyles.buttonText,
+                ...linkButtonConfig.buttonTextStyle,
+              }}
+            >
+              {linkButtonConfig.hasIcon && (
+                <LinkIcon
+                  color={
+                    linkButtonConfig.buttonTextStyle.color
+                      ? linkButtonConfig.buttonTextStyle.color
+                      : ImageStyles.buttonText.color
+                    }
+                />
+              )}
+              {` ${linkButtonConfig.buttonText}`}
+            </Text>
+          </TouchableOpacity>
         )}
       </View>
     </>

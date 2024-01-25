@@ -14,4 +14,20 @@ export default StyleSheet.create( {
     alignItems: 'center',
     justifyContent: 'center',
   },
+  button: {
+    padding: 8,
+    backgroundColor: '#FAFAFA',
+    position: 'absolute',
+    borderRadius: 10,
+    bottom: 30,
+    overflow: 'hidden',
+  },
+  buttonText: {
+    color: '#495BD4',
+    fontSize: 20,
+    fontFamily: 'Roboto',
+    fontWeight: '700',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
 } );

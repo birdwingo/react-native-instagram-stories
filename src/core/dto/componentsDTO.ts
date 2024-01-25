@@ -1,6 +1,6 @@
 import { SharedValue } from 'react-native-reanimated';
-import { TextStyle, ViewStyle } from 'react-native';
-import { InstagramStoryProps } from './instagramStoriesDTO';
+import { ColorValue, TextStyle, ViewStyle } from 'react-native';
+import { InstagramStoryProps, LinkButtonConfigProps } from './instagramStoriesDTO';
 import { ProgressStorageProps } from './helpersDTO';
 
 export interface StoryAvatarProps extends InstagramStoryProps {
@@ -34,6 +34,7 @@ export interface StoryModalProps {
   progressActiveColor?: string;
   progressColor?: string;
   modalAnimationDuration?: number;
+  linkButtonConfig: LinkButtonConfigProps
   onLoad: () => void;
   onShow?: ( id: string ) => void;
   onHide?: ( id: string ) => void;
@@ -70,10 +71,13 @@ export interface StoryImageProps {
   stories: InstagramStoryProps['stories'];
   activeStory: SharedValue<string | undefined>;
   defaultImage: string | undefined;
+  defaultLink: string | null;
   isDefaultVideo: boolean;
   paused: SharedValue<boolean>;
   videoProps?: any;
   isActive: SharedValue<boolean>;
+  linkButtonConfig: LinkButtonConfigProps;
+  hasClickedOnStoryLink: SharedValue<boolean>;
   onImageLayout: ( height: number ) => void;
   onLoad: ( duration?: number ) => void;
 }
@@ -103,7 +107,7 @@ export interface StoryHeaderProps {
 }
 
 export interface IconProps {
-  color: string;
+  color: ColorValue;
 }
 
 export interface StoryContentProps {
@@ -123,6 +127,8 @@ export interface StoryListProps extends InstagramStoryProps, StoryHeaderProps {
   videoProps?: any;
   progressActiveColor?: string;
   progressColor?: string;
+  linkButtonConfig: LinkButtonConfigProps;
+  hasClickedOnStoryLink: SharedValue<boolean>;
   onLoad: ( duration?: number ) => void;
 }
 

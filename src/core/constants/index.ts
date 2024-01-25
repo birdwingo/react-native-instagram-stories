@@ -1,4 +1,4 @@
-import { Dimensions } from 'react-native';
+import { Dimensions, ViewStyle, TextStyle } from 'react-native';
 
 export const { width: WIDTH, height: HEIGHT } = Dimensions.get( 'window' );
 
@@ -16,6 +16,13 @@ export const LOADER_ID = 'gradient';
 export const LOADER_URL = `url(#${LOADER_ID})`;
 
 export const STROKE_WIDTH = 2;
+
+export const LINK_BUTTON_CONFIG = {
+  buttonStyle: {} as ViewStyle,
+  buttonTextStyle: {} as TextStyle,
+  hasIcon: true,
+  buttonText: '',
+};
 
 export const AVATAR_SIZE = 60;
 export const AVATAR_OFFSET = 5;

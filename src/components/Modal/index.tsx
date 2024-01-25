@@ -18,7 +18,7 @@ import ModalStyles from './Modal.styles';
 const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
   stories, seenStories, duration, videoDuration, storyAvatarSize, textStyle, containerStyle,
   backgroundColor, videoProps, closeIconColor, modalAnimationDuration = 800, onLoad, onShow, onHide,
-  onSeenStoriesChange, onSwipeUp, onStoryStart, onStoryEnd, ...props
+  onSeenStoriesChange, onSwipeUp, onStoryStart, onStoryEnd, linkButtonConfig, ...props
 }, ref ) => {
 
   const [ visible, setVisible ] = useState( false );
@@ -30,6 +30,7 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
   const buttonHandled = useSharedValue( false );
   const paused = useSharedValue( false );
   const durationValue = useSharedValue( duration );
+  const hasClickedOnStoryLink = useSharedValue( false );
 
   const userIndex = useDerivedValue( () => Math.round( x.value / WIDTH ) );
   const storyIndex = useDerivedValue( () => stories[userIndex.value]?.stories.findIndex(
@@ -255,71 +256,79 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
     },
     onFinish: ( e, ctx ) => {
 
-      if ( ctx.vertical ) {
+      if ( !hasClickedOnStoryLink.value ) {
 
-        if ( e.translationY > 100 ) {
+        if ( ctx.vertical ) {
 
-          onClose();
+          if ( e.translationY > 100 ) {
 
-        } else {
+            onClose();
 
-          if ( e.translationY < -100 && onSwipeUp ) {
+          } else {
 
-            runOnJS( onSwipeUp )(
-              stories[userIndex.value]?.id,
-              stories[userIndex.value]?.stories[storyIndex.value ?? 0]?.id,
-            );
+            if ( e.translationY < -100 && onSwipeUp ) {
+
+              runOnJS( onSwipeUp )(
+                stories[userIndex.value]?.id,
+                stories[userIndex.value]?.stories[storyIndex.value ?? 0]?.id,
+              );
+
+            }
+
+            y.value = withTiming( 0 );
+            startAnimation( true );
 
           }
 
-          y.value = withTiming( 0 );
+        } else if ( ctx.moving ) {
+
+          const diff = x.value - ctx.x;
+          let newX;
+
+          if ( Math.abs( diff ) < WIDTH / 4 ) {
+
+            newX = ctx.x;
+
+          } else {
+
+            newX = diff > 0
+              ? Math.ceil( x.value / WIDTH ) * WIDTH
+              : Math.floor( x.value / WIDTH ) * WIDTH;
+
+          }
+
+          const newUserId = stories[Math.round( newX / WIDTH )]?.id;
+          if ( newUserId !== undefined ) {
+
+            scrollTo( newUserId, true, newUserId === ctx.userId, ctx.userId );
+
+          }
+
+        } else if ( ctx.pressedAt + LONG_PRESS_DURATION < Date.now() ) {
+
           startAnimation( true );
 
-        }
+        } else if ( ctx.pressedX < WIDTH / 2 ) {
 
-      } else if ( ctx.moving ) {
+          toPreviousStory();
 
-        const diff = x.value - ctx.x;
-        let newX;
+        } else if ( !buttonHandled.value ) {
 
-        if ( Math.abs( diff ) < WIDTH / 4 ) {
-
-          newX = ctx.x;
-
-        } else {
-
-          newX = diff > 0
-            ? Math.ceil( x.value / WIDTH ) * WIDTH
-            : Math.floor( x.value / WIDTH ) * WIDTH;
+          toNextStory();
 
         }
 
-        const newUserId = stories[Math.round( newX / WIDTH )]?.id;
-        if ( newUserId !== undefined ) {
+        ctx.moving = false;
+        ctx.vertical = false;
+        buttonHandled.value = false;
+        paused.value = false;
+        ctx.userId = undefined;
 
-          scrollTo( newUserId, true, newUserId === ctx.userId, ctx.userId );
+      } else {
 
-        }
-
-      } else if ( ctx.pressedAt + LONG_PRESS_DURATION < Date.now() ) {
-
-        startAnimation( true );
-
-      } else if ( ctx.pressedX < WIDTH / 2 ) {
-
-        toPreviousStory();
-
-      } else if ( !buttonHandled.value ) {
-
-        toNextStory();
+        hasClickedOnStoryLink.value = false;
 
       }
-
-      ctx.moving = false;
-      ctx.vertical = false;
-      buttonHandled.value = false;
-      paused.value = false;
-      ctx.userId = undefined;
 
     },
   } );
@@ -394,6 +403,8 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
                   );
 
                 }}
+                linkButtonConfig={linkButtonConfig}
+                hasClickedOnStoryLink={hasClickedOnStoryLink}
                 avatarSize={storyAvatarSize}
                 textStyle={textStyle}
                 buttonHandled={buttonHandled}
