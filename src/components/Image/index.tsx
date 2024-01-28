@@ -11,7 +11,7 @@ import StoryVideo from './video';
 
 const StoryImage: FC<StoryImageProps> = ( {
   stories, activeStory, defaultImage, isDefaultVideo, paused, videoProps, isActive,
-  mediaContainerStyle, onImageLayout, onLoad,
+  mediaContainerStyle, imageStyles, onImageLayout, onLoad,
 } ) => {
 
   const [ data, setData ] = useState<{ uri: string | undefined, isVideo?: boolean }>(
@@ -113,7 +113,7 @@ const StoryImage: FC<StoryImageProps> = ( {
           ) : (
             <Image
               source={{ uri: data.uri }}
-              style={{ width: WIDTH, aspectRatio: 0.5626 }}
+              style={[ { width: WIDTH, aspectRatio: 0.5626 }, imageStyles ]}
               resizeMode="contain"
               testID="storyImageComponent"
               onLayout={( e ) => onImageLayout( Math.min( HEIGHT, e.nativeEvent.layout.height ) )}
