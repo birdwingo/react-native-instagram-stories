@@ -318,7 +318,10 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
 
   const onPressOut = ( { nativeEvent: { locationX, locationY } }: GestureResponderEvent ) => {
 
-    if ( pressInformation.value.x !== locationX || pressInformation.value.y !== locationY ) {
+    const diffX = Math.abs( pressInformation.value.x - locationX );
+    const diffY = Math.abs( pressInformation.value.y - locationY );
+
+    if ( diffX >= 10 || diffY >= 10 ) {
 
       return;
 

@@ -12,7 +12,7 @@ import StoryFooter from '../Footer';
 
 const StoryList: FC<StoryListProps> = ( {
   id, stories, index, x, activeUser, activeStory, progress, seenStories, paused,
-  onLoad, videoProps, progressColor, progressActiveColor, mediaContainerStyle, ...props
+  onLoad, videoProps, progressColor, progressActiveColor, mediaContainerStyle, imageStyles, ...props
 } ) => {
 
   const imageHeight = useSharedValue( HEIGHT );
@@ -48,6 +48,7 @@ const StoryList: FC<StoryListProps> = ( {
           isActive={isActive}
           videoProps={videoProps}
           mediaContainerStyle={mediaContainerStyle}
+          imageStyles={imageStyles}
         />
         <Progress
           active={isActive}
