@@ -11,7 +11,7 @@ import StoryVideo from './video';
 
 const StoryImage: FC<StoryImageProps> = ( {
   stories, activeStory, defaultImage, isDefaultVideo, paused, videoProps, isActive,
-  onImageLayout, onLoad,
+  mediaContainerStyle, onImageLayout, onLoad,
 } ) => {
 
   const [ data, setData ] = useState<{ uri: string | undefined, isVideo?: boolean }>(
@@ -99,7 +99,7 @@ const StoryImage: FC<StoryImageProps> = ( {
       <View style={ImageStyles.container}>
         <Loader loading={loading} color={color} size={50} />
       </View>
-      <View style={ImageStyles.image}>
+      <View style={[ ImageStyles.image, mediaContainerStyle ]}>
         {data.uri && (
           data.isVideo ? (
             <StoryVideo
