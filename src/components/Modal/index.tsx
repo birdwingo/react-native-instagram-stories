@@ -1,7 +1,7 @@
 import React, {
   forwardRef, memo, useEffect, useImperativeHandle, useState,
 } from 'react';
-import { Modal } from 'react-native';
+import { GestureResponderEvent, Modal, Pressable } from 'react-native';
 import Animated, {
   cancelAnimation, interpolate, runOnJS, useAnimatedGestureHandler, useAnimatedReaction,
   useAnimatedStyle,
@@ -27,9 +27,11 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
   const y = useSharedValue( HEIGHT );
   const animation = useSharedValue( 0 );
   const currentStory = useSharedValue( stories[0]?.stories[0]?.id );
-  const buttonHandled = useSharedValue( false );
   const paused = useSharedValue( false );
   const durationValue = useSharedValue( duration );
+  const pressInformation = useSharedValue<{ x: number, y: number, start: number }>(
+    { x: 0, y: 0, start: 0 },
+  );
 
   const userIndex = useDerivedValue( () => Math.round( x.value / WIDTH ) );
   const storyIndex = useDerivedValue( () => stories[userIndex.value]?.stories.findIndex(
@@ -227,10 +229,6 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
     onStart: ( e, ctx: GestureContext ) => {
 
       ctx.x = x.value;
-      ctx.pressedX = e.x;
-      ctx.pressedAt = Date.now();
-      stopAnimation();
-      paused.value = true;
       ctx.userId = userId.value;
 
     },
@@ -301,28 +299,48 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
 
         }
 
-      } else if ( ctx.pressedAt + LONG_PRESS_DURATION < Date.now() ) {
-
-        startAnimation( true );
-
-      } else if ( ctx.pressedX < WIDTH / 2 ) {
-
-        toPreviousStory();
-
-      } else if ( !buttonHandled.value ) {
-
-        toNextStory();
-
       }
 
       ctx.moving = false;
       ctx.vertical = false;
-      buttonHandled.value = false;
-      paused.value = false;
       ctx.userId = undefined;
 
     },
   } );
+
+  const onPressIn = ( { nativeEvent: { locationX, locationY } }: GestureResponderEvent ) => {
+
+    stopAnimation();
+    paused.value = true;
+    pressInformation.value = { x: locationX, y: locationY, start: Date.now() };
+
+  };
+
+  const onPressOut = ( { nativeEvent: { locationX, locationY } }: GestureResponderEvent ) => {
+
+    if ( pressInformation.value.x !== locationX || pressInformation.value.y !== locationY ) {
+
+      return;
+
+    }
+
+    if ( pressInformation.value.start + LONG_PRESS_DURATION < Date.now() ) {
+
+      startAnimation( true );
+
+    } else if ( ( pressInformation.value.x ) < WIDTH / 2 ) {
+
+      toPreviousStory();
+
+    } else {
+
+      toNextStory();
+
+    }
+
+    paused.value = false;
+
+  };
 
   useImperativeHandle( ref, () => ( {
     show,
@@ -371,42 +389,43 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
 
   return (
     <Modal visible={visible} transparent animationType="none" testID="storyRNModal" onRequestClose={onClose}>
-      <GestureHandler onGestureEvent={onGestureEvent}>
-        <Animated.View style={ModalStyles.container} testID="storyModal">
-          <Animated.View style={[ ModalStyles.bgAnimation, backgroundAnimatedStyles ]} />
-          <Animated.View style={[ ModalStyles.absolute, animatedStyles, containerStyle ]}>
-            {stories?.map( ( story, index ) => (
-              <StoryList
-                {...story}
-                index={index}
-                x={x}
-                activeUser={userId}
-                activeStory={currentStory}
-                progress={animation}
-                seenStories={seenStories}
-                onClose={onClose}
-                onLoad={( value ) => {
+      <Pressable onPressIn={onPressIn} onPressOut={onPressOut} style={ModalStyles.container}>
+        <GestureHandler onGestureEvent={onGestureEvent}>
+          <Animated.View style={ModalStyles.container} testID="storyModal">
+            <Animated.View style={[ ModalStyles.bgAnimation, backgroundAnimatedStyles ]} />
+            <Animated.View style={[ ModalStyles.absolute, animatedStyles, containerStyle ]}>
+              {stories?.map( ( story, index ) => (
+                <StoryList
+                  {...story}
+                  index={index}
+                  x={x}
+                  activeUser={userId}
+                  activeStory={currentStory}
+                  progress={animation}
+                  seenStories={seenStories}
+                  onClose={onClose}
+                  onLoad={( value ) => {
 
-                  onLoad?.();
-                  startAnimation(
-                    undefined,
-                    value !== undefined ? ( videoDuration ?? value ) : duration,
-                  );
+                    onLoad?.();
+                    startAnimation(
+                      undefined,
+                      value !== undefined ? ( videoDuration ?? value ) : duration,
+                    );
 
-                }}
-                avatarSize={storyAvatarSize}
-                textStyle={textStyle}
-                buttonHandled={buttonHandled}
-                paused={paused}
-                videoProps={videoProps}
-                closeColor={closeIconColor}
-                key={story.id}
-                {...props}
-              />
-            ) )}
+                  }}
+                  avatarSize={storyAvatarSize}
+                  textStyle={textStyle}
+                  paused={paused}
+                  videoProps={videoProps}
+                  closeColor={closeIconColor}
+                  key={story.id}
+                  {...props}
+                />
+              ) )}
+            </Animated.View>
           </Animated.View>
-        </Animated.View>
-      </GestureHandler>
+        </GestureHandler>
+      </Pressable>
     </Modal>
   );
 
