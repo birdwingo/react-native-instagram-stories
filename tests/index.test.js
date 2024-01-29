@@ -155,7 +155,7 @@ describe( 'Instagram Stories test', () => {
       } );
       getAllByTestId( 'storyCloseButton' ).forEach( ( element ) => {
 
-        fireEvent( element.parent, 'onPressIn' );
+        fireEvent( element.parent, 'onPressIn', { nativeEvent: { locationX: 0, locationY: 0 } } );
 
       } );
 
@@ -329,13 +329,7 @@ describe( 'Instagram Stories test', () => {
       fireEvent( getByTestId( 'gestureContainer' ), 'responderEnd', {}, { moving: true, x: -300 } );
       await sleep();
 
-      fireEvent( getByTestId( 'gestureContainer' ), 'responderEnd', {}, { pressedX: 0 } );
-      await sleep();
-
-      fireEvent( getByTestId( 'gestureContainer' ), 'responderEnd', {}, { pressedAt: 0 } );
-      await sleep();
-
-      fireEvent( getByTestId( 'gestureContainer' ), 'responderEnd', {}, {} );
+      fireEvent( getByTestId( 'gestureContainer' ), 'responderEnd', { translationY: 200 }, { vertical: true } );
       await sleep();
 
       expect( queryByTestId( 'gestureContainer' ) ).toBeFalsy();
