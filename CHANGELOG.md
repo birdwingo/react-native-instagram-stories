@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## 1.2.0 (2024-01-29)
+
+
+### Features
+
+* image styles ([37760c4](https://github.com/birdwingo/react-native-instagram-stories/commit/37760c4ba461747cf2a29828a0cac733f76d78f8))
+
 ### 1.1.1 (2024-01-09)
 
 
