@@ -208,8 +208,17 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
 
     } else {
 
-      onStoryEnd?.( userId.value, currentStory.value );
-      onStoryStart?.( userId.value, previousStory.value );
+      if ( onStoryEnd ) {
+
+        runOnJS( onStoryEnd )( userId.value, currentStory.value );
+
+      }
+
+      if ( onStoryStart ) {
+
+        runOnJS( onStoryStart )( userId.value, previousStory.value );
+
+      }
 
       animation.value = 0;
       currentStory.value = previousStory.value;
