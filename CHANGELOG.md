@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 1.2.2 (2024-01-30)
+
+
+### Bug Fixes
+
+* non worklet function ([bfe6016](https://github.com/birdwingo/react-native-instagram-stories/commit/bfe601605de019c4801eb98b528fea53621cd6d4))
+
 ### 1.2.1 (2024-01-29)
 
 ## 1.2.0 (2024-01-29)
