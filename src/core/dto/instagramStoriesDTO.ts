@@ -26,8 +26,16 @@ export interface InstagramStoriesProps {
   avatarSeenBorderColors?: string[];
   avatarSize?: number;
   storyAvatarSize?: number;
+  /**
+    * @deprecated Use {@link avatarListContainerStyle} instead.
+  */
   listContainerStyle?: ScrollViewProps['contentContainerStyle'];
+  avatarListContainerStyle?: ScrollViewProps['contentContainerStyle'];
+  /**
+    * @deprecated Use {@link avatarListContainerProps} instead.
+  */
   listContainerProps?: ScrollViewProps;
+  avatarListContainerProps?: ScrollViewProps;
   containerStyle?: ViewStyle;
   textStyle?: TextStyle;
   animationDuration?: number;

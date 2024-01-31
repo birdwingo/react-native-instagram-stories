@@ -22,7 +22,9 @@ const InstagramStories = forwardRef<InstagramStoriesPublicMethods, InstagramStor
   avatarSize = AVATAR_SIZE,
   storyAvatarSize = STORY_AVATAR_SIZE,
   listContainerStyle,
+  avatarListContainerStyle,
   listContainerProps,
+  avatarListContainerProps,
   animationDuration = ANIMATION_DURATION,
   backgroundColor = BACKGROUND_COLOR,
   showName = false,
@@ -205,7 +207,7 @@ const InstagramStories = forwardRef<InstagramStoriesPublicMethods, InstagramStor
 
   return (
     <>
-      <ScrollView horizontal {...listContainerProps} contentContainerStyle={listContainerStyle} testID="storiesList">
+      <ScrollView horizontal {...listContainerProps} {...avatarListContainerProps} contentContainerStyle={[ listContainerStyle, avatarListContainerStyle ]} testID="storiesList">
         {data.map( ( story ) => story.imgUrl && (
           <StoryAvatar
             {...story}
