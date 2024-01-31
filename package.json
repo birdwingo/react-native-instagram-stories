@@ -5,6 +5,7 @@
   "main": "src/index.tsx",
   "source": "src/index.tsx",
   "scripts": {
+    "prepare": "husky install",
     "build": "tsc -p tsconfig.json",
     "release": "standard-version",
     "test": "jest --coverage"
