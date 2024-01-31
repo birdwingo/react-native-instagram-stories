@@ -25,6 +25,7 @@ const StoryAvatar: FC<StoryAvatarProps> = ( {
   size,
   showName,
   nameTextStyle,
+  avatarGap,
 } ) => {
 
   const loaded = useSharedValue( false );
@@ -46,7 +47,7 @@ const StoryAvatar: FC<StoryAvatarProps> = ( {
   ) );
 
   return (
-    <View style={AvatarStyles.name}>
+    <View style={[AvatarStyles.name, { marginRight: avatarGap }]}>
       <View style={AvatarStyles.container}>
         <TouchableOpacity activeOpacity={0.6} onPress={onPress} testID={`${id}StoryAvatar${stories.length}Story`}>
           <Loader loading={isLoading} color={loaderColor} size={size + AVATAR_OFFSET * 2} />
