@@ -88,6 +88,7 @@ export default YourComponent;
  `avatarBorderColors`       | string[]                                     | [DEFAULT_COLORS](#default-gradient-colors) | An array of string colors representing the border colors of story avatars.
  `avatarSeenBorderColors`   | string[]                                     | [ '#2A2A2C' ]                              | An array of string colors representing the border colors of seen story avatars.
  `avatarSize`               | number                                       | 60                                         | The size of the story avatars.
+ `avatarGap`                | number                                       | 0                                          | Gap size between the story avatars.
  `storyAvatarSize`          | number                                       | 25                                         | The size of the avatars shown in the header of each story.
  `listContainerStyle`       | ScrollViewProps['contentContainerStyle']     |                                            | Additional styles for the list container.
  `listContainerProps`       | ScrollViewProps                              |                                            | Props to be passed to the underlying ScrollView component.
