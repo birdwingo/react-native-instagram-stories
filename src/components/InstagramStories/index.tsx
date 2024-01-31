@@ -30,6 +30,7 @@ const InstagramStories = forwardRef<InstagramStoriesPublicMethods, InstagramStor
   videoAnimationMaxDuration,
   videoProps,
   closeIconColor = CLOSE_COLOR,
+  avatarGap = 0,
   ...props
 }, ref ) => {
 
@@ -218,6 +219,7 @@ const InstagramStories = forwardRef<InstagramStoriesPublicMethods, InstagramStor
             showName={showName}
             nameTextStyle={nameTextStyle}
             key={`avatar${story.id}`}
+            avatarGap={avatarGap}
           />
         ) )}
       </ScrollView>
