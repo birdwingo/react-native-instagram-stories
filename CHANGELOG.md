@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 1.2.3 (2024-01-31)
+
+
+### Bug Fixes
+
+* listContainerStyle -> avatarListContainerProps ([ef195cb](https://github.com/birdwingo/react-native-instagram-stories/commit/ef195cb635e066410876f5e945cf415c7644e971))
+
 ### 1.2.2 (2024-01-30)
 
 
