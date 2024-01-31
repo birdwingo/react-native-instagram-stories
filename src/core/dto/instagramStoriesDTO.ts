@@ -1,5 +1,8 @@
 import { ReactNode } from 'react';
-import { ScrollViewProps, TextStyle, ViewStyle } from 'react-native';
+import {
+  ImageStyle,
+  ScrollViewProps, TextStyle, ViewStyle,
+} from 'react-native';
 
 export interface StoryItemProps {
   id: string;
@@ -38,6 +41,7 @@ export interface InstagramStoriesProps {
   progressColor?: string;
   modalAnimationDuration?: number;
   mediaContainerStyle?: ViewStyle;
+  imageStyles?: ImageStyle;
   onShow?: ( id: string ) => void;
   onHide?: ( id: string ) => void;
   onSwipeUp?: ( userId?: string, storyId?: string ) => void;
