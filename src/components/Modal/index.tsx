@@ -204,6 +204,8 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
 
         scrollTo( previousUserId.value );
 
+      } else {
+        return false;
       }
 
     } else {
@@ -225,6 +227,7 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
 
     }
 
+    return true;
   };
 
   const show = ( id: string ) => {
@@ -342,7 +345,11 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
 
     } else if ( ( pressInformation.value.x ) < WIDTH / 2 ) {
 
-      toPreviousStory();
+      const success = toPreviousStory();
+
+      if (!success) {
+        startAnimation(true);
+      }
 
     } else {
 
