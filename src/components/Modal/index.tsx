@@ -29,9 +29,6 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
   const currentStory = useSharedValue( stories[0]?.stories[0]?.id );
   const paused = useSharedValue( false );
   const durationValue = useSharedValue( duration );
-  const pressInformation = useSharedValue<{ x: number, y: number, start: number }>(
-    { x: 0, y: 0, start: 0 },
-  );
 
   const userIndex = useDerivedValue( () => Math.round( x.value / WIDTH ) );
   const storyIndex = useDerivedValue( () => stories[userIndex.value]?.stories.findIndex(
@@ -323,30 +320,18 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
     },
   } );
 
-  const onPressIn = ( { nativeEvent: { locationX, locationY } }: GestureResponderEvent ) => {
+  const onPressIn = () => {
 
     stopAnimation();
     paused.value = true;
-    pressInformation.value = { x: locationX, y: locationY, start: Date.now() };
 
   };
 
-  const onPressOut = ( { nativeEvent: { locationX, locationY } }: GestureResponderEvent ) => {
+  const onLongPress = () => startAnimation( true );
 
-    const diffX = Math.abs( pressInformation.value.x - locationX );
-    const diffY = Math.abs( pressInformation.value.y - locationY );
+  const onPress = ( { nativeEvent: { locationX } }: GestureResponderEvent ) => {
 
-    if ( diffX >= 10 || diffY >= 10 ) {
-
-      return;
-
-    }
-
-    if ( pressInformation.value.start + LONG_PRESS_DURATION < Date.now() ) {
-
-      startAnimation( true );
-
-    } else if ( ( pressInformation.value.x ) < WIDTH / 2 ) {
+    if ( locationX < WIDTH / 2 ) {
 
       const success = toPreviousStory();
 
@@ -413,9 +398,15 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
 
   return (
     <Modal visible={visible} transparent animationType="none" testID="storyRNModal" onRequestClose={onClose}>
-      <Pressable onPressIn={onPressIn} onPressOut={onPressOut} style={ModalStyles.container}>
-        <GestureHandler onGestureEvent={onGestureEvent}>
-          <Animated.View style={ModalStyles.container} testID="storyModal">
+      <GestureHandler onGestureEvent={onGestureEvent}>
+        <Animated.View style={ModalStyles.container} testID="storyModal">
+          <Pressable
+            onPressIn={onPressIn}
+            onPress={onPress}
+            onLongPress={onLongPress}
+            delayLongPress={LONG_PRESS_DURATION}
+            style={ModalStyles.container}
+          >
             <Animated.View style={[ ModalStyles.bgAnimation, backgroundAnimatedStyles ]} />
             <Animated.View style={[ ModalStyles.absolute, animatedStyles, containerStyle ]}>
               {stories?.map( ( story, index ) => (
@@ -447,9 +438,9 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
                 />
               ) )}
             </Animated.View>
-          </Animated.View>
-        </GestureHandler>
-      </Pressable>
+          </Pressable>
+        </Animated.View>
+      </GestureHandler>
     </Modal>
   );
 
