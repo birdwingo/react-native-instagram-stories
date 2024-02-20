@@ -92,6 +92,7 @@ export default YourComponent;
  `avatarListContainerStyle` | ScrollViewProps['contentContainerStyle']     |                                            | Additional styles for the avatar scroll list container.
  `avatarListContainerProps` | ScrollViewProps                              |                                            | Props to be passed to the avatar list ScrollView component.
  `containerStyle`           | ViewStyle                                    |                                            | Additional styles for the story container.
+ `storiesListItemsStyle`    | ViewStyle                                    |                                            | Additional styles for the story Items Container
  `textStyle`                | TextStyle                                    |                                            | Additional styles for text elements.
  `animationDuration`        | number                                       | 10000                                      | The duration of the story animations in ms.
  `videoAnimationMaxDuration`| number                                       |                                            | The max duration of the video story animations in ms. If is this property not provided, the whole video will be played.
