@@ -12,6 +12,7 @@ export interface StoryAvatarProps extends InstagramStoryProps {
   size: number;
   showName?: boolean;
   nameTextStyle?: TextStyle;
+  storyItemsContainerStyles?: ViewStyle
 }
 
 export interface StoryLoaderProps {
