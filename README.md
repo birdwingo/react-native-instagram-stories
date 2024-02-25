@@ -105,6 +105,7 @@ export default YourComponent;
  `modalAnimationDuration`   | number                                       | 800                                        | Duration of modal animation in ms (showing/closing instagram stories)
  `mediaContainerStyle`      | ViewStyle                                    |                                            | Additional styles for media (video or image) container
  `imageStyles`              | ImageStyle                                   | { width: WIDTH, aspectRatio: 0.5626 }      | Additional styles image component
+ `imageProps`               | ImageProps                                   |                                            | Additional props applied to image component
  `onShow`                   | ( id: string ) => void                       |                                            | Callback when a story is shown.
  `onHide`                   | ( id: string ) => void                       |                                            | Callback when a story is hidden.
  `onSwipeUp`                | ( userId?: string, storyId?: string ) => void|                                            | Callback when user swipes up.
