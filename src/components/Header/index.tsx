@@ -9,14 +9,30 @@ import Close from '../Icon/close';
 
 const StoryHeader: FC<StoryHeaderProps> = ( {
   imgUrl, name, onClose, avatarSize, textStyle, closeColor, headerStyle,
-  headerContainerStyle,
+  headerContainerStyle, renderStoryHeader,
 } ) => {
 
   const styles = { width: avatarSize, height: avatarSize, borderRadius: avatarSize };
   const width = WIDTH - HeaderStyles.container.left * 2;
 
+  if ( renderStoryHeader ) {
+
+    return (
+      <View
+        style={[ HeaderStyles.container, { width }, headerContainerStyle ]}
+      >
+        {renderStoryHeader()}
+      </View>
+    );
+
+  }
+
   return (
-    <View style={[ HeaderStyles.container, { width }, headerContainerStyle ]}>
+    <View style={[
+      HeaderStyles.container, HeaderStyles.containerFlex,
+      { width }, headerContainerStyle,
+    ]}
+    >
       <View style={[ HeaderStyles.left, headerStyle ]}>
         {Boolean( imgUrl ) && (
           <View style={[ HeaderStyles.avatar, { borderRadius: styles.borderRadius } ]}>
