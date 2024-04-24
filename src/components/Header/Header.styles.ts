@@ -13,6 +13,7 @@ export default StyleSheet.create( {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 12,
+    flex: 1,
   },
   avatar: {
     borderWidth: 1.5,
