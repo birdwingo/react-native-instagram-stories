@@ -111,6 +111,7 @@ export default YourComponent;
  `headerContainerStyle`     | ViewStyle                                    |                                            | Additional styles for the story header container
  `progressContainerStyle`   | ViewStyle                                    |                                            | Additional styles for the story progress container
  `hideAvatarList`           | boolean                                      | false                                      | A boolean indicating whether to hide avatar scroll list
+ `renderCustomComponent`    | () => ReactNode                              |                                            | A function to render custom component that will be placed over the image
  `onShow`                   | ( id: string ) => void                       |                                            | Callback when a story is shown.
  `onHide`                   | ( id: string ) => void                       |                                            | Callback when a story is hidden.
  `onSwipeUp`                | ( userId?: string, storyId?: string ) => void|                                            | Callback when user swipes up.
@@ -129,7 +130,9 @@ export default YourComponent;
  `show`                | ( id?: string ) => void                                                                          | Show stories modal with provided story `id`. If `id` is not provided, will be shown first story
  `pause`               | () => void                                                                                       | Pause story
  `resume`              | () => void                                                                                       | Resume story
- `getCurrentStory`    | () => {userId?: string, storyId?: string}                                                        | Returns current userId and storyId
+ `goToPreviousStory`   | () => void                                                                                       | Goes to previous story item
+ `goToNextStory`       | () => void                                                                                       | Goes to next story item
+ `getCurrentStory`     | () => {userId?: string, storyId?: string}                                                        | Returns current userId and storyId
 
 ## Types
 

@@ -367,6 +367,8 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
 
     },
     getCurrentStory: () => ( { userId: userId.value, storyId: currentStory.value } ),
+    goToPreviousStory: toPreviousStory,
+    goToNextStory: toNextStory,
   } ), [ userId.value, currentStory.value ] );
 
   useEffect( () => {
