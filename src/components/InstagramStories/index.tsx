@@ -223,7 +223,7 @@ const InstagramStories = forwardRef<InstagramStoriesPublicMethods, InstagramStor
   return (
     <>
       <ScrollView horizontal {...listContainerProps} {...avatarListContainerProps} contentContainerStyle={[ listContainerStyle, avatarListContainerStyle ]} testID="storiesList">
-        {data.map( ( story ) => story.imgUrl && (
+        {data.map( ( story ) => story.renderAvatar?.() ?? ( story.imgUrl && (
           <StoryAvatar
             {...story}
             loadingStory={loadingStory}
@@ -236,7 +236,7 @@ const InstagramStories = forwardRef<InstagramStoriesPublicMethods, InstagramStor
             nameTextStyle={nameTextStyle}
             key={`avatar${story.id}`}
           />
-        ) )}
+        ) ) )}
       </ScrollView>
       <StoryModal
         ref={modalRef}
