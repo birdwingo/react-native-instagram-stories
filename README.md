@@ -106,10 +106,11 @@ export default YourComponent;
  `mediaContainerStyle`      | ViewStyle                                    |                                            | Additional styles for media (video or image) container
  `imageStyles`              | ImageStyle                                   | { width: WIDTH, aspectRatio: 0.5626 }      | Additional styles image component
  `imageProps`               | ImageProps                                   |                                            | Additional props applied to image component
- `isVisible`                | boolean                                      | false                                      | A boolean indicating wheter to show modal on load (modal will be show with first story item)
+ `isVisible`                | boolean                                      | false                                      | A boolean indicating whether to show modal on load (modal will be show with first story item)
  `headerStyle`              | ViewStyle                                    |                                            | Additional styles for the story header
  `headerContainerStyle`     | ViewStyle                                    |                                            | Additional styles for the story header container
  `progressContainerStyle`   | ViewStyle                                    |                                            | Additional styles for the story progress container
+ `hideAvatarList`           | boolean                                      | false                                      | A boolean indicating whether to hide avatar scroll list
  `onShow`                   | ( id: string ) => void                       |                                            | Callback when a story is shown.
  `onHide`                   | ( id: string ) => void                       |                                            | Callback when a story is hidden.
  `onSwipeUp`                | ( userId?: string, storyId?: string ) => void|                                            | Callback when user swipes up.
