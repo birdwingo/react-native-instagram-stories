@@ -32,6 +32,7 @@ const InstagramStories = forwardRef<InstagramStoriesPublicMethods, InstagramStor
   videoAnimationMaxDuration,
   videoProps,
   closeIconColor = CLOSE_COLOR,
+  isVisible = false,
   ...props
 }, ref ) => {
 
@@ -204,6 +205,20 @@ const InstagramStories = forwardRef<InstagramStoriesPublicMethods, InstagramStor
     setData( stories );
 
   }, [ stories ] );
+
+  useEffect( () => {
+
+    if ( isVisible && data[0]?.id ) {
+
+      modalRef.current?.show( data[0]?.id );
+
+    } else {
+
+      modalRef.current?.hide();
+
+    }
+
+  }, [ isVisible ] );
 
   return (
     <>
