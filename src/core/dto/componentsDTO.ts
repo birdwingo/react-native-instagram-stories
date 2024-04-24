@@ -106,6 +106,7 @@ export interface StoryHeaderProps {
   avatarSize: number;
   textStyle?: TextStyle;
   closeColor: string;
+  headerStyle?: ViewStyle;
   onClose: () => void;
 }
 

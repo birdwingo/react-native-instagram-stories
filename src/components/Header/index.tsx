@@ -8,7 +8,7 @@ import { StoryHeaderProps } from '../../core/dto/componentsDTO';
 import Close from '../Icon/close';
 
 const StoryHeader: FC<StoryHeaderProps> = ( {
-  imgUrl, name, onClose, avatarSize, textStyle, closeColor,
+  imgUrl, name, onClose, avatarSize, textStyle, closeColor, headerStyle,
 } ) => {
 
   const styles = { width: avatarSize, height: avatarSize, borderRadius: avatarSize };
@@ -16,7 +16,7 @@ const StoryHeader: FC<StoryHeaderProps> = ( {
 
   return (
     <View style={[ HeaderStyles.container, { width } ]}>
-      <View style={HeaderStyles.left}>
+      <View style={[ HeaderStyles.left, headerStyle ]}>
         {Boolean( imgUrl ) && (
           <View style={[ HeaderStyles.avatar, { borderRadius: styles.borderRadius } ]}>
             <Image source={{ uri: imgUrl }} style={styles} />
