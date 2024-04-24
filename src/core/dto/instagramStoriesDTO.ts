@@ -76,5 +76,7 @@ export type InstagramStoriesPublicMethods = {
   show: ( id?: string ) => void;
   pause: () => void;
   resume: () => void;
+  goToPreviousStory: () => void;
+  goToNextStory: () => void;
   getCurrentStory: () => { userId?: string, storyId?: string };
 };
