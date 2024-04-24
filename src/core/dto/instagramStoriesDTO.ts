@@ -52,6 +52,7 @@ export interface InstagramStoriesProps {
   mediaContainerStyle?: ViewStyle;
   imageStyles?: ImageStyle;
   imageProps?: ImageProps;
+  isVisible?: boolean;
   onShow?: ( id: string ) => void;
   onHide?: ( id: string ) => void;
   onSwipeUp?: ( userId?: string, storyId?: string ) => void;
