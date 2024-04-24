@@ -93,6 +93,7 @@ export interface StoryProgressProps {
   length: number;
   progressActiveColor?: string;
   progressColor?: string;
+  progressContainerStyle?: ViewStyle;
 }
 
 export interface StoryProgressItemProps extends Omit<StoryProgressProps, 'length'> {
@@ -107,6 +108,7 @@ export interface StoryHeaderProps {
   textStyle?: TextStyle;
   closeColor: string;
   headerStyle?: ViewStyle;
+  headerContainerStyle?: ViewStyle;
   onClose: () => void;
 }
 
@@ -134,6 +136,7 @@ export interface StoryListProps extends InstagramStoryProps, StoryHeaderProps {
   mediaContainerStyle?: ViewStyle;
   imageStyles?: ImageStyle;
   imageProps?: ImageProps;
+  progressContainerStyle?: ViewStyle;
   onLoad: ( duration?: number ) => void;
 }
 

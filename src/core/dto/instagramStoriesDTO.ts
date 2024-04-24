@@ -16,6 +16,7 @@ export interface StoryItemProps {
 export interface InstagramStoryProps {
   id: string;
   imgUrl?: string;
+  renderAvatar?: () => ReactNode;
   name?: string;
   stories: StoryItemProps[];
 }
@@ -54,6 +55,8 @@ export interface InstagramStoriesProps {
   imageProps?: ImageProps;
   isVisible?: boolean;
   headerStyle?: ViewStyle;
+  headerContainerStyle?: ViewStyle;
+  progressContainerStyle?: ViewStyle;
   onShow?: ( id: string ) => void;
   onHide?: ( id: string ) => void;
   onSwipeUp?: ( userId?: string, storyId?: string ) => void;
