@@ -139,6 +139,7 @@ export default YourComponent;
  `id`                  | string                                 | true
  `imgUrl`              | string                                 | false
  `renderAvatar`        | () => ReactNode                        | false
+ `renderStoryHeader`   | () => ReactNode                        | false
  `name`                | string                                 | false
  `stories`             | [StoryItemProps](#storyitemprops)[]    | true
 

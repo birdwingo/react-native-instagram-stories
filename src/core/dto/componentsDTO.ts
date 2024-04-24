@@ -2,6 +2,7 @@ import { SharedValue } from 'react-native-reanimated';
 import {
   ImageProps, ImageStyle, TextStyle, ViewStyle,
 } from 'react-native';
+import { ReactNode } from 'react';
 import { InstagramStoryProps } from './instagramStoriesDTO';
 import { ProgressStorageProps } from './helpersDTO';
 
@@ -110,6 +111,7 @@ export interface StoryHeaderProps {
   headerStyle?: ViewStyle;
   headerContainerStyle?: ViewStyle;
   onClose: () => void;
+  renderStoryHeader?: () => ReactNode;
 }
 
 export interface IconProps {
