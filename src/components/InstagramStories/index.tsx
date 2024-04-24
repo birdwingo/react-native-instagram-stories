@@ -33,6 +33,7 @@ const InstagramStories = forwardRef<InstagramStoriesPublicMethods, InstagramStor
   videoProps,
   closeIconColor = CLOSE_COLOR,
   isVisible = false,
+  hideAvatarList = false,
   ...props
 }, ref ) => {
 
@@ -222,6 +223,7 @@ const InstagramStories = forwardRef<InstagramStoriesPublicMethods, InstagramStor
 
   return (
     <>
+      {!hideAvatarList && (
       <ScrollView horizontal {...listContainerProps} {...avatarListContainerProps} contentContainerStyle={[ listContainerStyle, avatarListContainerStyle ]} testID="storiesList">
         {data.map( ( story ) => story.renderAvatar?.() ?? ( story.imgUrl && (
           <StoryAvatar
@@ -238,6 +240,7 @@ const InstagramStories = forwardRef<InstagramStoriesPublicMethods, InstagramStor
           />
         ) ) )}
       </ScrollView>
+      )}
       <StoryModal
         ref={modalRef}
         stories={data}
