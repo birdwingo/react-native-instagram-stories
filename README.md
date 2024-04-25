@@ -111,7 +111,7 @@ export default YourComponent;
  `headerContainerStyle`     | ViewStyle                                    |                                            | Additional styles for the story header container
  `progressContainerStyle`   | ViewStyle                                    |                                            | Additional styles for the story progress container
  `hideAvatarList`           | boolean                                      | false                                      | A boolean indicating whether to hide avatar scroll list
- `renderCustomComponent`    | () => ReactNode                              |                                            | A function to render custom component that will be placed over the image
+ `imageOverlayView`         | ReactNode                                    |                                            | Image overlay compontent
  `onShow`                   | ( id: string ) => void                       |                                            | Callback when a story is shown.
  `onHide`                   | ( id: string ) => void                       |                                            | Callback when a story is hidden.
  `onSwipeUp`                | ( userId?: string, storyId?: string ) => void|                                            | Callback when user swipes up.

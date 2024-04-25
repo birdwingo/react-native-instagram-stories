@@ -59,7 +59,7 @@ export interface InstagramStoriesProps {
   headerContainerStyle?: ViewStyle;
   progressContainerStyle?: ViewStyle;
   hideAvatarList?: boolean;
-  renderCustomComponent?: () => ReactNode;
+  imageOverlayView?: ReactNode;
   onShow?: ( id: string ) => void;
   onHide?: ( id: string ) => void;
   onSwipeUp?: ( userId?: string, storyId?: string ) => void;
