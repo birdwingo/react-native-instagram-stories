@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 1.2.7 (2024-04-25)
+
+
+### Bug Fixes
+
+* imageOverlayView property ([7442dc9](https://github.com/birdwingo/react-native-instagram-stories/commit/7442dc91e14291cea58c1fc9b936fe04c8afba5e))
+
 ### 1.2.6 (2024-02-25)
 
 
