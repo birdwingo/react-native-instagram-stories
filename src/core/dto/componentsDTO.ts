@@ -141,7 +141,7 @@ export interface StoryListProps extends InstagramStoryProps, StoryHeaderProps {
   imageStyles?: ImageStyle;
   imageProps?: ImageProps;
   progressContainerStyle?: ViewStyle;
-  renderCustomComponent?: () => ReactNode;
+  imageOverlayView?: ReactNode;
   onLoad: ( duration?: number ) => void;
 }
 
