@@ -59,6 +59,7 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
       { duration: modalAnimationDuration },
       () => runOnJS( setVisible )( false ),
     );
+    cancelAnimation( animation );
 
   };
 
@@ -126,7 +127,7 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
 
     }
 
-    if ( onStoryEnd ) {
+    if ( onStoryEnd && animated ) {
 
       runOnJS( onStoryEnd )( previousUser ?? userId.value, currentStory.value );
 
