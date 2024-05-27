@@ -12,7 +12,7 @@ import { StoryItemProps } from '~/core/dto/instagramStoriesDTO';
 
 const StoryImage: FC<StoryImageProps> = ( {
   stories, activeStory, defaultStory, isDefaultVideo, paused, videoProps, isActive,
-  mediaContainerStyle, imageStyles, imageProps, onImageLayout, onLoad,
+  mediaContainerStyle, imageStyles, imageProps, videoDuration, onImageLayout, onLoad,
 } ) => {
 
   const [ data, setData ] = useState<{ data?: StoryItemProps, isVideo?: boolean }>(
@@ -21,7 +21,7 @@ const StoryImage: FC<StoryImageProps> = ( {
 
   const loading = useSharedValue( true );
   const color = useSharedValue( LOADER_COLORS );
-  const videoDuration = useSharedValue<number | undefined>( undefined );
+  const duration = useSharedValue<number | undefined>( undefined );
   const isPaused = useDerivedValue( () => paused.value || !isActive.value );
 
   const onImageChange = async () => {
@@ -44,7 +44,7 @@ const StoryImage: FC<StoryImageProps> = ( {
 
       if ( !loading.value ) {
 
-        onLoad( videoDuration.value );
+        onLoad( duration.value );
 
       }
 
@@ -77,19 +77,16 @@ const StoryImage: FC<StoryImageProps> = ( {
     [ activeStory.value ],
   );
 
-  const onContentLoad = ( duration?: number ) => {
+  const onContentLoad = ( newDuration?: number ) => {
 
-    if ( data.isVideo ) {
-
-      videoDuration.value = duration;
-
-    }
+    const animationDuration = ( data?.data?.mediaType === 'video' ? videoDuration : undefined ) ?? data.data?.animationDuration ?? newDuration;
+    duration.value = animationDuration;
 
     loading.value = false;
 
     if ( isActive.value ) {
 
-      onLoad( duration );
+      onLoad( animationDuration );
 
     }
 

@@ -448,7 +448,7 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
                     onLoad?.();
                     startAnimation(
                       undefined,
-                      value !== undefined ? ( videoDuration ?? value ) : duration,
+                      value !== undefined ? value : duration,
                     );
 
                   }}
@@ -458,6 +458,7 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
                   videoProps={videoProps}
                   closeColor={closeIconColor}
                   hideElements={hideElements}
+                  videoDuration={videoDuration}
                   key={story.id}
                   {...props}
                 />
