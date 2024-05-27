@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 1.2.9 (2024-05-27)
+
+
+### Bug Fixes
+
+* avoid press when swiping ([8c003c9](https://github.com/birdwingo/react-native-instagram-stories/commit/8c003c98bab91584a92e191637fcb64fcf544daf))
+
 ### 1.2.8 (2024-05-27)
 
 ### 1.2.7 (2024-04-25)
