@@ -8,14 +8,15 @@ import Loader from '../Loader';
 import { HEIGHT, LOADER_COLORS, WIDTH } from '../../core/constants';
 import ImageStyles from './Image.styles';
 import StoryVideo from './video';
+import { StoryItemProps } from '~/core/dto/instagramStoriesDTO';
 
 const StoryImage: FC<StoryImageProps> = ( {
-  stories, activeStory, defaultImage, isDefaultVideo, paused, videoProps, isActive,
+  stories, activeStory, defaultStory, isDefaultVideo, paused, videoProps, isActive,
   mediaContainerStyle, imageStyles, imageProps, onImageLayout, onLoad,
 } ) => {
 
-  const [ data, setData ] = useState<{ uri: string | undefined, isVideo?: boolean }>(
-    { uri: defaultImage, isVideo: isDefaultVideo },
+  const [ data, setData ] = useState<{ data?: StoryItemProps, isVideo?: boolean }>(
+    { data: defaultStory, isVideo: isDefaultVideo },
   );
 
   const loading = useSharedValue( true );
@@ -39,7 +40,7 @@ const StoryImage: FC<StoryImageProps> = ( {
 
     }
 
-    if ( data.uri === story.sourceUrl ) {
+    if ( data.data?.id === story.id ) {
 
       if ( !loading.value ) {
 
@@ -50,15 +51,15 @@ const StoryImage: FC<StoryImageProps> = ( {
     } else {
 
       loading.value = true;
-      setData( { uri: story.sourceUrl, isVideo: story.mediaType === 'video' } );
+      setData( { data: story, isVideo: story.mediaType === 'video' } );
 
     }
 
     const nextStory = stories[stories.indexOf( story ) + 1];
 
-    if ( nextStory && nextStory.mediaType !== 'video' ) {
+    if ( nextStory && nextStory.mediaType !== 'video' && ( ( nextStory.source as any )?.uri || nextStory.sourceUrl ) ) {
 
-      Image.prefetch( nextStory.sourceUrl );
+      Image.prefetch( ( nextStory.source as any )?.uri ?? nextStory.sourceUrl );
 
     }
 
@@ -100,19 +101,19 @@ const StoryImage: FC<StoryImageProps> = ( {
         <Loader loading={loading} color={color} size={50} />
       </View>
       <View style={[ ImageStyles.image, mediaContainerStyle ]}>
-        {data.uri && (
+        {( data.data?.source || data.data?.sourceUrl ) && (
           data.isVideo ? (
             <StoryVideo
               onLoad={onContentLoad}
               onLayout={onImageLayout}
-              uri={data.uri}
+              source={data.data.source ?? { uri: data.data.sourceUrl }}
               paused={isPaused}
               isActive={isActive}
               {...videoProps}
             />
           ) : (
             <Image
-              source={{ uri: data.uri }}
+              source={data.data.source ?? { uri: data.data.sourceUrl }}
               style={[ { width: WIDTH, aspectRatio: 0.5626 }, imageStyles ]}
               resizeMode="contain"
               testID="storyImageComponent"
