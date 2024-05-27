@@ -1,5 +1,7 @@
 import React, { FC, memo } from 'react';
-import Animated, { useAnimatedStyle, useDerivedValue, useSharedValue } from 'react-native-reanimated';
+import Animated, {
+  useAnimatedStyle, useDerivedValue, useSharedValue, withTiming,
+} from 'react-native-reanimated';
 import StoryAnimation from '../Animation';
 import ListStyles from './List.styles';
 import StoryImage from '../Image';
@@ -13,7 +15,7 @@ import StoryFooter from '../Footer';
 const StoryList: FC<StoryListProps> = ( {
   id, stories, index, x, activeUser, activeStory, progress, seenStories, paused,
   onLoad, videoProps, progressColor, progressActiveColor, mediaContainerStyle, imageStyles,
-  imageProps, progressContainerStyle, imageOverlayView, ...props
+  imageProps, progressContainerStyle, imageOverlayView, hideElements, ...props
 } ) => {
 
   const imageHeight = useSharedValue( HEIGHT );
@@ -24,6 +26,10 @@ const StoryList: FC<StoryListProps> = ( {
   );
 
   const animatedStyles = useAnimatedStyle( () => ( { height: imageHeight.value } ) );
+  const contentStyles = useAnimatedStyle( () => ( {
+    opacity: withTiming( hideElements.value ? 0 : 1 ),
+    ...ListStyles.content,
+  } ) );
 
   const onImageLayout = ( height: number ) => {
 
@@ -52,18 +58,20 @@ const StoryList: FC<StoryListProps> = ( {
           imageStyles={imageStyles}
           imageProps={imageProps}
         />
-        {imageOverlayView}
-        <Progress
-          active={isActive}
-          activeStory={activeStoryIndex}
-          progress={progress}
-          length={stories.length}
-          progressColor={progressColor}
-          progressActiveColor={progressActiveColor}
-          progressContainerStyle={progressContainerStyle}
-        />
-        <StoryHeader {...props} />
-        <StoryContent stories={stories} active={isActive} activeStory={activeStory} />
+        <Animated.View style={contentStyles}>
+          {imageOverlayView}
+          <Progress
+            active={isActive}
+            activeStory={activeStoryIndex}
+            progress={progress}
+            length={stories.length}
+            progressColor={progressColor}
+            progressActiveColor={progressActiveColor}
+            progressContainerStyle={progressContainerStyle}
+          />
+          <StoryHeader {...props} />
+          <StoryContent stories={stories} active={isActive} activeStory={activeStory} />
+        </Animated.View>
       </Animated.View>
       <StoryFooter stories={stories} active={isActive} activeStory={activeStory} />
     </StoryAnimation>

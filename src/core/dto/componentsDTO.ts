@@ -41,6 +41,7 @@ export interface StoryModalProps {
   mediaContainerStyle?: ViewStyle;
   imageStyles?: ImageStyle;
   imageProps?: ImageProps;
+  hideElementsOnLongPress?: boolean;
   onLoad: () => void;
   onShow?: ( id: string ) => void;
   onHide?: ( id: string ) => void;
@@ -143,6 +144,7 @@ export interface StoryListProps extends InstagramStoryProps, StoryHeaderProps {
   imageProps?: ImageProps;
   progressContainerStyle?: ViewStyle;
   imageOverlayView?: ReactNode;
+  hideElements: SharedValue<boolean>;
   onLoad: ( duration?: number ) => void;
 }
 
