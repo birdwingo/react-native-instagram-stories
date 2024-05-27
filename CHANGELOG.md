@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 1.2.10 (2024-05-27)
+
+
+### Bug Fixes
+
+* show elements when swiping ([0d6da2f](https://github.com/birdwingo/react-native-instagram-stories/commit/0d6da2ff83c83c7497a19a2494ca69158bd0598a))
+
 ### 1.2.9 (2024-05-27)
 
 
