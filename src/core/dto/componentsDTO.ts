@@ -37,6 +37,7 @@ export interface StoryModalProps {
   progressActiveColor?: string;
   progressColor?: string;
   modalAnimationDuration?: number;
+  storyAnimationDuration?: number;
   mediaContainerStyle?: ViewStyle;
   imageStyles?: ImageStyle;
   imageProps?: ImageProps;

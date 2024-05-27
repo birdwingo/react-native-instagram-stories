@@ -103,6 +103,7 @@ export default YourComponent;
  `progressColor`            | string                                       | '#00000099'                                | Background color of progress bar item in inactive state
  `progressActiveColor`      | string                                       | '#FFFFFF'                                  | Background color of progress bar item in active state
  `modalAnimationDuration`   | number                                       | 800                                        | Duration of modal animation in ms (showing/closing instagram stories)
+ `storyAnimationDuration`   | number                                       | 800                                        | Duration of story animation (animation when swiping to the left/right)
  `mediaContainerStyle`      | ViewStyle                                    |                                            | Additional styles for media (video or image) container
  `imageStyles`              | ImageStyle                                   | { width: WIDTH, aspectRatio: 0.5626 }      | Additional styles image component
  `imageProps`               | ImageProps                                   |                                            | Additional props applied to image component

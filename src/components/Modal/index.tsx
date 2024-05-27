@@ -8,7 +8,7 @@ import Animated, {
   useDerivedValue, useSharedValue, withTiming,
 } from 'react-native-reanimated';
 import {
-  ANIMATION_CONFIG, HEIGHT, LONG_PRESS_DURATION, WIDTH,
+  HEIGHT, LONG_PRESS_DURATION, STORY_ANIMATION_DURATION, WIDTH,
 } from '../../core/constants';
 import { GestureContext, StoryModalProps, StoryModalPublicMethods } from '../../core/dto/componentsDTO';
 import GestureHandler from './gesture';
@@ -17,7 +17,8 @@ import ModalStyles from './Modal.styles';
 
 const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
   stories, seenStories, duration, videoDuration, storyAvatarSize, textStyle, containerStyle,
-  backgroundColor, videoProps, closeIconColor, modalAnimationDuration = 800, onLoad, onShow, onHide,
+  backgroundColor, videoProps, closeIconColor, modalAnimationDuration = STORY_ANIMATION_DURATION,
+  storyAnimationDuration = STORY_ANIMATION_DURATION, onLoad, onShow, onHide,
   onSeenStoriesChange, onSwipeUp, onStoryStart, onStoryEnd, ...props
 }, ref ) => {
 
@@ -118,7 +119,7 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
     const newUserIndex = stories.findIndex( ( story ) => story.id === id );
     const newX = newUserIndex * WIDTH;
 
-    x.value = animated ? withTiming( newX, ANIMATION_CONFIG ) : newX;
+    x.value = animated ? withTiming( newX, { duration: storyAnimationDuration } ) : newX;
 
     if ( sameUser ) {
 
