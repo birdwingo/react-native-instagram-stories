@@ -112,6 +112,7 @@ export default YourComponent;
  `headerContainerStyle`     | ViewStyle                                    |                                            | Additional styles for the story header container
  `progressContainerStyle`   | ViewStyle                                    |                                            | Additional styles for the story progress container
  `hideAvatarList`           | boolean                                      | false                                      | A boolean indicating whether to hide avatar scroll list
+ `hideElementsOnLongPress`  | boolean                                      | false                                      | A boolean indicating whether to hide all elements when story is paused by long press
  `imageOverlayView`         | ReactNode                                    |                                            | Image overlay compontent
  `onShow`                   | ( id: string ) => void                       |                                            | Callback when a story is shown.
  `onHide`                   | ( id: string ) => void                       |                                            | Callback when a story is hidden.

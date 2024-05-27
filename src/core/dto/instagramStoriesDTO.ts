@@ -65,6 +65,7 @@ export interface InstagramStoriesProps {
   progressContainerStyle?: ViewStyle;
   hideAvatarList?: boolean;
   imageOverlayView?: ReactNode;
+  hideElementsOnLongPress?: boolean;
   onShow?: ( id: string ) => void;
   onHide?: ( id: string ) => void;
   onSwipeUp?: ( userId?: string, storyId?: string ) => void;

@@ -18,7 +18,8 @@ import ModalStyles from './Modal.styles';
 const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
   stories, seenStories, duration, videoDuration, storyAvatarSize, textStyle, containerStyle,
   backgroundColor, videoProps, closeIconColor, modalAnimationDuration = STORY_ANIMATION_DURATION,
-  storyAnimationDuration = STORY_ANIMATION_DURATION, onLoad, onShow, onHide,
+  storyAnimationDuration = STORY_ANIMATION_DURATION, hideElementsOnLongPress,
+  onLoad, onShow, onHide,
   onSeenStoriesChange, onSwipeUp, onStoryStart, onStoryEnd, ...props
 }, ref ) => {
 
@@ -31,6 +32,7 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
   const paused = useSharedValue( false );
   const durationValue = useSharedValue( duration );
   const isLongPress = useSharedValue( false );
+  const hideElements = useSharedValue( false );
 
   const userIndex = useDerivedValue( () => Math.round( x.value / WIDTH ) );
   const storyIndex = useDerivedValue( () => stories[userIndex.value]?.stories.findIndex(
@@ -333,10 +335,13 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
   const onLongPress = () => {
 
     isLongPress.value = true;
+    hideElements.value = hideElementsOnLongPress ?? false;
 
   };
 
   const onPress = ( { nativeEvent: { locationX } }: GestureResponderEvent ) => {
+
+    hideElements.value = false;
 
     if ( isLongPress.value ) {
 
@@ -452,6 +457,7 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
                   paused={paused}
                   videoProps={videoProps}
                   closeColor={closeIconColor}
+                  hideElements={hideElements}
                   key={story.id}
                   {...props}
                 />
