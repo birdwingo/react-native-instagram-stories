@@ -3,7 +3,7 @@ import {
   ImageProps, ImageStyle, TextStyle, ViewStyle,
 } from 'react-native';
 import { ReactNode } from 'react';
-import { InstagramStoryProps } from './instagramStoriesDTO';
+import { InstagramStoryProps, StoryItemProps } from './instagramStoriesDTO';
 import { ProgressStorageProps } from './helpersDTO';
 
 export interface StoryAvatarProps extends InstagramStoryProps {
@@ -77,7 +77,7 @@ export interface AnimationProps {
 export interface StoryImageProps {
   stories: InstagramStoryProps['stories'];
   activeStory: SharedValue<string | undefined>;
-  defaultImage: string | undefined;
+  defaultStory?: StoryItemProps;
   isDefaultVideo: boolean;
   paused: SharedValue<boolean>;
   videoProps?: any;
@@ -146,7 +146,7 @@ export interface StoryListProps extends InstagramStoryProps, StoryHeaderProps {
 }
 
 export interface StoryVideoProps {
-  uri: string;
+  source: ImageProps['source'];
   paused: SharedValue<boolean>;
   isActive: SharedValue<boolean>;
   onLoad: ( duration: number ) => void;

@@ -60,8 +60,8 @@ const YourComponent = () => {
     name: 'User 1',
     imgUrl: 'user1-profile-image-url',
     stories: [
-      { id: 'story1', sourceUrl: 'story1-image-url' },
-      { id: 'story2', sourceUrl: 'story1-video-url', mediaType: 'video' },
+      { id: 'story1', source: { uri: 'story1-image-url' } },
+      { id: 'story2', source: { uri: 'story1-video-url' }, mediaType: 'video' },
       // ...
     ]}, // ...
   ];
@@ -154,7 +154,7 @@ export default YourComponent;
  Parameter             | Type                                     | Required
 -----------------------|------------------------------------------|-------------------
  `id`                  | string                                   | true
- `sourceUrl`           | string                                   | true
+ `source`              | ImageProps['source']                     | true
  `mediaType`           | 'video' \| 'image' (default: `'image'`)  | false
  `renderContent`       | () => ReactNode                          | false
  `renderFooter`        | () => ReactNode                          | false

@@ -7,7 +7,11 @@ import {
 
 export interface StoryItemProps {
   id: string;
-  sourceUrl: string;
+  /**
+    * @deprecated Use {@link source} instead (set source to {uri: 'your url'}).
+  */
+  sourceUrl?: string;
+  source: ImageProps['source'];
   mediaType?: 'image' | 'video';
   renderContent?: () => ReactNode;
   renderFooter?: () => ReactNode;

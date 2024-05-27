@@ -7,7 +7,7 @@ import { StoryVideoProps } from '../../core/dto/componentsDTO';
 import { WIDTH } from '../../core/constants';
 
 const StoryVideo: FC<StoryVideoProps> = ( {
-  uri, paused, isActive, onLoad, onLayout, ...props
+  source, paused, isActive, onLoad, onLayout, ...props
 } ) => {
 
   try {
@@ -38,7 +38,7 @@ const StoryVideo: FC<StoryVideoProps> = ( {
         ref={ref}
         style={{ width: WIDTH, aspectRatio: 0.5626 }}
         {...props}
-        source={{ uri }}
+        source={source}
         paused={!pausedValue}
         controls={false}
         repeat={false}
