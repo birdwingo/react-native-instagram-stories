@@ -87,6 +87,7 @@ export interface StoryImageProps {
   isActive: SharedValue<boolean>;
   imageStyles?: ImageStyle;
   imageProps?: ImageProps;
+  videoDuration?: number;
   onImageLayout: ( height: number ) => void;
   onLoad: ( duration?: number ) => void;
 }
@@ -145,6 +146,7 @@ export interface StoryListProps extends InstagramStoryProps, StoryHeaderProps {
   progressContainerStyle?: ViewStyle;
   imageOverlayView?: ReactNode;
   hideElements: SharedValue<boolean>;
+  videoDuration?: number;
   onLoad: ( duration?: number ) => void;
 }
 
