@@ -321,6 +321,7 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
       ctx.moving = false;
       ctx.vertical = false;
       ctx.userId = undefined;
+      hideElements.value = false;
 
     },
   } );
@@ -339,15 +340,28 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
 
   };
 
+  const onPressOut = () => {
+
+    if ( !isLongPress.value ) {
+
+      return;
+
+    }
+
+    hideElements.value = false;
+    isLongPress.value = false;
+    paused.value = false;
+    startAnimation( true );
+
+  };
+
   const onPress = ( { nativeEvent: { locationX } }: GestureResponderEvent ) => {
 
     hideElements.value = false;
 
     if ( isLongPress.value ) {
 
-      isLongPress.value = false;
-      paused.value = false;
-      startAnimation( true );
+      onPressOut();
 
       return;
 
@@ -428,6 +442,7 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
             onPressIn={onPressIn}
             onPress={onPress}
             onLongPress={onLongPress}
+            onPressOut={onPressOut}
             delayLongPress={LONG_PRESS_DURATION}
             style={ModalStyles.container}
           >
