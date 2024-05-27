@@ -158,6 +158,7 @@ export default YourComponent;
  `id`                  | string                                   | true
  `source`              | ImageProps['source']                     | true
  `mediaType`           | 'video' \| 'image' (default: `'image'`)  | false
+ `animationDuration`   | number                                   | false
  `renderContent`       | () => ReactNode                          | false
  `renderFooter`        | () => ReactNode                          | false
 
