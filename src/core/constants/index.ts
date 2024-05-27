@@ -21,6 +21,6 @@ export const AVATAR_SIZE = 60;
 export const AVATAR_OFFSET = 5;
 export const STORY_AVATAR_SIZE = 26;
 
-export const ANIMATION_CONFIG = { duration: 800 };
+export const STORY_ANIMATION_DURATION = 800;
 export const ANIMATION_DURATION = 10000;
 export const LONG_PRESS_DURATION = 500;
