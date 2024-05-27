@@ -29,6 +29,7 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
   const currentStory = useSharedValue( stories[0]?.stories[0]?.id );
   const paused = useSharedValue( false );
   const durationValue = useSharedValue( duration );
+  const isLongPress = useSharedValue( false );
 
   const userIndex = useDerivedValue( () => Math.round( x.value / WIDTH ) );
   const storyIndex = useDerivedValue( () => stories[userIndex.value]?.stories.findIndex(
@@ -328,9 +329,23 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
 
   };
 
-  const onLongPress = () => startAnimation( true );
+  const onLongPress = () => {
+
+    isLongPress.value = true;
+
+  };
 
   const onPress = ( { nativeEvent: { locationX } }: GestureResponderEvent ) => {
+
+    if ( isLongPress.value ) {
+
+      isLongPress.value = false;
+      paused.value = false;
+      startAnimation( true );
+
+      return;
+
+    }
 
     if ( locationX < WIDTH / 2 ) {
 
@@ -405,7 +420,7 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
         <Animated.View style={ModalStyles.container} testID="storyModal">
           <Pressable
             onPressIn={onPressIn}
-            onPress={onPress}
+            onPressOut={onPress}
             onLongPress={onLongPress}
             delayLongPress={LONG_PRESS_DURATION}
             style={ModalStyles.container}
