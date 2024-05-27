@@ -426,7 +426,7 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
         <Animated.View style={ModalStyles.container} testID="storyModal">
           <Pressable
             onPressIn={onPressIn}
-            onPressOut={onPress}
+            onPress={onPress}
             onLongPress={onLongPress}
             delayLongPress={LONG_PRESS_DURATION}
             style={ModalStyles.container}
