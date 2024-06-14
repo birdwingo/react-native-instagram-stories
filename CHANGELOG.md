@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 1.2.11 (2024-06-14)
+
+
+### Bug Fixes
+
+* opening url on footer press causes images to get stuck ([6aabd43](https://github.com/birdwingo/react-native-instagram-stories/commit/6aabd438afc645fe0324b374f9d4378d291e802f))
+
 ### 1.2.10 (2024-05-27)
 
 
