@@ -22,7 +22,7 @@ const StoryVideo: FC<StoryVideoProps> = ( {
     const start = () => {
 
       ref.current?.seek( 0 );
-      ref.current?.resume();
+      ref.current?.resume?.();
 
     };
 
