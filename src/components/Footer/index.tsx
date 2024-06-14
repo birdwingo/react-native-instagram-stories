@@ -26,7 +26,7 @@ const StoryFooter: FC<StoryContentProps> = ( { stories, active, activeStory } ) 
   useAnimatedReaction(
     () => activeStory.value,
     ( res, prev ) => res !== prev && onChange(),
-    [ activeStory.value ],
+    [ activeStory.value, onChange ],
   );
 
   const footer = useMemo( () => stories[storyIndex]?.renderFooter?.(), [ storyIndex ] );
