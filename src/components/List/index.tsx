@@ -28,7 +28,6 @@ const StoryList: FC<StoryListProps> = ( {
   const animatedStyles = useAnimatedStyle( () => ( { height: imageHeight.value } ) );
   const contentStyles = useAnimatedStyle( () => ( {
     opacity: withTiming( hideElements.value ? 0 : 1 ),
-    ...ListStyles.content,
   } ) );
 
   const onImageLayout = ( height: number ) => {
@@ -59,7 +58,7 @@ const StoryList: FC<StoryListProps> = ( {
           imageProps={imageProps}
           videoDuration={videoDuration}
         />
-        <Animated.View style={contentStyles}>
+        <Animated.View style={[ contentStyles, ListStyles.content ]}>
           {imageOverlayView}
           <Progress
             active={isActive}
