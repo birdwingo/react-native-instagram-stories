@@ -33,6 +33,7 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
   const durationValue = useSharedValue( duration );
   const isLongPress = useSharedValue( false );
   const hideElements = useSharedValue( false );
+  const lastViewed = useSharedValue<{ [key: string]:number }>( {} );
 
   const userIndex = useDerivedValue( () => Math.round( x.value / WIDTH ) );
   const storyIndex = useDerivedValue( () => stories[userIndex.value]?.stories.findIndex(
@@ -63,6 +64,7 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
       { duration: modalAnimationDuration },
       () => runOnJS( setVisible )( false ),
     );
+    lastViewed.value = {};
     cancelAnimation( animation );
 
   };
@@ -103,6 +105,12 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
 
       }
 
+      if ( userId.value !== undefined && storyIndex.value! >= 0 ) {
+
+        lastViewed.value = { ...lastViewed.value, [userId.value]: storyIndex.value ?? 0 };
+
+      }
+
     }
 
     animation.value = withTiming( 1, { duration: newDuration } );
@@ -137,12 +145,13 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
 
     }
 
-    const newStoryIndex = stories[newUserIndex]?.stories.findIndex(
-      ( story ) => story.id === seenStories.value[id],
-    );
+    const newStoryIndex = lastViewed.value[id] !== undefined
+      ? lastViewed.value[id]!
+      : ( ( stories[newUserIndex]?.stories.findIndex(
+        ( story ) => story.id === seenStories.value[id],
+      ) ?? 0 ) + 1 );
     const userStories = stories[newUserIndex]?.stories;
-    const newStory = newStoryIndex !== undefined
-      ? userStories?.[newStoryIndex + 1]?.id ?? userStories?.[0]?.id : undefined;
+    const newStory = userStories?.[newStoryIndex]?.id ?? userStories?.[0]?.id;
     currentStory.value = newStory;
 
     if ( onStoryStart ) {
