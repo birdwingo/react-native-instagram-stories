@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 1.3.1 (2024-06-24)
+
+
+### Bug Fixes
+
+* import TextProps ([593503d](https://github.com/birdwingo/react-native-instagram-stories/commit/593503dcfc9acafbc131eb4cbe445bef05ee0529))
+
 ## 1.3.0 (2024-06-24)
 
 
