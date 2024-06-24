@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## 1.3.0 (2024-06-24)
+
+
+### Features
+
+* continue on last viewed story when scrolling between users ([697a157](https://github.com/birdwingo/react-native-instagram-stories/commit/697a157d9f3faa8b473a088c6f13da0335f75154))
+
 ### 1.2.12 (2024-06-24)
 
 ### 1.2.11 (2024-06-14)
