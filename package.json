@@ -1,6 +1,6 @@
 {
   "name": "@birdwingo/react-native-instagram-stories",
-  "version": "1.2.11",
+  "version": "1.2.12",
   "description": "A versatile and captivating React Native component that empowers developers to seamlessly integrate Instagram-style stories into their mobile applications, fostering an engaging and interactive user experience.",
   "main": "src/index.tsx",
   "source": "src/index.tsx",
