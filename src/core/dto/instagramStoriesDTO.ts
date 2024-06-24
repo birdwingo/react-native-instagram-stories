@@ -4,6 +4,7 @@ import {
   ImageStyle,
   ScrollViewProps, TextStyle, ViewStyle,
 } from 'react-native';
+import { TextProps } from 'react-native-svg';
 
 export interface StoryItemProps {
   id: string;
@@ -51,6 +52,7 @@ export interface InstagramStoriesProps {
   backgroundColor?: string;
   showName?: boolean;
   nameTextStyle?: TextStyle;
+  nameTextProps?: TextProps;
   videoProps?: any;
   closeIconColor?: string;
   progressActiveColor?: string;

@@ -25,6 +25,7 @@ const StoryAvatar: FC<StoryAvatarProps> = ( {
   size,
   showName,
   nameTextStyle,
+  nameTextProps,
 } ) => {
 
   const loaded = useSharedValue( false );
@@ -62,7 +63,14 @@ const StoryAvatar: FC<StoryAvatarProps> = ( {
           />
         </TouchableOpacity>
       </View>
-      {Boolean( showName ) && <Text style={nameTextStyle}>{name}</Text>}
+      {Boolean( showName ) && (
+        <Text
+          {...nameTextProps}
+          style={[ { width: size + AVATAR_OFFSET * 2 }, nameTextStyle ]}
+        >
+          {name}
+        </Text>
+      )}
     </View>
   );
 
