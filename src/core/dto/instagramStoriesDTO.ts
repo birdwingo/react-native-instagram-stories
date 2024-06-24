@@ -2,9 +2,8 @@ import { ReactNode } from 'react';
 import {
   ImageProps,
   ImageStyle,
-  ScrollViewProps, TextStyle, ViewStyle,
+  ScrollViewProps, TextStyle, ViewStyle, TextProps,
 } from 'react-native';
-import { TextProps } from 'react-native-svg';
 
 export interface StoryItemProps {
   id: string;
