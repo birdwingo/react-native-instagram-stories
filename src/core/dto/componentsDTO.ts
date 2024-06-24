@@ -1,6 +1,6 @@
 import { SharedValue } from 'react-native-reanimated';
 import {
-  ImageProps, ImageStyle, TextStyle, ViewStyle,
+  ImageProps, ImageStyle, TextProps, TextStyle, ViewStyle,
 } from 'react-native';
 import { ReactNode } from 'react';
 import { InstagramStoryProps, StoryItemProps } from './instagramStoriesDTO';
@@ -15,6 +15,7 @@ export interface StoryAvatarProps extends InstagramStoryProps {
   size: number;
   showName?: boolean;
   nameTextStyle?: TextStyle;
+  nameTextProps?: TextProps;
 }
 
 export interface StoryLoaderProps {

@@ -97,7 +97,8 @@ export default YourComponent;
  `videoAnimationMaxDuration`| number                                       |                                            | The max duration of the video story animations in ms. If is this property not provided, the whole video will be played.
  `backgroundColor`          | string                                       | '#000000'                                  | The background color of story container.
  `showName`                 | boolean                                      | false                                      | Whether you want to show user name under avatar in avatar list.
- `nameTextStyle`            | TextStyle                                    |                                            | Additional styles for name text elements.
+ `nameTextStyle`            | TextStyle                                    | { width: `avatarSize` + 10 }               | Additional styles for name text elements.
+ `nameTextProps`            | TextProps                                    |                                            | Props to be passed to the name Text component.
  `videoProps`               | [react-native-video](https://www.npmjs.com/package/react-native-video?activeTab=readme#configurable-props)| | Additional props for video component. For more information, follow `react-native-video`.
  `closeIconColor`           | string                                       | '#00000099'                                | The color of story close icon.
  `progressColor`            | string                                       | '#00000099'                                | Background color of progress bar item in inactive state
