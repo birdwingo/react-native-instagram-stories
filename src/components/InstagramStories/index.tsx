@@ -228,7 +228,8 @@ const InstagramStories = forwardRef<InstagramStoriesPublicMethods, InstagramStor
     <>
       {!hideAvatarList && (
       <ScrollView horizontal {...listContainerProps} {...avatarListContainerProps} contentContainerStyle={[ listContainerStyle, avatarListContainerStyle ]} testID="storiesList">
-        {data.map( ( story ) => story.renderAvatar?.() ?? ( story.imgUrl && (
+        {data.map( ( story ) => story.renderAvatar?.()
+        ?? ( ( story.avatarSource || story.imgUrl ) && (
           <StoryAvatar
             {...story}
             loadingStory={loadingStory}
