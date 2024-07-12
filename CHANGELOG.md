@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 1.3.2 (2024-07-12)
+
+
+### Bug Fixes
+
+* avatarSource property ([4ceed53](https://github.com/birdwingo/react-native-instagram-stories/commit/4ceed53ecc2df9e33a7a8584acd3f1159d553fca))
+
 ### 1.3.1 (2024-06-24)
 
 
