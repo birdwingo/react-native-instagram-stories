@@ -49,11 +49,14 @@ If you use video in your stories, please make sure you have `react-native-video`
 To use the `InstagramStories` component, you need to import it in your React Native application and include it in your JSX code. Here's an example of how to use it:
 
 ```jsx
-import React from 'react';
+import React, { useRef } from 'react';
 import { View } from 'react-native';
-import InstagramStories from '@birdwingo/react-native-instagram-stories';
+import InstagramStories, { InstagramStoriesPublicMethods } from '@birdwingo/react-native-instagram-stories';
 
 const YourComponent = () => {
+
+  // to use public methods:
+  const ref = useRef( null ); // if using typescript - useRef<InstagramStoriesPublicMethods>( null )
   
   const stories = [{
     id: 'user1',
@@ -65,13 +68,18 @@ const YourComponent = () => {
       // ...
     ]}, // ...
   ];
+
+  // usage of public method
+  const setStories = () => ref.current?.setStories( stories );
   
   return (
     <View>
       <InstagramStories
+        ref={ref}
         stories={stories}
         // ...
       />
+     <Pressable onPress={setStories}>{...}</Pressable>
     </View>
   );
 };
@@ -144,7 +152,7 @@ export default YourComponent;
  Parameter             | Type                                   | Required
 -----------------------|----------------------------------------|----------------
  `id`                  | string                                 | true
- `imgUrl`              | string                                 | false
+ `avatarSource`        | ImageProps['source']                   | false
  `renderAvatar`        | () => ReactNode                        | false
  `renderStoryHeader`   | () => ReactNode                        | false
  `name`                | string                                 | false
