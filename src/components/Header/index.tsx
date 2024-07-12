@@ -34,7 +34,7 @@ const StoryHeader: FC<StoryHeaderProps> = ( {
     ]}
     >
       <View style={[ HeaderStyles.left, headerStyle ]}>
-        {Boolean( imgUrl ) && (
+        {( Boolean( avatarSource ) || Boolean( imgUrl ) ) && (
           <View style={[ HeaderStyles.avatar, { borderRadius: styles.borderRadius } ]}>
             <Image source={avatarSource ?? { uri: imgUrl }} style={styles} />
           </View>
