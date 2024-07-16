@@ -42,6 +42,7 @@ export interface StoryModalProps {
   mediaContainerStyle?: ViewStyle;
   imageStyles?: ImageStyle;
   imageProps?: ImageProps;
+  footerComponent?: ReactNode;
   hideElementsOnLongPress?: boolean;
   onLoad: () => void;
   onShow?: ( id: string ) => void;
