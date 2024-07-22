@@ -156,6 +156,7 @@ export default YourComponent;
  `avatarSource`        | ImageProps['source']                   | false
  `renderAvatar`        | () => ReactNode                        | false
  `renderStoryHeader`   | () => ReactNode                        | false
+ `onStoryHeaderPress`  | () => void                             | false
  `name`                | string                                 | false
  `stories`             | [StoryItemProps](#storyitemprops)[]    | true
 

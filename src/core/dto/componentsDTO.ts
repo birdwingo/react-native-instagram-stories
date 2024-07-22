@@ -120,6 +120,7 @@ export interface StoryHeaderProps {
   headerContainerStyle?: ViewStyle;
   onClose: () => void;
   renderStoryHeader?: () => ReactNode;
+  onStoryHeaderPress?: () => void;
 }
 
 export interface IconProps {
