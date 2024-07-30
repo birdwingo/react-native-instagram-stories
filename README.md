@@ -122,6 +122,7 @@ export default YourComponent;
  `progressContainerStyle`   | ViewStyle                                    |                                            | Additional styles for the story progress container
  `hideAvatarList`           | boolean                                      | false                                      | A boolean indicating whether to hide avatar scroll list
  `hideElementsOnLongPress`  | boolean                                      | false                                      | A boolean indicating whether to hide all elements when story is paused by long press
+ `loopingStories`           | `'none'` | `'onlyLast'` | `'all'`            | `'none'`                                   | A string indicating whether to continue stories after last story was shown. If set to `'none'` modal will be closed after all stories were played, if set to `'onlyLast'` stories will loop on last user only after all stories were played. If set to `'all'` stories will play from beginning after all stories were played.
  `footerComponent`          | ReactNode                                    |                                            | A custom component, such as a floating element, that can be added to the modal.
  `imageOverlayView`         | ReactNode                                    |                                            | Image overlay compontent
  `onShow`                   | ( id: string ) => void                       |                                            | Callback when a story is shown.
