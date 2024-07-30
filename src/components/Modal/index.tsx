@@ -18,7 +18,7 @@ import ModalStyles from './Modal.styles';
 const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
   stories, seenStories, duration, videoDuration, storyAvatarSize, textStyle, containerStyle,
   backgroundColor, videoProps, closeIconColor, modalAnimationDuration = STORY_ANIMATION_DURATION,
-  storyAnimationDuration = STORY_ANIMATION_DURATION, hideElementsOnLongPress,
+  storyAnimationDuration = STORY_ANIMATION_DURATION, hideElementsOnLongPress, loopingStories = 'none',
   onLoad, onShow, onHide,
   onSeenStoriesChange, onSwipeUp, onStoryStart, onStoryEnd, footerComponent, ...props
 }, ref ) => {
@@ -122,6 +122,7 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
     animated = true,
     sameUser = false,
     previousUser?: string,
+    index?: number,
   ) => {
 
     'worklet';
@@ -151,7 +152,7 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
         ( story ) => story.id === seenStories.value[id],
       ) ?? 0 ) + 1 );
     const userStories = stories[newUserIndex]?.stories;
-    const newStory = userStories?.[newStoryIndex]?.id ?? userStories?.[0]?.id;
+    const newStory = userStories?.[index ?? newStoryIndex]?.id ?? userStories?.[0]?.id;
     currentStory.value = newStory;
 
     if ( onStoryStart ) {
@@ -177,6 +178,14 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
       if ( nextUserId.value ) {
 
         scrollTo( nextUserId.value );
+
+      } else if ( stories[0]?.id && loopingStories === 'all' ) {
+
+        scrollTo( stories[0].id, false );
+
+      } else if ( userId.value && loopingStories === 'onlyLast' ) {
+
+        scrollTo( userId.value, false, undefined, undefined, 0 );
 
       } else {
 

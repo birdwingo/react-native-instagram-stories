@@ -44,6 +44,7 @@ export interface StoryModalProps {
   imageProps?: ImageProps;
   footerComponent?: ReactNode;
   hideElementsOnLongPress?: boolean;
+  loopingStories?: 'none' | 'all' | 'onlyLast';
   onLoad: () => void;
   onShow?: ( id: string ) => void;
   onHide?: ( id: string ) => void;

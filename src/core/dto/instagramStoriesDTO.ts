@@ -73,6 +73,7 @@ export interface InstagramStoriesProps {
   hideAvatarList?: boolean;
   imageOverlayView?: ReactNode;
   hideElementsOnLongPress?: boolean;
+  loopingStories?: 'none' | 'all' | 'onlyLast';
   onShow?: ( id: string ) => void;
   onHide?: ( id: string ) => void;
   onSwipeUp?: ( userId?: string, storyId?: string ) => void;
