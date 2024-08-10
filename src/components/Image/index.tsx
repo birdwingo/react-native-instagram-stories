@@ -8,7 +8,7 @@ import Loader from '../Loader';
 import { HEIGHT, LOADER_COLORS, WIDTH } from '../../core/constants';
 import ImageStyles from './Image.styles';
 import StoryVideo from './video';
-import { StoryItemProps } from '~/core/dto/instagramStoriesDTO';
+import { StoryItemProps } from '../../core/dto/instagramStoriesDTO';
 
 const StoryImage: FC<StoryImageProps> = ( {
   stories, activeStory, defaultStory, isDefaultVideo, paused, videoProps, isActive,
