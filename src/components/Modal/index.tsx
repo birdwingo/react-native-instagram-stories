@@ -19,7 +19,7 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
   stories, seenStories, duration, videoDuration, storyAvatarSize, textStyle, containerStyle,
   backgroundColor, videoProps, closeIconColor, modalAnimationDuration = STORY_ANIMATION_DURATION,
   storyAnimationDuration = STORY_ANIMATION_DURATION, hideElementsOnLongPress, loopingStories = 'none',
-  onLoad, onShow, onHide,
+  statusBarTranslucent, onLoad, onShow, onHide,
   onSeenStoriesChange, onSwipeUp, onStoryStart, onStoryEnd, footerComponent, ...props
 }, ref ) => {
 
@@ -453,7 +453,7 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
   );
 
   return (
-    <Modal visible={visible} transparent animationType="none" testID="storyRNModal" onRequestClose={onClose}>
+    <Modal statusBarTranslucent={statusBarTranslucent} visible={visible} transparent animationType="none" testID="storyRNModal" onRequestClose={onClose}>
       <GestureHandler onGestureEvent={onGestureEvent}>
         <Animated.View style={ModalStyles.container} testID="storyModal">
           <Pressable
