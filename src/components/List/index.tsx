@@ -58,6 +58,7 @@ const StoryList: FC<StoryListProps> = ( {
           imageProps={imageProps}
           videoDuration={videoDuration}
         />
+        <StoryContent stories={stories} active={isActive} activeStory={activeStory} />
         <Animated.View style={[ contentStyles, ListStyles.content ]}>
           {imageOverlayView}
           <Progress
@@ -70,7 +71,6 @@ const StoryList: FC<StoryListProps> = ( {
             progressContainerStyle={progressContainerStyle}
           />
           <StoryHeader {...props} />
-          <StoryContent stories={stories} active={isActive} activeStory={activeStory} />
         </Animated.View>
       </Animated.View>
       <StoryFooter stories={stories} active={isActive} activeStory={activeStory} />
