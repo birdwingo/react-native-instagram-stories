@@ -58,8 +58,8 @@ const StoryList: FC<StoryListProps> = ( {
           imageProps={imageProps}
           videoDuration={videoDuration}
         />
-        <StoryContent stories={stories} active={isActive} activeStory={activeStory} />
         <Animated.View style={[ contentStyles, ListStyles.content ]}>
+          <StoryContent stories={stories} active={isActive} activeStory={activeStory} />
           {imageOverlayView}
           <Progress
             active={isActive}
