@@ -175,6 +175,7 @@ const InstagramStories = forwardRef<InstagramStoriesPublicMethods, InstagramStor
 
       },
       clearProgressStorage,
+      goToSpecificStory:(userId:string,index:number)=>modalRef.current?.goToSpecificStory(userId,index),
       hide: () => modalRef.current?.hide(),
       show: ( id ) => {
 
