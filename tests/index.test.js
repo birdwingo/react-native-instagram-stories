@@ -31,7 +31,7 @@ jest.spyOn( Storage, 'setProgressStorage' ).mockImplementation( () => ( {} ) );
 const stories = [ {
   id: '1',
   name: 'John Doe',
-  imgUrl: 'https://picsum.photos/200/300',
+  avatarSource: 'https://picsum.photos/200/300',
   stories: [ {
     id: '1',
     sourceUrl: 'https://picsum.photos/200/300',

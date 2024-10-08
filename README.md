@@ -38,9 +38,11 @@ npm install react-native-gesture-handler
 npm install @birdwingo/react-native-instagram-stories
 ```
 
-## Integration with Storage and Video
+## Integration with Storage, Flashlist and Video
 
 The component offers an option to save and track the progress of seen stories using `saveProgress`. If you use `saveProgress`, please make sure you have `@react-native-async-storage/async-storage` installed.
+
+If you have installed Flashlist, it will be automatically used for avatars list.
 
 If you use video in your stories, please make sure you have `react-native-video` installed.
 
@@ -97,7 +99,7 @@ export default YourComponent;
  `avatarSeenBorderColors`   | string[]                                     | [ '#2A2A2C' ]                              | An array of string colors representing the border colors of seen story avatars.
  `avatarSize`               | number                                       | 60                                         | The size of the story avatars.
  `storyAvatarSize`          | number                                       | 25                                         | The size of the avatars shown in the header of each story.
- `avatarListContainerStyle` | ScrollViewProps['contentContainerStyle']     |                                            | Additional styles for the avatar scroll list container.
+ `avatarListContainerStyle` | ScrollViewProps['contentContainerStyle'], FlashListProps |                                | Additional styles for the avatar scroll list container.
  `avatarListContainerProps` | ScrollViewProps                              |                                            | Props to be passed to the avatar list ScrollView component.
  `containerStyle`           | ViewStyle                                    |                                            | Additional styles for the story container.
  `textStyle`                | TextStyle                                    |                                            | Additional styles for text elements.

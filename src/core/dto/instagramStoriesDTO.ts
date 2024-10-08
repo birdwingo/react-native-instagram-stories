@@ -4,6 +4,7 @@ import {
   ImageStyle,
   ScrollViewProps, TextStyle, ViewStyle, TextProps,
 } from 'react-native';
+import { FlashListProps } from '@shopify/flash-list';
 
 export interface StoryItemProps {
   id: string;
@@ -47,8 +48,8 @@ export interface InstagramStoriesProps {
   /**
     * @deprecated Use {@link avatarListContainerProps} instead.
   */
-  listContainerProps?: ScrollViewProps;
-  avatarListContainerProps?: ScrollViewProps;
+  listContainerProps?: ScrollViewProps | Partial<FlashListProps<InstagramStoryProps>>;
+  avatarListContainerProps?: ScrollViewProps | Partial<FlashListProps<InstagramStoryProps>>;
   containerStyle?: ViewStyle;
   textStyle?: TextStyle;
   animationDuration?: number;
