@@ -423,7 +423,7 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
     getCurrentStory: () => ( { userId: userId.value, storyId: currentStory.value } ),
     goToPreviousStory: toPreviousStory,
     goToNextStory: toNextStory,
-    goToSpecificStory:(userId:string,index:number)=>{scrollTo(userId, true, false, undefined, index)},
+    goToSpecificStory: ( newUserId, index ) => scrollTo( newUserId, true, false, undefined, index ),
   } ), [ userId.value, currentStory.value ] );
 
   useEffect( () => {

@@ -63,10 +63,7 @@ export type StoryModalPublicMethods = {
   goToPreviousStory: () => void;
   goToNextStory: () => void;
   getCurrentStory: () => { userId?: string, storyId?: string };
-  goToSpecificStory:(
-    userId?: string,
-    index?: number,
-  )=>void;
+  goToSpecificStory: ( userId: string, index?: number ) => void;
 };
 
 export type GestureContext = {
