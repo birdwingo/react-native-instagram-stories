@@ -49,7 +49,7 @@ export interface InstagramStoriesProps {
     * @deprecated Use {@link avatarListContainerProps} instead.
   */
   listContainerProps?: ScrollViewProps | Partial<FlashListProps<InstagramStoryProps>>;
-  avatarListContainerProps?: ScrollViewProps;
+  avatarListContainerProps?: ScrollViewProps | Partial<FlashListProps<InstagramStoryProps>>;
   containerStyle?: ViewStyle;
   textStyle?: TextStyle;
   animationDuration?: number;
