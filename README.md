@@ -147,7 +147,7 @@ export default YourComponent;
  `goToPreviousStory`   | () => void                                                                                       | Goes to previous story item
  `goToNextStory`       | () => void                                                                                       | Goes to next story item
  `getCurrentStory`     | () => {userId?: string, storyId?: string}                                                        | Returns current userId and storyId
- `goToSpecificStory`   | (userId:string,index:number) => void                                                             | Change current playing story to defined index if index not exist then start playing first story
+ `goToSpecificStory`   | ( userId: string, index: number ) => void                                                        | Change current playing story to defined index if index not exist then start playing first story
 
 ## Types
 
