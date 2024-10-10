@@ -152,6 +152,7 @@ export interface StoryListProps extends InstagramStoryProps, StoryHeaderProps {
   progressContainerStyle?: ViewStyle;
   imageOverlayView?: ReactNode;
   hideElements: SharedValue<boolean>;
+  hideOverlayViewOnLongPress?: boolean;
   videoDuration?: number;
   onLoad: ( duration?: number ) => void;
 }
