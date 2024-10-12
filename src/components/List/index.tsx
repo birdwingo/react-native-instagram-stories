@@ -15,7 +15,8 @@ import StoryFooter from '../Footer';
 const StoryList: FC<StoryListProps> = ( {
   id, stories, index, x, activeUser, activeStory, progress, seenStories, paused,
   onLoad, videoProps, progressColor, progressActiveColor, mediaContainerStyle, imageStyles,
-  imageProps, progressContainerStyle, imageOverlayView, hideElements,hideOverlayViewOnLongPress, videoDuration, ...props
+  imageProps, progressContainerStyle, imageOverlayView, hideElements, hideOverlayViewOnLongPress,
+  videoDuration, ...props
 } ) => {
 
   const imageHeight = useSharedValue( HEIGHT );
@@ -58,21 +59,25 @@ const StoryList: FC<StoryListProps> = ( {
           imageProps={imageProps}
           videoDuration={videoDuration}
         />
-        <Animated.View style={[hideOverlayViewOnLongPress? contentStyles:{}, ListStyles.content ]}>
+        <Animated.View style={[
+          hideOverlayViewOnLongPress ? contentStyles : {},
+          ListStyles.content,
+        ]}
+        >
           {imageOverlayView}
-          <Animated.View style={[contentStyles, ListStyles.content]}>
-          <Progress
-            active={isActive}
-            activeStory={activeStoryIndex}
-            progress={progress}
-            length={stories.length}
-            progressColor={progressColor}
-            progressActiveColor={progressActiveColor}
-            progressContainerStyle={progressContainerStyle}
-          />
-          <StoryHeader {...props} />
-          <StoryContent stories={stories} active={isActive} activeStory={activeStory} />
-        </Animated.View>
+          <Animated.View style={[ contentStyles, ListStyles.content ]}>
+            <Progress
+              active={isActive}
+              activeStory={activeStoryIndex}
+              progress={progress}
+              length={stories.length}
+              progressColor={progressColor}
+              progressActiveColor={progressActiveColor}
+              progressContainerStyle={progressContainerStyle}
+            />
+            <StoryHeader {...props} />
+            <StoryContent stories={stories} active={isActive} activeStory={activeStory} />
+          </Animated.View>
         </Animated.View>
       </Animated.View>
       <StoryFooter stories={stories} active={isActive} activeStory={activeStory} />
