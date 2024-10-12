@@ -61,6 +61,7 @@ export interface StoryModalProps {
   imageProps?: ImageProps;
   footerComponent?: ReactNode;
   hideElementsOnLongPress?: boolean;
+  hideOverlayViewOnLongPress?: boolean;
   loopingStories?: 'none' | 'all' | 'onlyLast';
   statusBarTranslucent?: boolean;
   onLoad: () => void;
@@ -170,6 +171,7 @@ export interface StoryListProps extends InstagramStoryProps, StoryHeaderProps {
   progressContainerStyle?: ViewStyle;
   imageOverlayView?: ReactNode;
   hideElements: SharedValue<boolean>;
+  hideOverlayViewOnLongPress?: boolean;
   videoDuration?: number;
   onLoad: ( duration?: number ) => void;
 }
