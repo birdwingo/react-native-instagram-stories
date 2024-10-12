@@ -4,6 +4,19 @@ import StoryAvatar from '../Avatar';
 import { StoryAvatarListProps } from '~/core/dto/componentsDTO';
 import { InstagramStoryProps } from '~/core/dto/instagramStoriesDTO';
 
+let FlashList: any;
+
+try {
+
+  // eslint-disable-next-line global-require
+  FlashList = require( '@shopify/flash-list' ).FlashList;
+
+} catch ( error ) {
+
+  FlashList = null;
+
+}
+
 const StoryAvatarList: FC<StoryAvatarListProps> = ( {
   stories, loadingStory, seenStories, colors, seenColors, size,
   showName, nameTextStyle, nameTextProps, listContainerProps, listContainerStyle,
@@ -27,10 +40,7 @@ const StoryAvatarList: FC<StoryAvatarListProps> = ( {
       />
     ) );
 
-  try {
-
-    // eslint-disable-next-line global-require
-    const { FlashList } = require( '@shopify/flash-list' );
+  if ( FlashList ) {
 
     return (
       <FlashList
@@ -45,15 +55,13 @@ const StoryAvatarList: FC<StoryAvatarListProps> = ( {
       />
     );
 
-  } catch ( error ) {
-
-    return (
-      <ScrollView horizontal {...listContainerProps} {...avatarListContainerProps} contentContainerStyle={[ listContainerStyle, avatarListContainerStyle ]} testID="storiesList">
-        {stories.map( renderItem )}
-      </ScrollView>
-    );
-
   }
+
+  return (
+    <ScrollView horizontal {...listContainerProps} {...avatarListContainerProps} contentContainerStyle={[ listContainerStyle, avatarListContainerStyle ]} testID="storiesList">
+      {stories.map( renderItem )}
+    </ScrollView>
+  );
 
 };
 
