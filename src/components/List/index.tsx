@@ -58,9 +58,9 @@ const StoryList: FC<StoryListProps> = ( {
           imageProps={imageProps}
           videoDuration={videoDuration}
         />
-        <Animated.View style={[hideOverlayViewOnLongPress? contentStyles:{}, ListStyles.content ]}>
+        <Animated.View style={[hideOverlayViewOnLongPress ? contentStyles:{}, ListStyles.content ]} pointerEvents="auto">
           {imageOverlayView}
-          <Animated.View style={[contentStyles, ListStyles.content]}>
+          <Animated.View style={[contentStyles, ListStyles.content]} pointerEvents="box-none">
           <Progress
             active={isActive}
             activeStory={activeStoryIndex}
