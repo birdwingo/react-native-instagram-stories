@@ -2,8 +2,7 @@ import React, {
   forwardRef, useImperativeHandle, useState, useEffect, useRef, memo,
 } from 'react';
 import { useSharedValue } from 'react-native-reanimated';
-import { Image, ScrollView } from 'react-native';
-import StoryAvatar from '../Avatar';
+import { Image } from 'react-native';
 import { clearProgressStorage, getProgressStorage, setProgressStorage } from '../../core/helpers/storage';
 import { InstagramStoriesProps, InstagramStoriesPublicMethods } from '../../core/dto/instagramStoriesDTO';
 import { ProgressStorageProps } from '../../core/dto/helpersDTO';
@@ -13,6 +12,7 @@ import {
 } from '../../core/constants';
 import StoryModal from '../Modal';
 import { StoryModalPublicMethods } from '../../core/dto/componentsDTO';
+import StoryAvatarList from '../AvatarList';
 
 const InstagramStories = forwardRef<InstagramStoriesPublicMethods, InstagramStoriesProps>( ( {
   stories,
@@ -175,6 +175,7 @@ const InstagramStories = forwardRef<InstagramStoriesPublicMethods, InstagramStor
 
       },
       clearProgressStorage,
+      goToSpecificStory: ( userId, index ) => modalRef.current?.goToSpecificStory( userId, index ),
       hide: () => modalRef.current?.hide(),
       show: ( id ) => {
 
@@ -227,24 +228,22 @@ const InstagramStories = forwardRef<InstagramStoriesPublicMethods, InstagramStor
   return (
     <>
       {!hideAvatarList && (
-      <ScrollView horizontal {...listContainerProps} {...avatarListContainerProps} contentContainerStyle={[ listContainerStyle, avatarListContainerStyle ]} testID="storiesList">
-        {data.map( ( story ) => story.renderAvatar?.()
-        ?? ( ( story.avatarSource || story.imgUrl ) && (
-          <StoryAvatar
-            {...story}
-            loadingStory={loadingStory}
-            seenStories={seenStories}
-            onPress={() => onPress( story.id )}
-            colors={avatarBorderColors}
-            seenColors={avatarSeenBorderColors}
-            size={avatarSize}
-            showName={showName}
-            nameTextStyle={nameTextStyle}
-            nameTextProps={nameTextProps}
-            key={`avatar${story.id}`}
-          />
-        ) ) )}
-      </ScrollView>
+        <StoryAvatarList
+          stories={data}
+          loadingStory={loadingStory}
+          seenStories={seenStories}
+          colors={avatarBorderColors}
+          seenColors={avatarSeenBorderColors}
+          size={avatarSize}
+          showName={showName}
+          nameTextStyle={nameTextStyle}
+          nameTextProps={nameTextProps}
+          listContainerProps={listContainerProps}
+          listContainerStyle={listContainerStyle}
+          avatarListContainerProps={avatarListContainerProps}
+          avatarListContainerStyle={avatarListContainerStyle}
+          onPress={onPress}
+        />
       )}
       <StoryModal
         ref={modalRef}

@@ -4,6 +4,7 @@ import {
   ImageStyle,
   ScrollViewProps, TextStyle, ViewStyle, TextProps,
 } from 'react-native';
+import { FlashListProps } from '@shopify/flash-list';
 
 export interface StoryItemProps {
   id: string;
@@ -47,8 +48,8 @@ export interface InstagramStoriesProps {
   /**
     * @deprecated Use {@link avatarListContainerProps} instead.
   */
-  listContainerProps?: ScrollViewProps;
-  avatarListContainerProps?: ScrollViewProps;
+  listContainerProps?: ScrollViewProps | Partial<FlashListProps<InstagramStoryProps>>;
+  avatarListContainerProps?: ScrollViewProps | Partial<FlashListProps<InstagramStoryProps>>;
   containerStyle?: ViewStyle;
   textStyle?: TextStyle;
   animationDuration?: number;
@@ -73,6 +74,7 @@ export interface InstagramStoriesProps {
   hideAvatarList?: boolean;
   imageOverlayView?: ReactNode;
   hideElementsOnLongPress?: boolean;
+  hideOverlayViewOnLongPress?: boolean;
   loopingStories?: 'none' | 'all' | 'onlyLast';
   statusBarTranslucent?: boolean;
   onShow?: ( id: string ) => void;
@@ -94,4 +96,5 @@ export type InstagramStoriesPublicMethods = {
   goToPreviousStory: () => void;
   goToNextStory: () => void;
   getCurrentStory: () => { userId?: string, storyId?: string };
+  goToSpecificStory: ( userId: string, index?: number ) => void;
 };

@@ -3,8 +3,25 @@ import {
   ImageProps, ImageStyle, TextProps, TextStyle, ViewStyle,
 } from 'react-native';
 import { ReactNode } from 'react';
-import { InstagramStoryProps, StoryItemProps } from './instagramStoriesDTO';
+import { InstagramStoriesProps, InstagramStoryProps, StoryItemProps } from './instagramStoriesDTO';
 import { ProgressStorageProps } from './helpersDTO';
+
+export interface StoryAvatarListProps {
+  stories: InstagramStoryProps[];
+  loadingStory: StoryAvatarProps['loadingStory'];
+  seenStories: StoryAvatarProps['seenStories'];
+  colors: StoryAvatarProps['colors'];
+  seenColors: StoryAvatarProps['seenColors'];
+  size: StoryAvatarProps['size'];
+  showName: InstagramStoriesProps['showName'];
+  nameTextStyle: InstagramStoriesProps['nameTextStyle'];
+  nameTextProps: InstagramStoriesProps['nameTextProps'];
+  listContainerStyle: InstagramStoriesProps['listContainerStyle'];
+  avatarListContainerStyle: InstagramStoriesProps['avatarListContainerStyle'];
+  listContainerProps: InstagramStoriesProps['listContainerProps'];
+  avatarListContainerProps: InstagramStoriesProps['avatarListContainerProps'];
+  onPress: ( id: string ) => void;
+}
 
 export interface StoryAvatarProps extends InstagramStoryProps {
   loadingStory: SharedValue<string | undefined>;
@@ -44,6 +61,7 @@ export interface StoryModalProps {
   imageProps?: ImageProps;
   footerComponent?: ReactNode;
   hideElementsOnLongPress?: boolean;
+  hideOverlayViewOnLongPress?: boolean;
   loopingStories?: 'none' | 'all' | 'onlyLast';
   statusBarTranslucent?: boolean;
   onLoad: () => void;
@@ -63,6 +81,7 @@ export type StoryModalPublicMethods = {
   goToPreviousStory: () => void;
   goToNextStory: () => void;
   getCurrentStory: () => { userId?: string, storyId?: string };
+  goToSpecificStory: ( userId: string, index?: number ) => void;
 };
 
 export type GestureContext = {
