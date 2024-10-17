@@ -57,9 +57,9 @@ const StoryImage: FC<StoryImageProps> = ( {
 
     const nextStory = stories[stories.indexOf( story ) + 1];
 
-    if ( nextStory && nextStory.mediaType !== 'video' && ( ( nextStory.source as any )?.uri || nextStory.sourceUrl ) ) {
+    if ( nextStory && nextStory.mediaType !== 'video' && ( nextStory.source as any )?.uri ) {
 
-      Image.prefetch( ( nextStory.source as any )?.uri ?? nextStory.sourceUrl );
+      Image.prefetch( ( nextStory.source as any )?.uri );
 
     }
 
@@ -98,19 +98,19 @@ const StoryImage: FC<StoryImageProps> = ( {
         <Loader loading={loading} color={color} size={50} />
       </View>
       <View style={[ ImageStyles.image, mediaContainerStyle ]}>
-        {( data.data?.source || data.data?.sourceUrl ) && (
+        {data.data?.source && (
           data.isVideo ? (
             <StoryVideo
               onLoad={onContentLoad}
               onLayout={onImageLayout}
-              source={data.data.source ?? { uri: data.data.sourceUrl }}
+              source={data.data.source}
               paused={isPaused}
               isActive={isActive}
               {...videoProps}
             />
           ) : (
             <Image
-              source={data.data.source ?? { uri: data.data.sourceUrl }}
+              source={data.data.source}
               style={[ { width: WIDTH, aspectRatio: 0.5626 }, imageStyles ]}
               resizeMode="contain"
               testID="storyImageComponent"

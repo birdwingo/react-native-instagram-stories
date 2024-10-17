@@ -16,9 +16,7 @@ export interface StoryAvatarListProps {
   showName: InstagramStoriesProps['showName'];
   nameTextStyle: InstagramStoriesProps['nameTextStyle'];
   nameTextProps: InstagramStoriesProps['nameTextProps'];
-  listContainerStyle: InstagramStoriesProps['listContainerStyle'];
   avatarListContainerStyle: InstagramStoriesProps['avatarListContainerStyle'];
-  listContainerProps: InstagramStoriesProps['listContainerProps'];
   avatarListContainerProps: InstagramStoriesProps['avatarListContainerProps'];
   onPress: ( id: string ) => void;
 }
@@ -131,8 +129,7 @@ export interface StoryProgressItemProps extends Omit<StoryProgressProps, 'length
 }
 
 export interface StoryHeaderProps {
-  avatarSource?: ImageProps['source'];
-  imgUrl?: string;
+  avatarSource: ImageProps['source'];
   name?: string;
   avatarSize: number;
   textStyle?: TextStyle;
