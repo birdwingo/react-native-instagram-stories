@@ -21,9 +21,7 @@ const InstagramStories = forwardRef<InstagramStoriesPublicMethods, InstagramStor
   avatarSeenBorderColors = SEEN_LOADER_COLORS,
   avatarSize = AVATAR_SIZE,
   storyAvatarSize = STORY_AVATAR_SIZE,
-  listContainerStyle,
   avatarListContainerStyle,
-  listContainerProps,
   avatarListContainerProps,
   animationDuration = ANIMATION_DURATION,
   backgroundColor = BACKGROUND_COLOR,
@@ -81,7 +79,7 @@ const InstagramStories = forwardRef<InstagramStoriesPublicMethods, InstagramStor
 
       }
 
-      return seenStory.mediaType !== 'video' ? Image.prefetch( ( seenStory.source as any )?.uri ?? seenStory.sourceUrl ) : true;
+      return seenStory.mediaType !== 'video' ? Image.prefetch( ( seenStory.source as any )?.uri ) : true;
 
     } );
 
@@ -238,8 +236,6 @@ const InstagramStories = forwardRef<InstagramStoriesPublicMethods, InstagramStor
           showName={showName}
           nameTextStyle={nameTextStyle}
           nameTextProps={nameTextProps}
-          listContainerProps={listContainerProps}
-          listContainerStyle={listContainerStyle}
           avatarListContainerProps={avatarListContainerProps}
           avatarListContainerStyle={avatarListContainerStyle}
           onPress={onPress}

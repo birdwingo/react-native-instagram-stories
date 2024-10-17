@@ -19,12 +19,12 @@ try {
 
 const StoryAvatarList: FC<StoryAvatarListProps> = ( {
   stories, loadingStory, seenStories, colors, seenColors, size,
-  showName, nameTextStyle, nameTextProps, listContainerProps, listContainerStyle,
+  showName, nameTextStyle, nameTextProps,
   avatarListContainerProps, avatarListContainerStyle, onPress,
 } ) => {
 
   const renderItem = ( story: InstagramStoryProps ) => story.renderAvatar?.()
-    ?? ( ( story.avatarSource || story.imgUrl ) && (
+    ?? ( story.avatarSource && (
       <StoryAvatar
         {...story}
         loadingStory={loadingStory}
@@ -45,12 +45,11 @@ const StoryAvatarList: FC<StoryAvatarListProps> = ( {
     return (
       <FlashList
         horizontal
-        {...listContainerProps}
         {...avatarListContainerProps}
         data={stories}
         renderItem={( { item } : { item: InstagramStoryProps } ) => renderItem( item )}
         keyExtractor={( item: InstagramStoryProps ) => item.id}
-        contentContainerStyle={[ listContainerStyle, avatarListContainerStyle ]}
+        contentContainerStyle={avatarListContainerStyle}
         testID="storiesList"
       />
     );
@@ -58,7 +57,7 @@ const StoryAvatarList: FC<StoryAvatarListProps> = ( {
   }
 
   return (
-    <ScrollView horizontal {...listContainerProps} {...avatarListContainerProps} contentContainerStyle={[ listContainerStyle, avatarListContainerStyle ]} testID="storiesList">
+    <ScrollView horizontal {...avatarListContainerProps} contentContainerStyle={avatarListContainerStyle} testID="storiesList">
       {stories.map( renderItem )}
     </ScrollView>
   );

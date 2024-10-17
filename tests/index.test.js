@@ -31,10 +31,10 @@ jest.spyOn( Storage, 'setProgressStorage' ).mockImplementation( () => ( {} ) );
 const stories = [ {
   id: '1',
   name: 'John Doe',
-  avatarSource: 'https://picsum.photos/200/300',
+  avatarSource: { uri: 'https://picsum.photos/200/300' },
   stories: [ {
     id: '1',
-    sourceUrl: 'https://picsum.photos/200/300',
+    source: { uri: 'https://picsum.photos/200/300' },
     renderContent: () => <View />,
   } ],
 } ];
@@ -42,50 +42,50 @@ const stories = [ {
 const stories2 = [ {
   id: '1',
   name: 'John Doe',
-  imgUrl: 'https://picsum.photos/200/300',
+  avatarSource: { uri: 'https://picsum.photos/200/300' },
   stories: [ {
     id: '1',
-    sourceUrl: 'https://picsum.photos/200/300',
+    source: { uri: 'https://picsum.photos/200/300' },
   } ],
 }, {
   id: '2',
   name: 'John Doe 2',
-  imgUrl: 'https://picsum.photos/200/300',
+  avatarSource: { uri: 'https://picsum.photos/200/300' },
   stories: [ {
     id: '1',
-    sourceUrl: 'https://picsum.photos/200/300',
+    source: { uri: 'https://picsum.photos/200/300' },
   } ],
 } ];
 
 const stories3 = [ {
   id: '1',
   name: 'John Doe',
-  imgUrl: 'https://picsum.photos/200/300',
+  avatarSource: { uri: 'https://picsum.photos/200/300' },
   stories: [ {
     id: '1',
-    sourceUrl: 'https://picsum.photos/200/300',
+    source: { uri: 'https://picsum.photos/200/300' },
   }, {
     id: '2',
-    sourceUrl: 'https://picsum.photos/200/300',
+    source: { uri: 'https://picsum.photos/200/300' },
   } ],
 } ];
 
 const stories4 = [ {
   id: '1',
   name: 'John Doe',
-  imgUrl: 'https://picsum.photos/200/300',
+  avatarSource: { uri: 'https://picsum.photos/200/300' },
   stories: [ {
     id: '1',
-    sourceUrl: 'https://picsum.photos/200/300',
+    source: { uri: 'https://picsum.photos/200/300' },
     mediaType: 'video',
   } ],
 }, {
   id: '2',
   name: 'John Doe 2',
-  imgUrl: 'https://picsum.photos/200/300',
+  avatarSource: { uri: 'https://picsum.photos/200/300' },
   stories: [ {
     id: '1',
-    sourceUrl: 'https://picsum.photos/200/300',
+    source: { uri: 'https://picsum.photos/200/300' },
     mediaType: 'video',
   } ],
 } ];
@@ -214,10 +214,10 @@ describe( 'Instagram Stories test', () => {
       ref.current.spliceStories( [ {
         id: '2',
         name: 'John Doe 2',
-        imgUrl: 'https://picsum.photos/200/300',
+        avatarSource: { uri: 'https://picsum.photos/200/300' },
         stories: [ {
           id: '1',
-          sourceUrl: 'https://picsum.photos/200/300',
+          source: { uri: 'https://picsum.photos/200/300' },
         } ],
       } ] );
 
@@ -226,10 +226,10 @@ describe( 'Instagram Stories test', () => {
       ref.current.spliceStories( [ {
         id: '3',
         name: 'John Doe 3',
-        imgUrl: 'https://picsum.photos/200/300',
+        avatarSource: { uri: 'https://picsum.photos/200/300' },
         stories: [ {
           id: '1',
-          sourceUrl: 'https://picsum.photos/200/300',
+          source: { uri: 'https://picsum.photos/200/300' },
         } ],
       } ], -1 );
 
@@ -237,19 +237,19 @@ describe( 'Instagram Stories test', () => {
 
       ref.current.spliceUserStories( [ {
         id: '2',
-        sourceUrl: 'https://picsum.photos/200/300',
+        source: { uri: 'https://picsum.photos/200/300' },
       } ], '1' );
 
       await sleep();
 
       ref.current.spliceUserStories( [ {
         id: '2',
-        sourceUrl: 'https://picsum.photos/200/300',
+        source: { uri: 'https://picsum.photos/200/300' },
       } ], '2', 2 );
 
       ref.current.spliceUserStories( [ {
         id: '2',
-        sourceUrl: 'https://picsum.photos/200/300',
+        source: { uri: 'https://picsum.photos/200/300' },
       } ], '20', 2 );
 
       await sleep();
@@ -462,7 +462,7 @@ describe( 'Instagram Stories test', () => {
     render( <InstagramStories stories={[ {
       id: '1',
       name: 'John Doe',
-      imgUrl: 'https://picsum.photos/200/300',
+      avatarSource: { uri: 'https://picsum.photos/200/300' },
       stories: [],
     } ]} /> );
 
@@ -530,7 +530,7 @@ describe( 'Story Image test', () => {
     const onLoad = jest.fn();
 
     render( <StoryImage
-      stories={[ { id: '1', sourceUrl: '' } ]}
+      stories={[ { id: '1', source: { uri: '' } } ]}
       active={{ value: true }}
       activeStory={{ value: '1' }}
       defaultImage="url"

@@ -8,10 +8,6 @@ import { FlashListProps } from '@shopify/flash-list';
 
 export interface StoryItemProps {
   id: string;
-  /**
-    * @deprecated Use {@link source} instead (set source to {uri: 'your url'}).
-  */
-  sourceUrl?: string;
   source: ImageProps['source'];
   mediaType?: 'image' | 'video';
   animationDuration?: number;
@@ -21,11 +17,7 @@ export interface StoryItemProps {
 
 export interface InstagramStoryProps {
   id: string;
-  /**
-    * @deprecated Use {@link avatarSource} instead (set avatarSource to {uri: 'your url'}).
-  */
-  imgUrl?: string;
-  avatarSource?: ImageProps['source'];
+  avatarSource: ImageProps['source'];
   renderAvatar?: () => ReactNode;
   renderStoryHeader?: () => ReactNode;
   onStoryHeaderPress?: () => void;
@@ -40,15 +32,7 @@ export interface InstagramStoriesProps {
   avatarSeenBorderColors?: string[];
   avatarSize?: number;
   storyAvatarSize?: number;
-  /**
-    * @deprecated Use {@link avatarListContainerStyle} instead.
-  */
-  listContainerStyle?: ScrollViewProps['contentContainerStyle'];
   avatarListContainerStyle?: ScrollViewProps['contentContainerStyle'];
-  /**
-    * @deprecated Use {@link avatarListContainerProps} instead.
-  */
-  listContainerProps?: ScrollViewProps | Partial<FlashListProps<InstagramStoryProps>>;
   avatarListContainerProps?: ScrollViewProps | Partial<FlashListProps<InstagramStoryProps>>;
   containerStyle?: ViewStyle;
   textStyle?: TextStyle;
