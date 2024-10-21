@@ -265,6 +265,7 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
 
       ctx.x = x.value;
       ctx.userId = userId.value;
+      paused.value = true;
 
     },
     onActive: ( e, ctx ) => {
@@ -340,6 +341,7 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
       ctx.vertical = false;
       ctx.userId = undefined;
       hideElements.value = false;
+      paused.value = false;
 
     },
   } );
