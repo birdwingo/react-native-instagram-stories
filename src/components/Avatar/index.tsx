@@ -26,15 +26,16 @@ const StoryAvatar: FC<StoryAvatarProps> = ( {
   showName,
   nameTextStyle,
   nameTextProps,
+  renderAvatar,
 } ) => {
 
   const loaded = useSharedValue( false );
   const isLoading = useDerivedValue( () => loadingStory.value === id || !loaded.value );
-  const loaderColor = useDerivedValue( () => (
-    seenStories.value[id] === stories[stories.length - 1]?.id
-      ? seenColors
-      : colors
-  ) );
+  const seen = useDerivedValue(
+    () => seenStories.value[id] === stories[stories.length - 1]?.id
+  );
+
+  const loaderColor = useDerivedValue(() => (seen.value ? seenColors : colors));
 
   const onLoad = () => {
 
@@ -45,6 +46,10 @@ const StoryAvatar: FC<StoryAvatarProps> = ( {
   const imageAnimatedStyles = useAnimatedStyle( () => (
     { opacity: withTiming( isLoading.value ? 0.5 : 1 ) }
   ) );
+
+  if (renderAvatar) return renderAvatar(seen.value);
+
+  if (!avatarSource) return null;
 
   return (
     <View style={AvatarStyles.name}>

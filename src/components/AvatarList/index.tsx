@@ -23,8 +23,7 @@ const StoryAvatarList: FC<StoryAvatarListProps> = ( {
   avatarListContainerProps, avatarListContainerStyle, onPress,
 } ) => {
 
-  const renderItem = ( story: InstagramStoryProps ) => story.renderAvatar?.()
-    ?? ( story.avatarSource && (
+  const renderItem = ( story: InstagramStoryProps ) => 
       <StoryAvatar
         {...story}
         loadingStory={loadingStory}
@@ -38,8 +37,8 @@ const StoryAvatarList: FC<StoryAvatarListProps> = ( {
         nameTextProps={nameTextProps}
         key={`avatar${story.id}`}
       />
-    ) );
-
+  ;
+  
   if ( FlashList ) {
 
     return (
