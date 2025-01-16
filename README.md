@@ -59,11 +59,11 @@ const YourComponent = () => {
 
   // to use public methods:
   const ref = useRef( null ); // if using typescript - useRef<InstagramStoriesPublicMethods>( null )
-  
-  const stories = [{
+
+  const stories = [{ // if using typescript - const stories: InstagramStoriesProps['stories']
     id: 'user1',
     name: 'User 1',
-    imgUrl: 'user1-profile-image-url',
+    avatarSource: { uri: 'user1-profile-image-url', },
     stories: [
       { id: 'story1', source: { uri: 'story1-image-url' } },
       { id: 'story2', source: { uri: 'story1-video-url' }, mediaType: 'video' },
