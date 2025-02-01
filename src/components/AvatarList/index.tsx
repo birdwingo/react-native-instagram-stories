@@ -1,8 +1,8 @@
 import React, { FC, memo } from 'react';
 import { ScrollView } from 'react-native';
 import StoryAvatar from '../Avatar';
-import { StoryAvatarListProps } from '~/core/dto/componentsDTO';
-import { InstagramStoryProps } from '~/core/dto/instagramStoriesDTO';
+import { StoryAvatarListProps } from '../../core/dto/componentsDTO';
+import { InstagramStoryProps } from '../../core/dto/instagramStoriesDTO';
 
 let FlashList: any;
 
