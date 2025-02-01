@@ -23,23 +23,22 @@ const StoryAvatarList: FC<StoryAvatarListProps> = ( {
   avatarListContainerProps, avatarListContainerStyle, avatarBorderRadius, onPress,
 } ) => {
 
-  const renderItem = ( story: InstagramStoryProps ) => story.renderAvatar?.()
-    ?? ( story.avatarSource && (
-      <StoryAvatar
-        {...story}
-        loadingStory={loadingStory}
-        seenStories={seenStories}
-        onPress={() => onPress( story.id )}
-        colors={colors}
-        seenColors={seenColors}
-        size={size}
-        showName={showName}
-        nameTextStyle={nameTextStyle}
-        nameTextProps={nameTextProps}
-        avatarBorderRadius={avatarBorderRadius}
-        key={`avatar${story.id}`}
-      />
-    ) );
+  const renderItem = ( story: InstagramStoryProps ) => (
+    <StoryAvatar
+      {...story}
+      loadingStory={loadingStory}
+      seenStories={seenStories}
+      onPress={() => onPress( story.id )}
+      colors={colors}
+      seenColors={seenColors}
+      size={size}
+      showName={showName}
+      nameTextStyle={nameTextStyle}
+      nameTextProps={nameTextProps}
+      avatarBorderRadius={avatarBorderRadius}
+      key={`avatar${story.id}`}
+    />
+  );
 
   if ( FlashList ) {
 
