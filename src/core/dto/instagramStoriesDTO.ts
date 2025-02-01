@@ -18,7 +18,7 @@ export interface StoryItemProps {
 export interface InstagramStoryProps {
   id: string;
   avatarSource: ImageProps['source'];
-  renderAvatar?: (seen: boolean) => ReactNode;
+  renderAvatar?: ( seen: boolean ) => ReactNode;
   renderStoryHeader?: () => ReactNode;
   onStoryHeaderPress?: () => void;
   name?: string;
