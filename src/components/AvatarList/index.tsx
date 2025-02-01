@@ -20,7 +20,7 @@ try {
 const StoryAvatarList: FC<StoryAvatarListProps> = ( {
   stories, loadingStory, seenStories, colors, seenColors, size,
   showName, nameTextStyle, nameTextProps,
-  avatarListContainerProps, avatarListContainerStyle, onPress,
+  avatarListContainerProps, avatarListContainerStyle, avatarBorderRadius, onPress,
 } ) => {
 
   const renderItem = ( story: InstagramStoryProps ) => story.renderAvatar?.()
@@ -36,6 +36,7 @@ const StoryAvatarList: FC<StoryAvatarListProps> = ( {
         showName={showName}
         nameTextStyle={nameTextStyle}
         nameTextProps={nameTextProps}
+        avatarBorderRadius={avatarBorderRadius}
         key={`avatar${story.id}`}
       />
     ) );

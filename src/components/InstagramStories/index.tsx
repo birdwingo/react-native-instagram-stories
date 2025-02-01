@@ -33,6 +33,7 @@ const InstagramStories = forwardRef<InstagramStoriesPublicMethods, InstagramStor
   closeIconColor = CLOSE_COLOR,
   isVisible = false,
   hideAvatarList = false,
+  avatarBorderRadius,
   ...props
 }, ref ) => {
 
@@ -238,6 +239,7 @@ const InstagramStories = forwardRef<InstagramStoriesPublicMethods, InstagramStor
           nameTextProps={nameTextProps}
           avatarListContainerProps={avatarListContainerProps}
           avatarListContainerStyle={avatarListContainerStyle}
+          avatarBorderRadius={avatarBorderRadius}
           onPress={onPress}
         />
       )}

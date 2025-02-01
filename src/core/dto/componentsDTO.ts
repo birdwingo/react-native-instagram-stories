@@ -18,6 +18,7 @@ export interface StoryAvatarListProps {
   nameTextProps: InstagramStoriesProps['nameTextProps'];
   avatarListContainerStyle: InstagramStoriesProps['avatarListContainerStyle'];
   avatarListContainerProps: InstagramStoriesProps['avatarListContainerProps'];
+  avatarBorderRadius?: number;
   onPress: ( id: string ) => void;
 }
 
@@ -31,6 +32,7 @@ export interface StoryAvatarProps extends InstagramStoryProps {
   showName?: boolean;
   nameTextStyle?: TextStyle;
   nameTextProps?: TextProps;
+  avatarBorderRadius?: number;
 }
 
 export interface StoryLoaderProps {

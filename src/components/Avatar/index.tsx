@@ -26,6 +26,7 @@ const StoryAvatar: FC<StoryAvatarProps> = ( {
   showName,
   nameTextStyle,
   nameTextProps,
+  avatarBorderRadius,
 } ) => {
 
   const loaded = useSharedValue( false );
@@ -56,7 +57,7 @@ const StoryAvatar: FC<StoryAvatarProps> = ( {
             style={[
               AvatarStyles.avatar,
               imageAnimatedStyles,
-              { width: size, height: size, borderRadius: size / 2 },
+              { width: size, height: size, borderRadius: avatarBorderRadius ?? ( size / 2 ) },
             ]}
             testID="storyAvatarImage"
             onLoad={onLoad}
