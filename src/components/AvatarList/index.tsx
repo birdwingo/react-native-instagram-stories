@@ -1,8 +1,8 @@
 import React, { FC, memo } from 'react';
 import { ScrollView } from 'react-native';
 import StoryAvatar from '../Avatar';
-import { StoryAvatarListProps } from '~/core/dto/componentsDTO';
-import { InstagramStoryProps } from '~/core/dto/instagramStoriesDTO';
+import { StoryAvatarListProps } from '../../core/dto/componentsDTO';
+import { InstagramStoryProps } from '../../core/dto/instagramStoriesDTO';
 
 let FlashList: any;
 
@@ -20,7 +20,7 @@ try {
 const StoryAvatarList: FC<StoryAvatarListProps> = ( {
   stories, loadingStory, seenStories, colors, seenColors, size,
   showName, nameTextStyle, nameTextProps,
-  avatarListContainerProps, avatarListContainerStyle, onPress,
+  avatarListContainerProps, avatarListContainerStyle, avatarBorderRadius, onPress,
 } ) => {
 
   const renderItem = ( story: InstagramStoryProps ) => (
@@ -35,6 +35,7 @@ const StoryAvatarList: FC<StoryAvatarListProps> = ( {
       showName={showName}
       nameTextStyle={nameTextStyle}
       nameTextProps={nameTextProps}
+      avatarBorderRadius={avatarBorderRadius}
       key={`avatar${story.id}`}
     />
   );

@@ -62,6 +62,7 @@ export interface InstagramStoriesProps {
   loopingStories?: 'none' | 'all' | 'onlyLast';
   statusBarTranslucent?: boolean;
   footerComponent?: ReactNode;
+  avatarBorderRadius?: number;
   onShow?: ( id: string ) => void;
   onHide?: ( id: string ) => void;
   onSwipeUp?: ( userId?: string, storyId?: string ) => void;

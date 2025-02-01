@@ -34,6 +34,7 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
   const isLongPress = useSharedValue( false );
   const hideElements = useSharedValue( false );
   const lastViewed = useSharedValue<{ [key: string]:number }>( {} );
+  const firstRender = useSharedValue( true );
 
   const userIndex = useDerivedValue( () => Math.round( x.value / WIDTH ) );
   const storyIndex = useDerivedValue( () => stories[userIndex.value]?.stories.findIndex(
@@ -441,11 +442,13 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
 
       y.value = withTiming( 0, { duration: modalAnimationDuration } );
 
-    } else if ( currentStory.value !== undefined ) {
+    } else if ( currentStory.value !== undefined && !firstRender.value ) {
 
       onHide?.( currentStory.value );
 
     }
+
+    firstRender.value = false;
 
   }, [ visible ] );
 
