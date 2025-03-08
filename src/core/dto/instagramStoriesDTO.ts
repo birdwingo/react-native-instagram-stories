@@ -50,7 +50,7 @@ export interface InstagramStoriesProps {
   storyAnimationDuration?: number;
   mediaContainerStyle?: ViewStyle;
   imageStyles?: ImageStyle;
-  imageProps?: ImageProps;
+  imageProps?: Omit<ImageProps, 'source'>;
   isVisible?: boolean;
   headerStyle?: ViewStyle;
   headerContainerStyle?: ViewStyle;
