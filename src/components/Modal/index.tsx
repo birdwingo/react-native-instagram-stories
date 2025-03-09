@@ -423,6 +423,7 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
       paused.value = false;
 
     },
+    isPaused: () => paused.value,
     getCurrentStory: () => ( { userId: userId.value, storyId: currentStory.value } ),
     goToPreviousStory: toPreviousStory,
     goToNextStory: toNextStory,

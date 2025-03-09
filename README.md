@@ -147,6 +147,7 @@ export default YourComponent;
  `show`                | ( id?: string ) => void                                                                          | Show stories modal with provided story `id`. If `id` is not provided, will be shown first story
  `pause`               | () => void                                                                                       | Pause story
  `resume`              | () => void                                                                                       | Resume story
+ `isPaused`            | () => boolean                                                                                    | Returns true if story is paused
  `goToPreviousStory`   | () => void                                                                                       | Goes to previous story item
  `goToNextStory`       | () => void                                                                                       | Goes to next story item
  `getCurrentStory`     | () => {userId?: string, storyId?: string}                                                        | Returns current userId and storyId
