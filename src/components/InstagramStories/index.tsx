@@ -80,7 +80,7 @@ const InstagramStories = forwardRef<InstagramStoriesPublicMethods, InstagramStor
 
       }
 
-      return seenStory.mediaType !== 'video' ? Image.prefetch( ( seenStory.source as any )?.uri ) : true;
+      return seenStory.mediaType !== 'video' && ( seenStory.source as any )?.uri ? Image.prefetch( ( seenStory.source as any )?.uri ) : true;
 
     } );
 
