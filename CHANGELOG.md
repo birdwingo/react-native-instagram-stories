@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 1.3.14 (2025-07-03)
+
+
+### Bug Fixes
+
+* ts error ([04905cb](https://github.com/birdwingo/react-native-instagram-stories/commit/04905cb051cdee58611c7d2a7d4104d945ed7fef))
+
 ### 1.3.13 (2025-07-03)
 
 
