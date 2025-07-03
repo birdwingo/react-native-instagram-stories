@@ -244,6 +244,7 @@ const InstagramStories = forwardRef<InstagramStoriesPublicMethods, InstagramStor
           onPress={onPress}
         />
       )}
+      {/* @ts-expect-error: imageProps type mismatch is intentionally ignored */}
       <StoryModal
         ref={modalRef}
         stories={data}
