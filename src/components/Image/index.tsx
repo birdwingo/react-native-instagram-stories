@@ -1,7 +1,7 @@
 import { Image, View } from 'react-native';
 import React, { FC, memo, useState } from 'react';
-import {
-  runOnJS, useAnimatedReaction, useDerivedValue, useSharedValue,
+import Animated, {
+  runOnJS, useAnimatedReaction, useAnimatedStyle, useDerivedValue, useSharedValue,
 } from 'react-native-reanimated';
 import { StoryImageProps } from '../../core/dto/componentsDTO';
 import Loader from '../Loader';
@@ -23,6 +23,10 @@ const StoryImage: FC<StoryImageProps> = ( {
   const color = useSharedValue( LOADER_COLORS );
   const duration = useSharedValue<number | undefined>( undefined );
   const isPaused = useDerivedValue( () => paused.value || !isActive.value );
+
+  const loaderHideStyle = useAnimatedStyle( () => ( {
+    opacity: loading.value ? 1 : 0,
+  } ) );
 
   const onImageChange = async () => {
 
@@ -94,9 +98,9 @@ const StoryImage: FC<StoryImageProps> = ( {
 
   return (
     <>
-      <View style={ImageStyles.container}>
+      <Animated.View style={[ ImageStyles.container, loaderHideStyle ]}>
         <Loader loading={loading} color={color} size={50} />
-      </View>
+      </Animated.View>
       <View style={[ ImageStyles.image, mediaContainerStyle ]}>
         {data.data?.source && (
           data.isVideo ? (
