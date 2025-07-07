@@ -9,6 +9,7 @@ export default StyleSheet.create( {
     right: 0,
     alignItems: 'center',
     justifyContent: 'center',
+    zIndex: 2,
   },
   image: {
     alignItems: 'center',
