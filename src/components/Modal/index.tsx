@@ -19,7 +19,7 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
   stories, seenStories, duration, videoDuration, storyAvatarSize, textStyle, containerStyle,
   backgroundColor, videoProps, closeIconColor, modalAnimationDuration = STORY_ANIMATION_DURATION,
   storyAnimationDuration = STORY_ANIMATION_DURATION, hideElementsOnLongPress, loopingStories = 'none',
-  statusBarTranslucent, onLoad, onShow, onHide,
+  statusBarTranslucent, loaderColor, loaderBackgroundColor, onLoad, onShow, onHide,
   onSeenStoriesChange, onSwipeUp, onStoryStart, onStoryEnd, footerComponent, ...props
 }, ref ) => {
 
@@ -499,6 +499,8 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
                   closeColor={closeIconColor}
                   hideElements={hideElements}
                   videoDuration={videoDuration}
+                  loaderColor={loaderColor}
+                  loaderBackgroundColor={loaderBackgroundColor}
                   key={story.id}
                   {...props}
                 />

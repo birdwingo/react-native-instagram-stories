@@ -63,6 +63,8 @@ export interface InstagramStoriesProps {
   statusBarTranslucent?: boolean;
   footerComponent?: ReactNode;
   avatarBorderRadius?: number;
+  loaderColor?: string;
+  loaderBackgroundColor?: string;
   onShow?: ( id: string ) => void;
   onHide?: ( id: string ) => void;
   onSwipeUp?: ( userId?: string, storyId?: string ) => void;

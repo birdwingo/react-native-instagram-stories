@@ -16,7 +16,7 @@ const StoryList: FC<StoryListProps> = ( {
   id, stories, index, x, activeUser, activeStory, progress, seenStories, paused,
   onLoad, videoProps, progressColor, progressActiveColor, mediaContainerStyle, imageStyles,
   imageProps, progressContainerStyle, imageOverlayView, hideElements, hideOverlayViewOnLongPress,
-  videoDuration, ...props
+  videoDuration, loaderColor, loaderBackgroundColor, ...props
 } ) => {
 
   const imageHeight = useSharedValue( HEIGHT );
@@ -58,6 +58,8 @@ const StoryList: FC<StoryListProps> = ( {
           imageStyles={imageStyles}
           imageProps={imageProps}
           videoDuration={videoDuration}
+          loaderColor={loaderColor}
+          loaderBackgroundColor={loaderBackgroundColor}
         />
         <Animated.View
           style={[

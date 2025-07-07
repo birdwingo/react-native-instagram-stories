@@ -12,7 +12,8 @@ import { StoryItemProps } from '../../core/dto/instagramStoriesDTO';
 
 const StoryImage: FC<StoryImageProps> = ( {
   stories, activeStory, defaultStory, isDefaultVideo, paused, videoProps, isActive,
-  mediaContainerStyle, imageStyles, imageProps, videoDuration, onImageLayout, onLoad,
+  mediaContainerStyle, imageStyles, imageProps, videoDuration, loaderColor,
+  loaderBackgroundColor, onImageLayout, onLoad,
 } ) => {
 
   const [ data, setData ] = useState<{ data?: StoryItemProps, isVideo?: boolean }>(
@@ -20,12 +21,16 @@ const StoryImage: FC<StoryImageProps> = ( {
   );
 
   const loading = useSharedValue( true );
-  const color = useSharedValue( LOADER_COLORS );
+  const color = useSharedValue( loaderColor ? [ loaderColor ] : LOADER_COLORS );
   const duration = useSharedValue<number | undefined>( undefined );
   const isPaused = useDerivedValue( () => paused.value || !isActive.value );
 
   const loaderHideStyle = useAnimatedStyle( () => ( {
     opacity: loading.value ? 1 : 0,
+  } ) );
+
+  const loaderBackgroundStyle = useAnimatedStyle( () => ( {
+    backgroundColor: loaderBackgroundColor || 'transparent',
   } ) );
 
   const onImageChange = async () => {
@@ -98,7 +103,7 @@ const StoryImage: FC<StoryImageProps> = ( {
 
   return (
     <>
-      <Animated.View style={[ ImageStyles.container, loaderHideStyle ]}>
+      <Animated.View style={[ ImageStyles.container, loaderHideStyle, loaderBackgroundStyle ]}>
         <Loader loading={loading} color={color} size={50} />
       </Animated.View>
       <View style={[ ImageStyles.image, mediaContainerStyle ]}>
