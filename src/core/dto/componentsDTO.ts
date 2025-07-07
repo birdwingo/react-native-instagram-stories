@@ -64,6 +64,8 @@ export interface StoryModalProps {
   hideOverlayViewOnLongPress?: boolean;
   loopingStories?: 'none' | 'all' | 'onlyLast';
   statusBarTranslucent?: boolean;
+  loaderColor?: string;
+  loaderBackgroundColor?: string;
   onLoad: () => void;
   onShow?: ( id: string ) => void;
   onHide?: ( id: string ) => void;
@@ -112,6 +114,8 @@ export interface StoryImageProps {
   imageStyles?: ImageStyle;
   imageProps?: ImageProps;
   videoDuration?: number;
+  loaderColor?: string;
+  loaderBackgroundColor?: string;
   onImageLayout: ( height: number ) => void;
   onLoad: ( duration?: number ) => void;
 }
@@ -173,6 +177,8 @@ export interface StoryListProps extends InstagramStoryProps, StoryHeaderProps {
   hideElements: SharedValue<boolean>;
   hideOverlayViewOnLongPress?: boolean;
   videoDuration?: number;
+  loaderColor?: string;
+  loaderBackgroundColor?: string;
   onLoad: ( duration?: number ) => void;
 }
 
