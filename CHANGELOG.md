@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### 1.3.15 (2025-07-04)
 
+* image preload error
+
 ### 1.3.14 (2025-07-03)
 
 
