@@ -5,7 +5,7 @@
 ![github release](https://github.com/birdwingo/react-native-instagram-stories/actions/workflows/release.yml/badge.svg?event=pull_request)
 ![npm release](https://github.com/birdwingo/react-native-instagram-stories/actions/workflows/public.yml/badge.svg?event=release)
 
-> **🚀 We are actively looking for maintainers!** If you're interested in contributing to this project and helping maintain it, please reach out to us.
+> **🚀 We are actively looking for maintainers!** If you're interested in contributing to this project and helping maintain it, feel free to create a PR or reach out.
 
 ## Features 🌟
 
