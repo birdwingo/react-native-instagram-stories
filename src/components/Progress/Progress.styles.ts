@@ -8,7 +8,6 @@ export default StyleSheet.create( {
     height: 2,
     flexDirection: 'row',
     gap: 4,
-    zindex: 3,
   },
   item: {
     height: 3,
