@@ -9,7 +9,7 @@ import {
   Circle, Defs, LinearGradient, Stop, Svg,
 } from 'react-native-svg';
 import {
-  AVATAR_SIZE, LOADER_ID, LOADER_URL, STROKE_WIDTH,
+  AVATAR_SIZE, LOADER_COLORS, LOADER_ID, LOADER_URL, STROKE_WIDTH,
 } from '../../core/constants';
 import { StoryLoaderProps } from '../../core/dto/componentsDTO';
 
@@ -23,7 +23,7 @@ const Loader: FC<StoryLoaderProps> = ( {
   const RADIUS = useMemo( () => ( size - STROKE_WIDTH ) / 2, [ size ] );
   const CIRCUMFERENCE = useMemo( () => RADIUS * 2 * Math.PI, [ RADIUS ] );
 
-  const [ colors, setColors ] = useState<string[]>( color.value );
+  const [ colors, setColors ] = useState<string[]>( LOADER_COLORS );
 
   const rotation = useSharedValue( 0 );
   const progress = useSharedValue( 0 );
@@ -77,12 +77,10 @@ const Loader: FC<StoryLoaderProps> = ( {
   useAnimatedReaction(
     () => loading.value,
     ( res ) => ( res ? startAnimation() : stopAnimation() ),
-    [ loading.value ],
   );
   useAnimatedReaction(
     () => color.value,
     ( res ) => onColorChange( res ),
-    [ color.value ],
   );
 
   return (

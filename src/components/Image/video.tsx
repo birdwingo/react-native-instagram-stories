@@ -17,7 +17,7 @@ const StoryVideo: FC<StoryVideoProps> = ( {
 
     const ref = useRef<any>( null );
 
-    const [ pausedValue, setPausedValue ] = useState( paused.value );
+    const [ pausedValue, setPausedValue ] = useState( true );
 
     const start = () => {
 
@@ -29,13 +29,11 @@ const StoryVideo: FC<StoryVideoProps> = ( {
     useAnimatedReaction(
       () => paused.value,
       ( res, prev ) => res !== prev && runOnJS( setPausedValue )( res ),
-      [ paused.value ],
     );
 
     useAnimatedReaction(
       () => isActive.value,
       ( res ) => res && runOnJS( start )(),
-      [ isActive.value ],
     );
 
     return (

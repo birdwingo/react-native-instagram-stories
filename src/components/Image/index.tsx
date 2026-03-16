@@ -77,13 +77,11 @@ const StoryImage: FC<StoryImageProps> = ( {
   useAnimatedReaction(
     () => isActive.value,
     ( res, prev ) => res !== prev && res && runOnJS( onImageChange )(),
-    [ isActive.value, onImageChange ],
   );
 
   useAnimatedReaction(
     () => activeStory.value,
     ( res, prev ) => res !== prev && runOnJS( onImageChange )(),
-    [ activeStory.value, onImageChange ],
   );
 
   const onContentLoad = ( newDuration?: number ) => {

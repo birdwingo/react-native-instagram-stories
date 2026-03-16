@@ -2,8 +2,9 @@ import React, {
   forwardRef, memo, useEffect, useImperativeHandle, useState,
 } from 'react';
 import { GestureResponderEvent, Modal, Pressable } from 'react-native';
+import { Gesture, GestureDetector, GestureHandlerRootView } from 'react-native-gesture-handler';
 import Animated, {
-  cancelAnimation, interpolate, runOnJS, useAnimatedGestureHandler, useAnimatedReaction,
+  cancelAnimation, interpolate, runOnJS, useAnimatedReaction,
   useAnimatedStyle,
   useDerivedValue, useSharedValue, withTiming,
 } from 'react-native-reanimated';
@@ -11,7 +12,6 @@ import {
   HEIGHT, LONG_PRESS_DURATION, STORY_ANIMATION_DURATION, WIDTH,
 } from '../../core/constants';
 import { GestureContext, StoryModalProps, StoryModalPublicMethods } from '../../core/dto/componentsDTO';
-import GestureHandler from './gesture';
 import StoryList from '../List';
 import ModalStyles from './Modal.styles';
 
@@ -55,6 +55,15 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
     opacity: interpolate( y.value, [ 0, HEIGHT ], [ 1, 0 ] ),
     backgroundColor,
   } ) );
+
+  const gestureContext = useSharedValue<GestureContext>( {
+    x: 0,
+    pressedX: 0,
+    pressedAt: 0,
+    moving: false,
+    vertical: false,
+    userId: undefined,
+  } );
 
   const onClose = () => {
 
@@ -261,36 +270,36 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
 
   };
 
-  const onGestureEvent = useAnimatedGestureHandler( {
-    onStart: ( e, ctx: GestureContext ) => {
+  const onGestureEvent = Gesture.Pan()
+    .onStart ( _ => {
 
-      ctx.x = x.value;
-      ctx.userId = userId.value;
+      gestureContext.value.x = x.value;
+      gestureContext.value.userId = userId.value;
       paused.value = true;
 
-    },
-    onActive: ( e, ctx ) => {
+    } )
+    .onUpdate ( e => {
 
-      if ( ctx.x === x.value
-        && ( ctx.vertical || ( Math.abs( e.velocityX ) < Math.abs( e.velocityY ) ) ) ) {
+      if ( gestureContext.value.x === x.value
+        && ( gestureContext.value.vertical || ( Math.abs( e.velocityX ) < Math.abs( e.velocityY ) ) ) ) {
 
-        ctx.vertical = true;
+        gestureContext.value.vertical = true;
         y.value = e.translationY / 2;
 
       } else {
 
-        ctx.moving = true;
+        gestureContext.value.moving = true;
         x.value = Math.max(
           0,
-          Math.min( ctx.x + -e.translationX, WIDTH * ( stories.length - 1 ) ),
+          Math.min( gestureContext.value.x + -e.translationX, WIDTH * ( stories.length - 1 ) ),
         );
 
       }
 
-    },
-    onFinish: ( e, ctx ) => {
+    } )
+    .onFinalize ( e => {
 
-      if ( ctx.vertical ) {
+      if ( gestureContext.value.vertical ) {
 
         if ( e.translationY > 100 ) {
 
@@ -312,14 +321,14 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
 
         }
 
-      } else if ( ctx.moving ) {
+      } else if ( gestureContext.value.moving ) {
 
-        const diff = x.value - ctx.x;
+        const diff = x.value - gestureContext.value.x;
         let newX;
 
         if ( Math.abs( diff ) < WIDTH / 4 ) {
 
-          newX = ctx.x;
+          newX = gestureContext.value.x;
 
         } else {
 
@@ -332,20 +341,24 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
         const newUserId = stories[Math.round( newX / WIDTH )]?.id;
         if ( newUserId !== undefined ) {
 
-          scrollTo( newUserId, true, newUserId === ctx.userId, ctx.userId );
+          scrollTo(
+            newUserId,
+            true,
+            newUserId === gestureContext.value.userId,
+            gestureContext.value.userId,
+          );
 
         }
 
       }
 
-      ctx.moving = false;
-      ctx.vertical = false;
-      ctx.userId = undefined;
+      gestureContext.value.moving = false;
+      gestureContext.value.vertical = false;
+      gestureContext.value.userId = undefined;
       hideElements.value = false;
       paused.value = false;
 
-    },
-  } );
+    } );
 
   const onPressIn = () => {
 
@@ -428,7 +441,7 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
     goToPreviousStory: toPreviousStory,
     goToNextStory: toNextStory,
     goToSpecificStory: ( newUserId, index ) => scrollTo( newUserId, true, false, undefined, index ),
-  } ), [ userId.value, currentStory.value ] );
+  } ) );
 
   useEffect( () => {
 
@@ -456,63 +469,62 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
   useAnimatedReaction(
     () => animation.value,
     ( res, prev ) => res !== prev && toNextStory( res === 1 ),
-    [ animation.value ],
   );
 
   return (
-  <View>
     <Modal statusBarTranslucent={statusBarTranslucent} visible={visible} transparent animationType="none" testID="storyRNModal" onRequestClose={onClose}>
-      <GestureHandler onGestureEvent={onGestureEvent}>
-        <Animated.View style={ModalStyles.container} testID="storyModal">
-          <Pressable
-            onPressIn={onPressIn}
-            onPress={onPress}
-            onLongPress={onLongPress}
-            onPressOut={onPressOut}
-            delayLongPress={LONG_PRESS_DURATION}
-            style={ModalStyles.container}
-          >
-            <Animated.View style={[ ModalStyles.bgAnimation, backgroundAnimatedStyles ]} />
-            <Animated.View style={[ ModalStyles.absolute, animatedStyles, containerStyle ]}>
-              {stories?.map( ( story, index ) => (
-                <StoryList
-                  {...story}
-                  index={index}
-                  x={x}
-                  activeUser={userId}
-                  activeStory={currentStory}
-                  progress={animation}
-                  seenStories={seenStories}
-                  onClose={onClose}
-                  onLoad={( value ) => {
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <GestureDetector gesture={onGestureEvent}>
+          <Animated.View style={ModalStyles.container} testID="storyModal">
+            <Pressable
+              onPressIn={onPressIn}
+              onPress={onPress}
+              onLongPress={onLongPress}
+              onPressOut={onPressOut}
+              delayLongPress={LONG_PRESS_DURATION}
+              style={ModalStyles.container}
+            >
+              <Animated.View style={[ ModalStyles.bgAnimation, backgroundAnimatedStyles ]} />
+              <Animated.View style={[ ModalStyles.absolute, animatedStyles, containerStyle ]}>
+                {stories?.map( ( story, index ) => (
+                  <StoryList
+                    {...story}
+                    index={index}
+                    x={x}
+                    activeUser={userId}
+                    activeStory={currentStory}
+                    progress={animation}
+                    seenStories={seenStories}
+                    onClose={onClose}
+                    onLoad={( value ) => {
 
-                    onLoad?.();
-                    startAnimation(
-                      undefined,
-                      value !== undefined ? value : duration,
-                    );
+                      onLoad?.();
+                      startAnimation(
+                        undefined,
+                        value !== undefined ? value : duration,
+                      );
 
-                  }}
-                  avatarSize={storyAvatarSize}
-                  textStyle={textStyle}
-                  paused={paused}
-                  videoProps={videoProps}
-                  closeColor={closeIconColor}
-                  hideElements={hideElements}
-                  videoDuration={videoDuration}
-                  loaderColor={loaderColor}
-                  loaderBackgroundColor={loaderBackgroundColor}
-                  key={story.id}
-                  {...props}
-                />
-              ) )}
-            </Animated.View>
-          </Pressable>
-          {footerComponent && footerComponent}
-        </Animated.View>
-      </GestureHandler>
+                    }}
+                    avatarSize={storyAvatarSize}
+                    textStyle={textStyle}
+                    paused={paused}
+                    videoProps={videoProps}
+                    closeColor={closeIconColor}
+                    hideElements={hideElements}
+                    videoDuration={videoDuration}
+                    loaderColor={loaderColor}
+                    loaderBackgroundColor={loaderBackgroundColor}
+                    key={story.id}
+                    {...props}
+                  />
+                ) )}
+              </Animated.View>
+            </Pressable>
+            {footerComponent && footerComponent}
+          </Animated.View>
+        </GestureDetector>
+      </GestureHandlerRootView>
     </Modal>
-  </View>
   );
 
 } );
