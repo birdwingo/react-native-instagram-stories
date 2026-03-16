@@ -1,6 +1,6 @@
-import React, { FC, memo } from 'react';
+import React, { FC, memo, useState } from 'react';
 import Animated, {
-  useAnimatedStyle, useDerivedValue, useSharedValue, withTiming,
+  runOnJS, useAnimatedReaction, useAnimatedStyle, useDerivedValue, useSharedValue, withTiming,
 } from 'react-native-reanimated';
 import StoryAnimation from '../Animation';
 import ListStyles from './List.styles';
@@ -37,9 +37,20 @@ const StoryList: FC<StoryListProps> = ( {
 
   };
 
-  const lastSeenIndex = stories.findIndex(
-    ( item ) => item.id === seenStories.value[id],
+  const [ lastSeenId, setLastSeenId ] = useState<string | undefined>( undefined );
+
+  useAnimatedReaction(
+    () => seenStories.value[id],
+    ( res, prev ) => {
+      if ( res !== prev ) {
+        runOnJS( setLastSeenId )( res );
+      }
+    },
   );
+
+  const lastSeenIndex = lastSeenId !== undefined
+    ? stories.findIndex( ( item ) => item.id === lastSeenId )
+    : -1;
 
   return (
     <StoryAnimation x={x} index={index}>

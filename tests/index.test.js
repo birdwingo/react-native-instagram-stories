@@ -329,7 +329,15 @@ describe( 'Instagram Stories test', () => {
       fireEvent( getByTestId( 'gestureContainer' ), 'responderEnd', {}, { moving: true, x: -300 } );
       await sleep();
 
-      fireEvent( getByTestId( 'gestureContainer' ), 'responderEnd', { translationY: 200 }, { vertical: true } );
+      fireEvent( getByTestId( 'gestureContainer' ), 'responderStart', { x: 0 } );
+      await sleep();
+
+      fireEvent( getByTestId( 'gestureContainer' ), 'responderMove', {
+        x: 0, velocityX: 0, velocityY: 10, translationY: 200,
+      } );
+      await sleep();
+
+      fireEvent( getByTestId( 'gestureContainer' ), 'responderEnd', { translationY: 200 } );
       await sleep();
 
       expect( queryByTestId( 'gestureContainer' ) ).toBeFalsy();
@@ -365,7 +373,15 @@ describe( 'Instagram Stories test', () => {
       fireEvent( getByTestId( '1StoryAvatar1Story' ), 'click' );
       await sleep();
 
-      fireEvent( getByTestId( 'gestureContainer' ), 'responderEnd', { translationY: 200 }, { vertical: true } );
+      fireEvent( getByTestId( 'gestureContainer' ), 'responderStart', { x: 0 } );
+      await sleep();
+
+      fireEvent( getByTestId( 'gestureContainer' ), 'responderMove', {
+        x: 0, velocityX: 0, velocityY: 10, translationY: 200,
+      } );
+      await sleep();
+
+      fireEvent( getByTestId( 'gestureContainer' ), 'responderEnd', { translationY: 200 } );
       await sleep();
 
       expect( queryByTestId( 'gestureContainer' ) ).toBeFalsy();

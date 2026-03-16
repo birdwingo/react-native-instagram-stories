@@ -90,18 +90,61 @@ jest.mock('react-native-reanimated', () => {
 jest.mock('react-native-gesture-handler', () => {
 
   const View = require('react-native').View;
+  const createGesture = () => {
+
+    const gesture = {
+      _onStart: undefined,
+      _onUpdate: undefined,
+      _onFinalize: undefined,
+      onStart( cb ) {
+
+        this._onStart = cb;
+        return this;
+
+      },
+      onUpdate( cb ) {
+
+        this._onUpdate = cb;
+        return this;
+
+      },
+      onFinalize( cb ) {
+
+        this._onFinalize = cb;
+        return this;
+
+      },
+    };
+
+    return gesture;
+
+  };
 
   return {
     PanGestureHandler: ({onGestureEvent, children}) => (
       <View
-        onResponderStart={onGestureEvent.onStart} 
-        onResponderEnd={onGestureEvent.onFinish} 
-        onResponderMove={onGestureEvent.onActive}
+        onResponderStart={( ...args ) => onGestureEvent.onStart?.( ...args )} 
+        onResponderEnd={( ...args ) => onGestureEvent.onFinish?.( ...args )} 
+        onResponderMove={( ...args ) => onGestureEvent.onActive?.( ...args )}
         testID="gestureContainer"
       >
         {children}
       </View>
     ),
+    Gesture: {
+      Pan: () => createGesture(),
+    },
+    GestureDetector: ({ gesture, children }) => (
+      <View
+        onResponderStart={( ...args ) => gesture?._onStart?.( ...args )}
+        onResponderMove={( ...args ) => gesture?._onUpdate?.( ...args )}
+        onResponderEnd={( ...args ) => gesture?._onFinalize?.( ...args )}
+        testID="gestureContainer"
+      >
+        {children}
+      </View>
+    ),
+    GestureHandlerRootView: ({ children, ...props }) => <View {...props}>{children}</View>,
     gestureHandlerRootHOC: (Component) => Component,
   };
 

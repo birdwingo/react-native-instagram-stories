@@ -26,13 +26,11 @@ const StoryContent: FC<StoryContentProps> = ( { stories, active, activeStory } )
   useAnimatedReaction(
     () => active.value,
     ( res, prev ) => res !== prev && onChange(),
-    [ active.value, onChange ],
   );
 
   useAnimatedReaction(
     () => activeStory.value,
     ( res, prev ) => res !== prev && onChange(),
-    [ activeStory.value, onChange ],
   );
 
   const content = useMemo( () => stories[storyIndex]?.renderContent?.(), [ storyIndex ] );
